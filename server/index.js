@@ -1,6 +1,11 @@
-const feathers = require('@feathersjs/feathers');
-const express = require('@feathersjs/express');
-const app = express(feathers());
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
-const server = app.listen(3030);
-server.on('listening', () => console.log('Feathers app started'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/../client/dist'));
+
+app.listen(3000, () => {
+  console.log('listening on port 3000');
+});
