@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Deposit extends React.Component {
+class HomeLogin extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,13 +10,12 @@ class Deposit extends React.Component {
   }
 
   render() {
-
     return (
       <div>
-        
+        Login
       </div>
     )
   }
 }
 
-export default Deposit;
+export default HomeLogin;
