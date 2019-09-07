@@ -1,7 +1,7 @@
 {
   "name": "greenfield",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "nodemon server/app.js",
     "build:client-dev": "webpack --config webpack.config.js --mode development --watch",
     "build:client-prod": "webpack --config webpack.config.js --mode production"
   },
@@ -17,17 +17,17 @@
   "dependencies": {
     "axios": "0.19.0",
     "body-parser": "1.19.0",
-    "bootstrap": "4.3.1",
+    "bootstrap": "^4.3.1",
     "dotenv": "8.0.0",
     "express": "4.17.1",
-    "jquery": "^1.9.1",
+    "express-partials": "^0.3.0",
     "mysql": "2.17.1",
+    "nodemon": "^1.19.2",
     "passport-google-oauth20": "^2.0.0",
     "passport-http": "^0.3.0",
-    "popper.js": "^1.15.0",
-    "promise-mysql": "^4.1.0",
     "prop-types": "15.7.2",
     "react": "16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "16.9.0",
     "react-router": "5.0.1",
     "react-router-dom": "5.0.1"

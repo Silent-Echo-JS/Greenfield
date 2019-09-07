@@ -1,7 +1,6 @@
-const mysql = require('promise-mysql');
-const initializeSchema = require('.initializeSchema');
+const mysql = require('mysql');
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: process.env.HOST,
   port: process.env.PORT,
   user: process.env.USER,
@@ -10,4 +9,3 @@ const db = mysql.createPool({
 });
 
 module.exports.db = db;
-module.exports.initializeSchema = initializeSchema;
