@@ -19,4 +19,4 @@ class Deposit extends React.Component {
   }
 }
 
-export default App;
+export default Deposit;
