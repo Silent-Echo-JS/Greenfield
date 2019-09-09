@@ -25,7 +25,6 @@ class App extends React.Component {
           <Route name="about" exact path="/About" component={About} />
           <Route name="tutorial" exact path="/Tutorial" component={Tutorial} />
         </div>  
-        <Deposit />
       </Router>
     )
   }
