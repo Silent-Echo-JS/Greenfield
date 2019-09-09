@@ -25,6 +25,26 @@ password VARCHAR(64),
 PRIMARY KEY (ID)
 );
 
+CREATE TABLE deposit (
+id INT NOT NULL AUTO_INCREMENT,
+checkNumber INT,
+date VARCHAR(10),
+created VARCHAR(250),
+amount INT,
+deci INT,
+category VARCHAR(50),
+notes VARCHAR(100),
+account VARCHAR(50),
+PRIMARY KEY(id)
+);
+
+CREATE TABLE accounts (
+id INT NOT NULL AUTO_INCREMENT,
+account VARCHAR(50),
+PRIMARY KEY(id)
+);
+
+
 -- CREATE TABLE IF NOT EXISTS  (
 -- id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 -- hash VARCHAR(64),
