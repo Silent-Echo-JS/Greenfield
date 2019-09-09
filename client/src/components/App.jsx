@@ -15,6 +15,7 @@ class App extends React.Component {
     this.state = {
       accounts: { data: ['test'] },
     }
+
     this.getAccounts = this.getAccounts.bind(this);
     this.getCategories = this.getCategories.bind(this);
     this.createAccount = this.createAccount.bind(this);
@@ -60,6 +61,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { accounts } = this.state;
     return (
       <Router>
         <div>
