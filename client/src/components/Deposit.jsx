@@ -7,7 +7,7 @@ class Deposit extends React.Component {
     super(props);
 
     this.state = {
-      account: null,
+      account: 'Main',
       date: null,
       category: null,
       checkNumber: null,
@@ -20,6 +20,14 @@ class Deposit extends React.Component {
     this.addNewCategory = this.addNewCategory.bind(this);
     this.addNewAccount = this.addNewAccount.bind(this);
     this.submit = this.submit.bind(this);
+  }
+
+  componentDidMount(){
+    const { accountNames } = this.props;
+    if(accountNames.data[0]){
+      this.setState({ account: accountNames.data[0]});
+    }
+    
   }
 
   handleChange(event) {
