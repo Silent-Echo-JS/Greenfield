@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Option = ({ accountName }) => (
-  <option>{accountName}</option>
+const Option = ({ optionName }) => (
+  <option>{optionName}</option>
 );
 
 export default Option;
