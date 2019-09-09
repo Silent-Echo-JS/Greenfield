@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import Option from './Option.jsx';
 
@@ -7,90 +8,132 @@ class Deposit extends React.Component {
     super(props);
 
     this.state = {
-      account: 'Main',
+      account: null,
       date: null,
       category: null,
       checkNumber: null,
       amount: null,
       decimal: null,
       notes: null,
+      accounts: { data: ['null'] },
+      categories: { data: ['null']}
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.addNewCategory = this.addNewCategory.bind(this);
+
     this.addNewAccount = this.addNewAccount.bind(this);
+    this.createAccount = this.createAccount.bind(this);
+    this.getAccounts = this.getAccounts.bind(this);
+
+    this.addNewCategory = this.addNewCategory.bind(this); 
+    this.createCategory = this.createCategory.bind(this);   
+    this.getCategories = this.getCategories.bind(this);
+
     this.submit = this.submit.bind(this);
   }
 
   componentDidMount(){
-    const { accountNames } = this.props;
-    if(accountNames.data[0]){
-      this.setState({ account: accountNames.data[0]});
-    }
-    
+    this.getAccounts();
+    this.getCategories();
   }
 
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  addNewCategory() {
-    window.alert('feature not yet available.');
-  }
-
+  /*TODO: ADD VERIFICATION.*/
   addNewAccount() {
-    const { createAccount } = this.props;
     const accountName = window.prompt('Type new account name:');
-    createAccount({ accountName });
+    this.createAccount({ accountName });
     window.alert('Created a new account.');
     this.setState({ account: accountName });
   }
 
+  createAccount(accountName) {
+    axios.post('/accounts', accountName)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error, 'createAccounts');
+      });
+  }
+
+  getAccounts() {
+    axios.get('/accounts')
+      .then((accountNames) => {
+        this.setState({ accounts: accountNames });
+      })
+      .catch((error) => {
+        console.log(error, 'getAccounts');
+      });
+  }
+
+  /*TODO: ADD VERIFICATION.*/
+  addNewCategory() {
+    const categoryName = window.prompt('Type new category name:');
+    this.createCategory({ categoryName });
+    window.alert('Created a new category.');
+    this.setState({ category: categoryName });
+  }
+
+  createCategory(categoryName) {
+    axios.post('/category', categoryName)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error, 'createCategory');
+      });
+  }
+
+  getCategories() {
+    axios.get('/category')
+      .then((categoryNames) => {
+        console.log(categoryNames, 'get categories');
+        this.setState({ categories: categoryNames });
+      })
+      .catch((error) => {
+        console.log(error, 'getCategories');
+      });
+  }
+
+  /*TODO: ADD VERIFICATION.*/
   submit() {
-    const newSlip = {};
+    const { amount, checkNumber, decimal } = this.state;
+    this.setState({ amount: parseInt(amount, 10) });
+    this.setState({ checkNumber: parseInt(checkNumber, 10) })
+    this.setState({ decimal: parseInt(decimal, 10) });
+    this.setState({ created: new Date() });
+    this.submitDeposit(this.state);
+    window.alert('Submitted a new deposit.');
+  }
 
-    const {
-      account, date, category, notes, amount, checkNumber, decimal,
-    } = this.state;
-
-    newSlip.account = account;
-    newSlip.date = date;
-    newSlip.category = category;
-    newSlip.notes = notes;
-    newSlip.amount = parseInt(amount, 10);
-    newSlip.checkNumber = parseInt(checkNumber, 10);
-    newSlip.decimal = parseInt(decimal, 10);
-    newSlip.created = new Date();
-
-    const { submitDeposit } = this.props;
-    console.log(newSlip);
-    submitDeposit(newSlip);
+  submitDeposit(depositSlip) {
+    axios.post('/deposit', depositSlip)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error, 'submitDeposit');
+      });
   }
 
   render() {
-    const {
-      account,
-      date,
-      category,
-      checkNumber,
-      amount,
-      decimal,
-      notes,
-    } = this.state;
-
-    const { accountNames, submitDeposit } = this.props;
+    const { accounts, account, date, categories, category, checkNumber, amount, decimal, notes } = this.state;
 
     return (
       <center>
-        <h1>Deposit</h1>
-        <br /><br />
+        <h1>Deposit</h1><br /><br />
 
         <div className="fieldDiv">
           <h2>New Deposit</h2><br /><br />
 
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
-            {accountNames.data.map(accountOption => <Option accountName={accountOption.account} id={accountOption.id} />)}
+            {accounts.data.map(accountOption => {
+              return <Option optionName={accountOption.account} id={accountOption.id} />
+            })}
           </select><br />
           <button id="addAccount" type="submit" onClick={this.addNewAccount}>Add New Account</button>
           <br /><br />
@@ -101,7 +144,9 @@ class Deposit extends React.Component {
 
           <h4>Category:</h4><br />
           <select id="category" onChange={this.handleChange} value={category}>
-            {/* {this.props.accounts.map(accountOption => <Option />)} */}
+            {categories.data.map(categoryOption => {
+              return <Option optionName={categoryOption.category}/>
+            })}
           </select><br />
           <button id="addCategory" type="submit" onClick={this.addNewCategory}>Add New Category</button>
           <br /><br />
@@ -121,64 +166,16 @@ class Deposit extends React.Component {
           <br /><br />
 
           <button id="submit" type="submit" onClick={this.submit}>Submit</button>
-        </div>
+      </div>
 
-        <div className="fieldDiv">
-          <center>
-            <h2>Recent Deposit(s)</h2>
-          </center>
-        </div>
+      <div className="fieldDiv">
+        <center>
+          <h2>Recent Deposit(s)</h2>
+        </center>
+      </div>
       </center>
     );
   }
 }
 
 export default Deposit;
-
-
-//   handleClick() {
-//     const account = document.getElementById('account').value;
-//     const date = document.getElementById('date').value;
-//     const category = document.getElementById('category').value;
-//     const checkNumber = document.getElementById('checkNumber').value;
-//     const amount = document.getElementById('amount').value;
-//     const notes = document.getElementById('notes').value;
-//     const form = {
-//       account,
-//       date,
-//       category,
-//       checkNumber,
-//       amount,
-//       notes,
-//     };
-//     console.log(form);
-
-//     //NEED TO CREATE CHECK TO SEE IF DATA IS CORRECT TYPE
-
-//     const confirmDeposit = window.confirm(`Create New Deposit?
-
-// Account:
-// ${account}
-
-// Date:
-// ${date}
-
-// Category:
-// ${category}
-
-// Check #${checkNumber}
-
-// Amount:
-// $${amount}
-
-// Notes: ${notes}
-// `);
-
-//     console.log(confirmDeposit);
-//     if (confirmDeposit) {
-//       sendDeposit();
-//     } else {
-//       //CLEAR FIELDS
-//     }
-//   };
-// };
