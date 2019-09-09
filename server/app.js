@@ -103,3 +103,15 @@ app.get('/category', (req, res) => {
     }
   });
 });
+
+app.get('/recentDeposits', (req, res) => {
+  const query = 'SELECT * FROM deposit ORDER BY id DESC LIMIT 10;';
+
+  db.query(query, (error, recentDeposits) => {
+    if (error) {
+      console.log(error, 'app.get /categories');
+    } else {
+      res.send(recentDeposits);
+    }
+  });
+});
