@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import Option from './Option.jsx';
+import ListDeposits from './ListDeposits.jsx';
 
 class Deposit extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class Deposit extends React.Component {
       decimal: null,
       notes: null,
       accounts: { data: ['null'] },
-      categories: { data: ['null']}
+      categories: { data: ['null']},
+      recentDeposits: { data: ['null']}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,11 +32,14 @@ class Deposit extends React.Component {
     this.getCategories = this.getCategories.bind(this);
 
     this.submit = this.submit.bind(this);
+
+    this.getRecentDeposits = this.getRecentDeposits.bind(this);
   }
 
   componentDidMount(){
     this.getAccounts();
     this.getCategories();
+    this.getRecentDeposits();
   }
 
   handleChange(event) {
@@ -119,8 +124,19 @@ class Deposit extends React.Component {
       });
   }
 
+  getRecentDeposits(){
+    axios.get('/recentDeposits')
+      .then((recentDeposits) => {
+        console.log(recentDeposits, 'herrehrehrehrere');
+        this.setState({ recentDeposits: recentDeposits });
+      })
+      .catch((error) => {
+        console.log(error, 'getRecentDeposits');
+      });
+  }
+
   render() {
-    const { accounts, account, date, categories, category, checkNumber, amount, decimal, notes } = this.state;
+    const { accounts, account, date, categories, category, checkNumber, amount, decimal, notes, recentDeposits } = this.state;
 
     return (
       <center>
@@ -170,7 +186,12 @@ class Deposit extends React.Component {
 
       <div className="fieldDiv">
         <center>
-          <h2>Recent Deposit(s)</h2>
+          <h2>Recent Deposits</h2>
+            <ul>
+            {recentDeposits.data.map(deposit => {
+              return <ListDeposits deposit={deposit} />
+            })}
+          </ul>
         </center>
       </div>
       </center>

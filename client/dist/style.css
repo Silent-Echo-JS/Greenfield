@@ -8,24 +8,31 @@ Palette
  */
 
 body {
-  background: rgb(255, 255, 255);
+  background: #2E3340;
 }
 
 h1 {
   color: #DCE1E8;
   display: inline;
   text-shadow: 1px 1px 0 #000000;
-
 }
 
 h2 {
   color: #81B0C6;
   display: inline;
+  text-shadow: 1px 1px 0 #000000;
 }
 
 h4 {
-  color: rgb(126, 142, 172);
+  color: #7e8eac;
   display: inline;
+  text-shadow: 1px 1px 0 #000000;
+}
+
+h5 {
+  color: #7e8eac;
+  display: inline;
+  text-shadow: 1px 1px 0 #000000;
 }
 
 p {
@@ -44,7 +51,7 @@ input {
 }
 
 input:hover {
-  background: rgb(255, 255, 255);
+  background: #ffffff;
 }
 
 select {
@@ -59,7 +66,7 @@ select {
 }
 
 select:hover {
-  background: rgb(255, 255, 255);
+  background: #ffffff;
 }
 
 :focus {
@@ -77,7 +84,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(187, 233, 255);
+  background-color: #bbe9ff;
   color: #000000;
 }
 
@@ -99,11 +106,11 @@ textarea {
   border: none;
   border-radius: 5px;
   width: 250px;
-  height: 150px;
+  height: 50px;
 }
 
 textarea:hover {
-  background: rgb(255, 255, 255);
+  background: #ffffff;
 }
 
 .fieldDiv {
@@ -117,4 +124,77 @@ textarea:hover {
   display: inline-block;
   vertical-align: top;
   margin: 2px;
+}
+
+.listItem {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+.listCell {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  padding: 5px;
+}
+
+.listCell:hover{
+box-shadow: 0px 0px 1px #FFFFFF;
+background: rgb(220, 225, 232, .2);
+}
+
+li {
+text-align: left;
+list-style-type: none;
+padding: 0px;
+color: #FFFFFF;
+}
+
+a:link {
+  color: #8fc681;
+}
+
+a:visited {
+  color: #8fc681;
+}
+
+a:hover {
+  color: #ff0062;
+}
+
+a:active {
+  color: #8fc681;
+=======
+google {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+.button {
+  display: inline-block;
+  max-width: 300px;
+  margin-top: 50px;
+  border: 0;
+  padding: 0 18px;
+  text-align: left;
+  width: 100%;
+  height: 37px;
+  border-radius: 4px;
+  -webkit-font-smoothing: antialiased;
+  /* -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga"on; */
+  color: rgba(0, 0, 0, 0.84) !important;
+  fill: rgba(0, 0, 0, 0.84) !important;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.05);
+  font: inherit;
+  outline: none;
+}
+
+.button .svgIcon {
+  vertical-align: middle;
+  fill: rgba(0, 0, 0, 0.54);
+  padding-right: 4px;
+  height: 37px;
+  display: inline-block;
 }
