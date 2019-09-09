@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
-class HomeLogin extends Component {
+class Login extends Component {
     constructor() {
         super()
         this.state = {
@@ -92,7 +92,6 @@ class HomeLogin extends Component {
                             <div className="col-7"></div>
                             <button
                                 className="btn btn-primary col-1 col-mr-auto"
-                               
                                 onClick={this.handleSubmit}
                                 type="submit">Login</button>
                         </div>
@@ -103,4 +102,4 @@ class HomeLogin extends Component {
     }
 }
 
-export default HomeLogin
+export default Login
