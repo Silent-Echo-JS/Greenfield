@@ -6,6 +6,7 @@ import HomeLogin from './HomePages/HomeLogin.jsx';
 import About from './HomePages/About.jsx';
 import Tutorial from './HomePages/Tutorial.jsx';
 import Navbar from './HeaderComponent/Navbar.jsx'; 
+import Deposit from './Deposit.jsx';
 
 class App extends React.Component {
   constructor(props) {
