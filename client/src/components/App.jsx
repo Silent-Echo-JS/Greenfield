@@ -67,6 +67,12 @@ class App extends React.Component {
           <Route name="login" exact path="/" component={HomeLogin} />
           <Route name="about" exact path="/About" component={About} />
           <Route name="tutorial" exact path="/Tutorial" component={Tutorial} />
+
+          <Deposit
+            accountNames={accounts}
+            createAccount={this.createAccount}
+            submitDeposit={this.submitDeposit}
+          />
         </div>  
       </Router>
     )
