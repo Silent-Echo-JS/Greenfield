@@ -6,6 +6,7 @@ import Login from './Login.jsx';
 import About from './HomePages/About.jsx';
 import Tutorial from './HomePages/Tutorial.jsx';
 import Navbar from './HeaderComponent/Navbar.jsx'; 
+import Sidebar from './SidebarComponents/Sidebar.jsx';
 import Deposit from './Deposit.jsx';
 
 class App extends React.Component {
@@ -21,10 +22,12 @@ class App extends React.Component {
       <Router>
         <div>
           <Navbar />
+          <Sidebar />
           <Route name="login" exact path="/" component={Login} />
           <Route name="about" exact path="/About" component={About} />
           <Route name="tutorial" exact path="/Tutorial" component={Tutorial} />
-        </div>  
+          <Route name="deposit" exact path="/Deposit" component={Deposit} />
+        </div> 
       </Router>
     )
   }
