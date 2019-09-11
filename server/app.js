@@ -1,39 +1,32 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const partials = require('express-partials');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const app = express();
-const { db } = require('./db/index');
+const passport = require('passport');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const { db } = require('./db/index');
+const models = require('../models');
 
-app.use(partials());
-app.use(bodyParser.json());
+models.sequelize
+  .sync()
+  .then(function() {
+    console.log("Nice! Database looks fine");
+  })
+  .catch(function(err) {
+    console.log(err, "Something went wrong with the Database Update!");
+  });
+
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(session({ secret: 'secret',resave: true, saveUninitialized:true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(__dirname + '/../client/dist'));
 
-const port = process.env.port || 3000;
-app.listen(port, () => {
-  console.log(`server listening on port ${port}`);
-});
-
 app.get('/', (req, res) => {
-  
-});
-
-app.get('/login', (req, res) => {
-  
-});
-
-app.get('/signup', (req, res) => {
-  
-});
-
-app.get('/about', (req, res) => {
-  
-});
-
-app.get('/tutorial', (req, res) => {
-  
+  // res.send('Welcome to the site');
 });
 
 app.get('/accounts', (req, res) => {
@@ -115,4 +108,9 @@ app.get('/recentDeposits', (req, res) => {
       res.send(recentDeposits);
     }
   });
+});
+
+const port = process.env.port || 3000;
+app.listen(port, () => {
+  console.log(`server listening on port ${port}`);
 });
