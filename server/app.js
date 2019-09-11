@@ -6,7 +6,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // const { db } = require('./db/index');
-const models = require('../models');
+const exphbs = require("express-handlebars");
+const models = require('../app/models');
 
 models.sequelize
   .sync()
@@ -16,6 +17,16 @@ models.sequelize
   .catch(function(err) {
     console.log(err, "Something went wrong with the Database Update!");
   });
+
+// for handlebars
+app.set("views", "./app/views");
+app.engine(
+  "hbs",
+  exphbs({
+    extname: ".hbs"
+  })
+);
+app.set("view engine", ".hbs");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
