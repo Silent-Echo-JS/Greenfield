@@ -1,44 +1,50 @@
-require('dotenv').config();
 const express = require('express');
 const app = express();
 const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const { db } = require('./db/index');
+const env = require("dotenv").config();
 const exphbs = require("express-handlebars");
-const models = require('../app/models');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-models.sequelize
-  .sync()
-  .then(function() {
-    console.log("Nice! Database looks fine");
-  })
-  .catch(function(err) {
-    console.log(err, "Something went wrong with the Database Update!");
-  });
+app.use(session({ secret: 'secret',resave: true, saveUninitialized:true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // for handlebars
 app.set("views", "./app/views");
 app.engine(
   "hbs",
   exphbs({
-    extname: ".hbs"
+    extname: ".hbs",
+    defaultLayout: ''
   })
 );
 app.set("view engine", ".hbs");
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(session({ secret: 'secret',resave: true, saveUninitialized:true}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.get('/', (req, res) => {
+//   res.send('Welcome to the site');
+// });
+
+const models = require('../app/models');
+const authRoute = require('../app/routes/auth')(app);
+
+// require("./app/config/passport/passport.js")(passport, models.user);
+
+models.sequelize
+.sync()
+.then(function() {
+  console.log("Nice! Database looks fine");
+})
+.catch(function(err) {
+  console.log(err, "Something went wrong with the Database Update!");
+});
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.get('/', (req, res) => {
-  // res.send('Welcome to the site');
-});
+
+
 
 app.get('/accounts', (req, res) => {
   const query = 'SELECT * FROM accounts';
