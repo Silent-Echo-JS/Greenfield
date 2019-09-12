@@ -24,6 +24,19 @@ account VARCHAR(50),
 PRIMARY KEY(id)
 );
 
+CREATE TABLE expense (
+id INT NOT NULL AUTO_INCREMENT,
+checkNumber INT,
+date VARCHAR(10),
+created VARCHAR(250),
+amount INT,
+deci INT,
+category VARCHAR(50),
+notes VARCHAR(100),
+account VARCHAR(50),
+PRIMARY KEY(id)
+);
+
 CREATE TABLE accounts (
 id INT NOT NULL AUTO_INCREMENT,
 account VARCHAR(50),
