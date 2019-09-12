@@ -143,7 +143,7 @@ class Deposit extends React.Component {
         <h1>Deposit</h1><br /><br />
 
         <div className="fieldDiv">
-          <h2>New Deposit</h2><br /><br />
+          <center><h2>New Deposit</h2></center><br /><br />
 
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
@@ -189,7 +189,7 @@ class Deposit extends React.Component {
           <h2>Recent Deposits</h2>
             <ul>
             {recentDeposits.data.map(deposit => {
-              return <ListDeposits deposit={deposit} />
+              return <ListDeposits method={deposit} id={deposit.id} />
             })}
           </ul>
         </center>
