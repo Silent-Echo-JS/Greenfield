@@ -56,7 +56,9 @@ class Login extends Component {
     } else {
       return (
         <center>
-          <div>
+          <div class='splash'>
+          <div class='splashTitle'><h1>Simple HOA</h1></div>
+          <div class='login'>
             <h4>Login</h4>
             <form action="/login" method="post">
               <div>
@@ -103,6 +105,7 @@ class Login extends Component {
                 <span class="button-label">Sign in with Google</span>
               </div>
             </a>
+          </div>
           </div>
         </center>
       );
