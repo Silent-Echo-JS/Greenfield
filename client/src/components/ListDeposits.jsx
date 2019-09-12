@@ -1,19 +1,19 @@
 import React from 'react';
 
-const ListDeposit = ({ deposit }) => {
+const ListDeposit = ({ method }) => {
   return (
     <li>
       <div class='listCell'>
         <div class='listItem'>
-          <h4><a href=''>Edit Deposit</a></h4><br />
-          <h4><a href=''>More Info</a></h4>
+          <button>Edit Deposit</button><br /><br />
+          <button>More Info</button>
         </div>
 
         <div class='listItem'>
-          <h4>Account:</h4> <p>{deposit.account}</p><br />
-          <h4>Category:</h4> <p>{deposit.category}</p><br />
-          <h4>Amount:</h4> <p>${deposit.amount}.{deposit.deci}</p><br />
-          <h4>Date:</h4> <p>{deposit.date}</p>
+          <h4>Account:</h4> <p>{method.account}</p><br />
+          <h4>Category:</h4> <p>{method.category}</p><br />
+          <h4>Amount:</h4> <p>${method.amount}.{method.deci}</p><br />
+          <h4>Date:</h4> <p>{method.date}</p>
         </div>
       </div>
     </li>
