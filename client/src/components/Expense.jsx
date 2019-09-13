@@ -187,12 +187,12 @@ class Expense extends React.Component {
           <center>
             <h2>Recent Expenses</h2>
             <ul>
-              {recentExpenses.data.map(expense => {
-                return <ListDeposits method={expense} id={expense.id} />
-              })}
-            </ul>
-          </center>
-        </div>
+            {this.state.recentExpenses.data.map(expense => {
+              return <ListDeposits method={expense} id={expense.id} />
+            })}
+          </ul>
+        </center>
+      </div>
       </center>
     );
   }

@@ -80,7 +80,7 @@ DIV CLASSES
   width: 100%;
 }
 
-.sidebar {
+.dashboard {
   background: #333333;
   text-align: center;
   padding: 0px;
@@ -112,7 +112,7 @@ BUTTON CLASSES
   border: 1px solid #EEEEEE;
 }
 
-.sideButtons {
+.dashButtons {
   list-style-type: none;
   display: inline;
   margin: 0;
@@ -121,7 +121,7 @@ BUTTON CLASSES
   text-align: center;
 }
 
-.sideNavButton {
+.dashButton {
   display: inline;
   padding: 0px 15px 0px 15px;
   text-align: center;
@@ -133,7 +133,7 @@ BUTTON CLASSES
   background-color: #3e75ec;
 }
 
-.sideNavButton:hover {
+.dashButton:hover {
   background-color: #3e75ec;
 }
 
