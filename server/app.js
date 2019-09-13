@@ -10,20 +10,8 @@ app.use(bodyParser.json());
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-// for handlebars
-// app.set("views", "./app/views");
-// app.engine(
-//   "hbs",
-//   exphbs({
-//     extname: ".hbs",
-//     defaultLayout: ''
-//   })
-// );
-
-// app.set("view engine", ".hbs");
 
 const models = require('../app/models');
-// const authRoute = require('../app/routes/auth')(app, passport);
 
 require('../app/config/passport')(passport, models.user);
 
@@ -38,6 +26,9 @@ models.sequelize
 
 app.use(express.static(`${__dirname}/../client/dist`));
 
+//* ****************************
+// ACCOUNTS
+//* ****************************
 app.get('/accounts', (req, res) => {
   const query = 'SELECT * FROM accounts';
 
@@ -65,8 +56,13 @@ app.post('/accounts', (req, res) => {
   });
 });
 
+//* ****************************
+// DEPOSIT
+//* ****************************
 app.post('/deposit', (req, res) => {
-  const { account, date, category, notes, amount, checkNumber, decimal, created } = req.body;
+  const {
+    account, date, category, notes, amount, checkNumber, decimal, created,
+  } = req.body;
   const deci = decimal;
 
   const query = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, deci, account) 
@@ -81,6 +77,54 @@ app.post('/deposit', (req, res) => {
   });
 });
 
+app.get('/recentDeposits', (req, res) => {
+  const query = 'SELECT * FROM deposit ORDER BY id DESC LIMIT 10;';
+
+  db.query(query, (error, recentDeposits) => {
+    if (error) {
+      console.log(error, 'app.get /categories');
+    } else {
+      res.send(recentDeposits);
+    }
+  });
+});
+
+//* ****************************
+// EXPENSES
+//* ****************************
+app.post('/expense', (req, res) => {
+  const {
+    account, date, category, notes, amount, checkNumber, decimal, created,
+  } = req.body;
+  const deci = decimal;
+
+  const query = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, deci, account) 
+  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
+
+  db.query(query, (error, accounts) => {
+    if (error) {
+      console.log(error, 'app.get accounts');
+    } else {
+      res.send(accounts);
+    }
+  });
+});
+
+app.get('/recentExpenses', (req, res) => {
+  const query = 'SELECT * FROM expense ORDER BY id DESC LIMIT 10;';
+
+  db.query(query, (error, recentDeposits) => {
+    if (error) {
+      console.log(error, 'app.get /categories');
+    } else {
+      res.send(recentDeposits);
+    }
+  });
+});
+
+//* ****************************
+// CATEGORY
+//* ****************************
 app.post('/category', (req, res) => {
   const { categoryName } = req.body;
 
@@ -103,18 +147,6 @@ app.get('/category', (req, res) => {
       console.log(error, 'app.get /categories');
     } else {
       res.send(categories);
-    }
-  });
-});
-
-app.get('/recentDeposits', (req, res) => {
-  const query = 'SELECT * FROM deposit ORDER BY id DESC LIMIT 10;';
-
-  db.query(query, (error, recentDeposits) => {
-    if (error) {
-      console.log(error, 'app.get /categories');
-    } else {
-      res.send(recentDeposits);
     }
   });
 });

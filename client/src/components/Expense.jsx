@@ -4,7 +4,7 @@ import axios from 'axios';
 import Option from './Option.jsx';
 import ListDeposits from './ListDeposits.jsx';
 
-class Deposit extends React.Component {
+class Expense extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ class Deposit extends React.Component {
       notes: null,
       accounts: { data: ['null'] },
       categories: { data: ['null']},
-      recentDeposits: { data: ['null']}
+      recentExpenses: { data: ['null']}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,13 +33,13 @@ class Deposit extends React.Component {
 
     this.submit = this.submit.bind(this);
 
-    this.getRecentDeposits = this.getRecentDeposits.bind(this);
+    this.getRecentExpenses = this.getRecentExpenses.bind(this);
   }
 
   componentDidMount(){
     this.getAccounts();
     this.getCategories();
-    this.getRecentDeposits();
+    this.getRecentExpenses();
   }
 
   handleChange(event) {
@@ -110,28 +110,28 @@ class Deposit extends React.Component {
     this.setState({ checkNumber: parseInt(checkNumber, 10) })
     this.setState({ decimal: parseInt(decimal, 10) });
     this.setState({ created: new Date() });
-    this.submitDeposit(this.state);
+    this.submitExpense(this.state);
     window.alert('Submitted a new deposit.');
   }
 
-  submitDeposit(depositSlip) {
-    axios.post('/deposit', depositSlip)
+  submitExpense(expenseSlip) {
+    axios.post('/expense', expenseSlip)
       .then((res) => {
         console.log(res);
       })
       .catch((error) => {
-        console.log(error, 'submitDeposit');
+        console.log(error, 'submitExpense');
       });
   }
 
-  getRecentDeposits(){
-    axios.get('/recentDeposits')
+  getRecentExpenses(){
+    axios.get('/recentExpenses')
       .then((recentDeposits) => {
         console.log(recentDeposits, 'herrehrehrehrere');
-        this.setState({ recentDeposits: recentDeposits });
+        this.setState({ recentExpenses: recentExpenses });
       })
       .catch((error) => {
-        console.log(error, 'getRecentDeposits');
+        console.log(error, 'getRecentExpenses');
       });
   }
 
@@ -140,10 +140,10 @@ class Deposit extends React.Component {
 
     return (
       <center>
-        <h1>Deposit</h1><br /><br />
+        <h1>Expense</h1><br /><br />
 
         <div className="fieldDiv">
-          <center><h2>New Deposit</h2></center><br /><br />
+          <center><h2>New Expense</h2></center><br /><br />
 
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
@@ -186,10 +186,10 @@ class Deposit extends React.Component {
 
       <div className="fieldDiv">
         <center>
-          <h2>Recent Deposits</h2>
+          <h2>Recent Expenses</h2>
             <ul>
-            {recentDeposits.data.map(deposit => {
-              return <ListDeposits method={deposit} id={deposit.id} />
+            {recentExpenses.data.map(expense => {
+              return <ListDeposits method={expense} id={expense.id} />
             })}
           </ul>
         </center>
@@ -199,4 +199,4 @@ class Deposit extends React.Component {
   }
 }
 
-export default Deposit;
+export default Expense;

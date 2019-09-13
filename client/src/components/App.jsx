@@ -7,6 +7,7 @@ import Tutorial from './HomePages/Tutorial.jsx';
 import Navbar from './HeaderComponent/Navbar.jsx'; 
 import Sidebar from './SidebarComponents/Sidebar.jsx';
 import Deposit from './Deposit.jsx';
+import Expense from './Expense.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class App extends React.Component {
           <Route name="about" exact path="/About" component={About} />
           <Route name="tutorial" exact path="/Tutorial" component={Tutorial} />
           <Route name="deposit" exact path="/Deposit" component={Deposit} />
-        </div>
+          <Route name="expense" exact path="/Expense" component={Expense} />
+        </div> 
       </Router>
     );
   }
