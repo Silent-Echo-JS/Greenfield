@@ -106,13 +106,14 @@ class Deposit extends React.Component {
 
   /*TODO: ADD VERIFICATION.*/
   submit() {
-    const { amount, checkNumber, decimal } = this.state;
+    const { amount, checkNumber} = this.state;
     this.setState({ amount: parseInt(amount, 10) });
     this.setState({ checkNumber: parseInt(checkNumber, 10) })
-    this.setState({ decimal: parseInt(decimal, 10) });
+    console.log(new Date(), 'date');
     this.setState({ created: new Date() });
     this.submitDeposit(this.state);
     window.alert('Submitted a new deposit.');
+    this.componentDidMount();
   }
 
   submitDeposit(depositSlip) {
