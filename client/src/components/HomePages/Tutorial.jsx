@@ -3,9 +3,9 @@ import React from 'react';
 class Tutorial extends React.Component {
   render() {
     return (
-      <center>
-        Tutorial
-      </center>
+      <div className="homePages">
+        <h2>Tutorial</h2>
+      </div>
     )
   }
 }
