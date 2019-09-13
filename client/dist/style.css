@@ -201,10 +201,6 @@ a:hover {
 
 a:active {
   color: #8fc681;
-=======
-google {
-  -webkit-tap-highlight-color: transparent;
-  text-decoration: none;
 }
 
 .button {
