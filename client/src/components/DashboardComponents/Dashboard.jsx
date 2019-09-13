@@ -1,20 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Deposit from '../Deposit.jsx';
+import Expense from '../Expense.jsx';
 
 class Dashboard extends React.Component {
   render() {
     return (
-      <div class='dashboard'>
-        <ul class="dashButtons">
-          <li className="dashButton"><Link to="Board">Board</Link></li>
-          <li className="dashButton"><Link to="Tenants">Tenants</Link></li>
-          <li className="dashButton"><Link to="Deposit">Deposit</Link></li>
-          <li className="dashButton"><Link to="Expense">Expense</Link></li>
-          <li className="dashButton"><Link to="View">View</Link></li>
-          <li className="dashButton"><Link to="View">Settings</Link></li>
-          
-        </ul>
-      </div>
+      <Router>
+        <div class='title'><h1>Simple HOA</h1></div>
+        <div class='dashboard'>
+          <ul class="dashButtons">
+            <li className="dashButton"><Link to="Board">Board</Link></li>
+            <li className="dashButton"><Link to="Tenants">Tenants</Link></li>
+            <li className="dashButton"><Link to="Deposit">Deposit</Link></li>
+            <li className="dashButton"><Link to="Expense">Expense</Link></li>
+            <li className="dashButton"><Link to="View">View</Link></li>
+            <li className="dashButton"><Link to="View">Settings</Link></li>
+          </ul>
+        </div>
+        <Route name="Deposit" exact path="/Deposit" component={Deposit} />
+        <Route name="Expense" exact path="/Expense" component={Expense} />
+      </Router>
     )
   }
 }
