@@ -5,7 +5,7 @@ import Register from './Register.jsx';
 import About from './HomePages/About.jsx';
 import Tutorial from './HomePages/Tutorial.jsx';
 import Navbar from './HeaderComponent/Navbar.jsx'; 
-import Sidebar from './SidebarComponents/Sidebar.jsx';
+import Dashboard from './DashboardComponents/Dashboard.jsx';
 import Deposit from './Deposit.jsx';
 import Expense from './Expense.jsx';
 
@@ -22,7 +22,7 @@ class App extends React.Component {
       <Router>
         <div>
           <Navbar />
-          <Sidebar />
+          <Dashboard />
           <Route name="login" exact path="/" component={Login} />
           <Route name="register" exact path="/Register" component={Register} />
           <Route name="about" exact path="/About" component={About} />
