@@ -96,6 +96,20 @@ DIV CLASSES
   color: #FFFFFF;
 }
 
+.col-md-6.col-md-offset-3 {
+  background: #DDDDDD;
+  padding: 15px;
+  margin: 15px;
+  border: 1px solid #5F6B81;
+}
+
+.homePages {
+  background: #DDDDDD;
+  padding: 15px;
+  margin: 15px;
+  border: 1px solid #5F6B81;
+}
+
 /***********************
 BUTTON CLASSES
 ***********************/
@@ -196,7 +210,11 @@ TEXT CLASSES
 ***********************/
 .title {
   color: #ffffff;
-  float: left;
+  text-align: left
+}
+
+.btn.btn-link {
+  color: #000000;
 }
 
 h1 {
