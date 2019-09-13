@@ -65,12 +65,11 @@ app.post('/accounts', (req, res) => {
 //* ****************************
 app.post('/newDeposit', (req, res) => {
   const {
-    account, date, category, notes, amount, checkNumber, decimal, created,
+    account, date, category, notes, amount, checkNumber, created,
   } = req.body;
-  const deci = decimal;
 
-  const sqlQuery = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, deci, account) 
-  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
+  const sqlQuery = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, account) 
+  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
 
   models.sequelize.query(sqlQuery, {
     model: models.Deposit,
@@ -101,14 +100,13 @@ app.get('/recentDeposits', (req, res) => {
 //* ****************************
 // EXPENSES
 //* ****************************
-app.post('/expense', (req, res) => {
+app.post('/newExpense', (req, res) => {
   const {
-    account, date, category, notes, amount, checkNumber, decimal, created,
+    account, date, category, notes, amount, checkNumber, created,
   } = req.body;
-  const deci = decimal;
 
-  const sqlQuery = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, deci, account) 
-  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
+  const sqlQuery = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, account) 
+  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
 
   models.sequelize.query(sqlQuery, {
     model: models.Accounts,
@@ -128,7 +126,7 @@ app.get('/recentExpenses', (req, res) => {
     model: models.Expense,
   })
     .then((records) => {
-      res.send(records);
+      res.send(records[0]);
     })
     .catch((error) => {
       console.log(error);
