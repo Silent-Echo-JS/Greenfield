@@ -1,8 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-import { BrowserRouter as  Router, Route, Link } from 'react-router-dom';
-import { browserHistory } from 'react-router';
+import { BrowserRouter as  Router, Route } from 'react-router-dom';
 import Login from './Login.jsx';
+import Register from './Register.jsx';
 import About from './HomePages/About.jsx';
 import Tutorial from './HomePages/Tutorial.jsx';
 import Navbar from './HeaderComponent/Navbar.jsx'; 
@@ -25,13 +24,14 @@ class App extends React.Component {
           <Navbar />
           <Sidebar />
           <Route name="login" exact path="/" component={Login} />
+          <Route name="register" exact path="/Register" component={Register} />
           <Route name="about" exact path="/About" component={About} />
           <Route name="tutorial" exact path="/Tutorial" component={Tutorial} />
           <Route name="deposit" exact path="/Deposit" component={Deposit} />
           <Route name="expense" exact path="/Expense" component={Expense} />
         </div> 
       </Router>
-    )
+    );
   }
 }
 

@@ -4,8 +4,6 @@ const app = express();
 const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const env = require('dotenv').config();
-const exphbs = require('express-handlebars');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,20 +11,7 @@ app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// for handlebars
-app.set('views', './app/views');
-app.engine(
-  'hbs',
-  exphbs({
-    extname: '.hbs',
-    defaultLayout: '',
-  }),
-);
-
-app.set('view engine', '.hbs');
-
 const models = require('../app/models');
-const authRoute = require('../app/routes/auth')(app, passport);
 
 require('../app/config/passport')(passport, models.user);
 
