@@ -26,11 +26,16 @@ module.exports = function (sequelize, Sequelize) {
       notEmpty: true
     },
     amount: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DECIMAL,
       notEmpty: true
     },
     created: {
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      notEmpty: true
+    },
+    user: {
+      type: Sequelize.DATE,
+      notEmpty: true
     },
   });
   return Deposit;

@@ -14,7 +14,6 @@ class Deposit extends React.Component {
       category: null,
       checkNumber: null,
       amount: null,
-      decimal: null,
       notes: null,
       accounts: { data: ['null'] },
       categories: { data: ['null']},
@@ -52,15 +51,16 @@ class Deposit extends React.Component {
     this.createAccount({ accountName });
     window.alert('Created a new account.');
     this.setState({ account: accountName });
+    this.componentDidMount();
   }
 
   createAccount(accountName) {
     axios.post('/accounts', accountName)
       .then((res) => {
-        console.log(res);
+        console.log('CREATED NEW ACCOUNT.');
       })
       .catch((error) => {
-        console.log(error, 'createAccounts');
+        console.log(error, '[deposit/createAccount()]');
       });
   }
 
@@ -80,26 +80,27 @@ class Deposit extends React.Component {
     this.createCategory({ categoryName });
     window.alert('Created a new category.');
     this.setState({ category: categoryName });
+    this.componentDidMount();
   }
 
   createCategory(categoryName) {
     axios.post('/category', categoryName)
       .then((res) => {
-        console.log(res);
+        console.log('CREATED NEW CATEGORY.');
       })
       .catch((error) => {
-        console.log(error, 'createCategory');
+        console.log(error, '[deposit/createCategory()]');
       });
   }
 
   getCategories() {
     axios.get('/category')
       .then((categoryNames) => {
-        console.log(categoryNames, 'get categories');
+        console.log(categoryNames, 'GET CATEGORIES');
         this.setState({ categories: categoryNames });
       })
       .catch((error) => {
-        console.log(error, 'getCategories');
+        console.log(error, '[deposit/getCategories()]');
       });
   }
 
@@ -115,19 +116,19 @@ class Deposit extends React.Component {
   }
 
   submitDeposit(depositSlip) {
-    axios.post('/deposit', depositSlip)
+    axios.post('/newDeposit', depositSlip)
       .then((res) => {
-        console.log(res);
+        console.log(res, 'SUBMIT DEPOSIT');
       })
       .catch((error) => {
-        console.log(error, 'submitDeposit');
+        console.log(error, 'SUBMIT DEPOSIT');
       });
   }
 
   getRecentDeposits(){
     axios.get('/recentDeposits')
       .then((recentDeposits) => {
-        console.log(recentDeposits, 'herrehrehrehrere');
+        console.log(recentDeposits, 'RECENT DEPOSIT');
         this.setState({ recentDeposits: recentDeposits });
       })
       .catch((error) => {
@@ -136,7 +137,7 @@ class Deposit extends React.Component {
   }
 
   render() {
-    const { accounts, account, date, categories, category, checkNumber, amount, decimal, notes, recentDeposits } = this.state;
+    const { accounts, account, date, categories, category, checkNumber, amount, notes, recentDeposits } = this.state;
 
     return (
       <center>
@@ -173,8 +174,6 @@ class Deposit extends React.Component {
 
           <h4>Amount:</h4><br />
           <p>$</p><input id="amount" type="number" maxLength="10" size="10" onChange={this.handleChange} value={amount} />
-          <p><b>.</b></p>&nbsp;
-          <input id="decimal" type="number" min="00" max="99" value="00" onChange={this.handleChange} value={decimal} />
           <br /><br />
 
           <h4>Notes:</h4><br />
