@@ -14,11 +14,10 @@ class Expense extends React.Component {
       category: null,
       checkNumber: null,
       amount: null,
-      decimal: null,
       notes: null,
       accounts: { data: ['null'] },
-      categories: { data: ['null']},
-      recentExpenses: { data: ['null']}
+      categories: { data: ['null'] },
+      recentExpenses: { data: ['null'] }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,8 +26,8 @@ class Expense extends React.Component {
     this.createAccount = this.createAccount.bind(this);
     this.getAccounts = this.getAccounts.bind(this);
 
-    this.addNewCategory = this.addNewCategory.bind(this); 
-    this.createCategory = this.createCategory.bind(this);   
+    this.addNewCategory = this.addNewCategory.bind(this);
+    this.createCategory = this.createCategory.bind(this);
     this.getCategories = this.getCategories.bind(this);
 
     this.submit = this.submit.bind(this);
@@ -36,7 +35,7 @@ class Expense extends React.Component {
     this.getRecentExpenses = this.getRecentExpenses.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getAccounts();
     this.getCategories();
     this.getRecentExpenses();
@@ -52,15 +51,16 @@ class Expense extends React.Component {
     this.createAccount({ accountName });
     window.alert('Created a new account.');
     this.setState({ account: accountName });
+    this.componentDidMount();
   }
 
   createAccount(accountName) {
     axios.post('/accounts', accountName)
       .then((res) => {
-        console.log(res);
+        console.log('CREATED NEW ACCOUNT.');
       })
       .catch((error) => {
-        console.log(error, 'createAccounts');
+        console.log(error, '[deposit/createAccount()]');
       });
   }
 
@@ -80,54 +80,55 @@ class Expense extends React.Component {
     this.createCategory({ categoryName });
     window.alert('Created a new category.');
     this.setState({ category: categoryName });
+    this.componentDidMount();
   }
 
   createCategory(categoryName) {
     axios.post('/category', categoryName)
       .then((res) => {
-        console.log(res);
+        console.log('CREATED NEW CATEGORY.');
       })
       .catch((error) => {
-        console.log(error, 'createCategory');
+        console.log(error, '[deposit/createCategory()]');
       });
   }
 
   getCategories() {
     axios.get('/category')
       .then((categoryNames) => {
-        console.log(categoryNames, 'get categories');
+        console.log(categoryNames, 'GET CATEGORIES');
         this.setState({ categories: categoryNames });
       })
       .catch((error) => {
-        console.log(error, 'getCategories');
+        console.log(error, '[deposit/getCategories()]');
       });
   }
 
   /*TODO: ADD VERIFICATION.*/
   submit() {
-    const { amount, checkNumber, decimal } = this.state;
+    const { amount, checkNumber } = this.state;
     this.setState({ amount: parseInt(amount, 10) });
     this.setState({ checkNumber: parseInt(checkNumber, 10) })
-    this.setState({ decimal: parseInt(decimal, 10) });
     this.setState({ created: new Date() });
     this.submitExpense(this.state);
-    window.alert('Submitted a new deposit.');
+    window.alert('Submitted a new expense.');
+    this.componentDidMount();
   }
 
   submitExpense(expenseSlip) {
-    axios.post('/expense', expenseSlip)
+    axios.post('/newExpense', expenseSlip)
       .then((res) => {
-        console.log(res);
+        console.log(res, 'SUBMIT EXPENSE');
       })
       .catch((error) => {
-        console.log(error, 'submitExpense');
+        console.log(error, 'SUBMIT EXPENSE');
       });
   }
 
-  getRecentExpenses(){
+  getRecentExpenses() {
     axios.get('/recentExpenses')
-      .then((recentDeposits) => {
-        console.log(recentDeposits, 'herrehrehrehrere');
+      .then((recentExpenses) => {
+        console.log(recentExpenses, 'RECENT EXPENSES');
         this.setState({ recentExpenses: recentExpenses });
       })
       .catch((error) => {
@@ -136,7 +137,7 @@ class Expense extends React.Component {
   }
 
   render() {
-    const { accounts, account, date, categories, category, checkNumber, amount, decimal, notes, recentDeposits } = this.state;
+    const { accounts, account, date, categories, category, checkNumber, amount, notes, recentExpenses } = this.state;
 
     return (
       <center>
@@ -161,7 +162,7 @@ class Expense extends React.Component {
           <h4>Category:</h4><br />
           <select id="category" onChange={this.handleChange} value={category}>
             {categories.data.map(categoryOption => {
-              return <Option optionName={categoryOption.category}/>
+              return <Option optionName={categoryOption.category} />
             })}
           </select><br />
           <button id="addCategory" type="submit" onClick={this.addNewCategory}>Add New Category</button>
@@ -173,8 +174,6 @@ class Expense extends React.Component {
 
           <h4>Amount:</h4><br />
           <p>$</p><input id="amount" type="number" maxLength="10" size="10" onChange={this.handleChange} value={amount} />
-          <p><b>.</b></p>&nbsp;
-          <input id="decimal" type="number" min="00" max="99" value="00" onChange={this.handleChange} value={decimal} />
           <br /><br />
 
           <h4>Notes:</h4><br />
@@ -182,18 +181,18 @@ class Expense extends React.Component {
           <br /><br />
 
           <button id="submit" type="submit" onClick={this.submit}>Submit</button>
-      </div>
+        </div>
 
-      <div className="fieldDiv">
-        <center>
-          <h2>Recent Expenses</h2>
+        <div className="fieldDiv">
+          <center>
+            <h2>Recent Expenses</h2>
             <ul>
-            {recentExpenses.data.map(expense => {
-              return <ListDeposits method={expense} id={expense.id} />
-            })}
-          </ul>
-        </center>
-      </div>
+              {recentExpenses.data.map(expense => {
+                return <ListDeposits method={expense} id={expense.id} />
+              })}
+            </ul>
+          </center>
+        </div>
       </center>
     );
   }
