@@ -1,5 +1,5 @@
 module.exports = function (sequelize, Sequelize) {
-  var Deposit = sequelize.define("deposit", {
+  var Expense = sequelize.define("expense", {
     id: {
       autoIncrement: true,
       primaryKey: true,
@@ -38,5 +38,5 @@ module.exports = function (sequelize, Sequelize) {
       notEmpty: true
     },
   });
-  return Deposit;
+  return Expense;
 };

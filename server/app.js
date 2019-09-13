@@ -36,10 +36,11 @@ app.get('/accounts', (req, res) => {
     model: models.Accounts,
   })
     .then((records) => {
-      res.send(records);
+      console.log(records[0], 'RECORDS');
+      res.send(records[0]);
     })
     .catch((error) => {
-      console.log(error, 'ERROR: CANNOT GET RECENT DEPOSITS');
+      console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
     });
 });
 
@@ -55,21 +56,20 @@ app.post('/accounts', (req, res) => {
       res.send(201);
     })
     .catch((error) => {
-      console.log(error, 'ERROR: CANNOT GET RECENT DEPOSITS');
+      console.log(error, 'ERROR: CANNOT INSERT INTO ACCOUNTS.');
     });
 });
 
 //* ****************************
 // DEPOSIT
 //* ****************************
-app.post('/deposit', (req, res) => {
+app.post('/newDeposit', (req, res) => {
   const {
-    account, date, category, notes, amount, checkNumber, decimal, created,
+    account, date, category, notes, amount, checkNumber, created,
   } = req.body;
-  const deci = decimal;
 
-  const sqlQuery = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, deci, account) 
-  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
+  const sqlQuery = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, account) 
+  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
 
   models.sequelize.query(sqlQuery, {
     model: models.Deposit,
@@ -78,7 +78,7 @@ app.post('/deposit', (req, res) => {
       res.send(201);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error, 'ERROR: CANNOT INSERT NEW DEPOSIT.');
     });
 });
 
@@ -89,7 +89,8 @@ app.get('/recentDeposits', (req, res) => {
     model: models.Deposit,
   })
     .then((records) => {
-      res.send(records);
+      console.log(records, 'records');
+      res.send(records[0]);
     })
     .catch((error) => {
       console.log(error);
@@ -99,14 +100,13 @@ app.get('/recentDeposits', (req, res) => {
 //* ****************************
 // EXPENSES
 //* ****************************
-app.post('/expense', (req, res) => {
+app.post('/newExpense', (req, res) => {
   const {
-    account, date, category, notes, amount, checkNumber, decimal, created,
+    account, date, category, notes, amount, checkNumber, created,
   } = req.body;
-  const deci = decimal;
 
-  const sqlQuery = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, deci, account) 
-  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
+  const sqlQuery = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, account) 
+  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
 
   models.sequelize.query(sqlQuery, {
     model: models.Accounts,
@@ -126,7 +126,7 @@ app.get('/recentExpenses', (req, res) => {
     model: models.Expense,
   })
     .then((records) => {
-      res.send(records);
+      res.send(records[0]);
     })
     .catch((error) => {
       console.log(error);
@@ -148,7 +148,7 @@ app.post('/category', (req, res) => {
       res.send(records);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error, 'ERROR: CANNOT INSERT NEW CATEGORY.');
     });
 });
 
@@ -159,10 +159,10 @@ app.get('/category', (req, res) => {
     model: models.Categories,
   })
     .then((records) => {
-      res.send(records);
+      res.send(records[0]);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error, 'ERROR: CANNOT SELECT CATEGORIES.');
     });
 });
 
