@@ -1,134 +1,166 @@
-/* 
-Palette
-#2E3340 - background
-#DCE1E8 - heading
-#81B0C6 - subheading
-#5F6B81 - category // border
- */
-
 body {
-  background: #2E3340;
+  background: #EEEEEE;
 }
 
 /***********************
 DIV CLASSES
 ***********************/
-.header{
-    background: rgb(220, 225, 232, .1);
-    border-radius: 5px;
-    width: 100%;
-    padding: 0px;
-    text-align: left;
-    border: 2px solid #5F6B81;
-    vertical-align: top;
-    margin: 5px;
-    height: 45px;
-    position: sticky;
+.header {
+  border-radius: 5px;
+  width: 100%;
+  padding: 0px;
+  text-align: center;
+  vertical-align: top;
+  margin: 5px;
+  height: 45px;
+  margin: 5px;
 }
 
 .splash {
   display: inline-block;
-  border: 1px solid #ffffff;
-  width: 100%;
-  max-width: 600px;
   vertical-align: top;
+  width: 100%;
 }
 
 .splashTitle {
   display: inline-block;
-  border: 1px;
+  vertical-align: center;
+  padding: 2px;
+  text-align: center;
+  background: #CCCCCC;
+  margin: 2px;
+  width: 70%;
+  height: 500px;
+}
+
+.page {
+  display: inline-block;
+  vertical-align: center;
+  padding: 2px;
+  text-align: center;
+  background: #CCCCCC;
+  margin: 2px;
+  width: 100%;
+}
+
+.divTitle {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px;
+  margin: 0px;
+  background: #333333;
+  width: 100%;
 }
 
 .splashLogin {
   display: inline-block;
-  border: 1px;
+  vertical-align: top;
+  padding: 2px;
+  margin: 2px;
+  background: #CCCCCC;
+  width: 25%;
+  height: 500px;
 }
 
 .fieldDiv {
-  background: rgb(220, 225, 232, .1);
-  border-radius: 5px;
-  width: auto;
-  max-width: 400px;
+  background: #DDDDDD;
   padding: 25px;
   text-align: left;
-  border: 2px solid #5F6B81;
+  border: 1px solid #5F6B81;
   display: inline-block;
   vertical-align: top;
   margin: 2px;
 }
 
-.sidebar {
-  background: rgb(220, 225, 232, .1);
-  border-radius: 5px;
-  width: 15%;
-  max-width: 400px;
-  padding: 0px;
-  text-align: center;
-  border: 2px solid #5F6B81;
+.main {
+  background: #EEEEEE;
+  text-align: left;
   vertical-align: top;
-  margin: 5px;
-  display: inline-block;
+  margin: 0px;
+  width: 100%;
+}
+
+.sidebar {
+  background: #333333;
+  text-align: center;
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+}
+
+.footer {
+  background: #333333;
+  text-align: center;
+  padding: 0px;
+  margin: 2px 0px 0px 0px;
+  color: #FFFFFF;
 }
 
 /***********************
 BUTTON CLASSES
 ***********************/
 .headerButtons {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
+  list-style-type: none;
+  margin: 2px;
+  padding: 0px;
 }
+
 .navButton {
   float: right;
   padding: 14px 16px;
+  background-color: #333333;
+  border: 1px solid #EEEEEE;
 }
 
 .sideButtons {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-    text-align: center;
-}
-
-.sideNavButton {
-  display: block;
-  padding: 8px 16px;
+  list-style-type: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
   text-align: center;
 }
 
+.sideNavButton {
+  display: inline;
+  padding: 0px 15px 0px 15px;
+  text-align: center;
+  font-size: 1.25em;
+  text-decoration: none;
+}
+
 .navButton:hover {
-  background-color: #2E3340;
+  background-color: #3e75ec;
 }
 
 .sideNavButton:hover {
-  background-color: #2E3340;
+  background-color: #3e75ec;
 }
 
 button {
-  background: #81B0C6;
-  color: #000000;
+  background: #294B93;
+  color: #EEEEEE;
   padding: 5px;
   height: 25px;
   border: none;
   border-radius: 5px;
   width: 100%;
+  border: 1px solid #333333;
 }
 
 button:hover {
-  background-color: #bbe9ff;
-  color: #000000;
+  background-color: #3e75ec;
+  color: #EEEEEE;
 }
 
 button:focus {
-  background-color: #DCE1E8;
-  color: #2E3340;
+  background-color: #172b55;
+  color: #EEEEEE;
 }
 
 button:disabled {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #172b55;
+  color: #CCCCCC;
 }
 
 .button {
@@ -162,61 +194,70 @@ button:disabled {
 /***********************
 TEXT CLASSES
 ***********************/
-.title{
+.title {
   color: #ffffff;
   float: left;
 }
 
 h1 {
-  color: #DCE1E8;
+  color: #333333;
   display: inline;
-  text-shadow: 1px 1px 0 #000000;
+  font-family: 'Playfair Display SC', serif;
 }
 
 h2 {
-  color: #81B0C6;
+  color: #294B93;
   display: inline;
-  text-shadow: 1px 1px 0 #000000;
+  text-shadow: #000000;
+  font-family: 'Playfair Display SC', serif;
+}
+
+h3 {
+  color: #EEEEEE;
+  display: inline;
 }
 
 h4 {
-  color: #7e8eac;
+  color: #333333;
   display: inline;
-  text-shadow: 1px 1px 0 #000000;
 }
 
 h5 {
-  color: #7e8eac;
+  color: #333333;
   display: inline;
   text-shadow: 1px 1px 0 #000000;
 }
 
 p {
-  color: #FFFFFF;
+  color: #333333;
   display: inline;
 }
 
 a:link {
-  color: #8fc681;
+  color: #CCCCCC;
+  text-decoration: none;
 }
 
 a:visited {
-  color: #8fc681;
+  color: #CCCCCC;
+  text-decoration: none;
 }
 
 a:hover {
-  color: #ff0062;
+  color: #CCCCCC;
+  text-decoration: none;
 }
 
 a:active {
-  color: #8fc681;
+  color: #CCCCCC;
+  text-decoration: none;
 }
 
 /***********************
 INPUT FIELD CLASSES
 ***********************/
 input {
-  background: #DCE1E8;
+  background: #EEEBDC;
   opacity: .8;
   color: #000000;
   padding: 5px;
@@ -226,11 +267,12 @@ input {
 }
 
 input:hover {
-  background: #ffffff;
+  background: #61615f;
+  color: #FFFFFF;
 }
 
 textarea {
-  background: #DCE1E8;
+  background: #EEEBDC;
   opacity: .8;
   color: #000000;
   padding: 5px;
@@ -241,14 +283,14 @@ textarea {
 }
 
 textarea:hover {
-  background: #ffffff;
+  background: #61615f;
 }
 
 /***********************
 SELECT CLASSES
 ***********************/
 select {
-  background: #DCE1E8;
+  background: #EEEBDC;
   opacity: .8;
   color: #000000;
   padding: 5px;
@@ -259,7 +301,7 @@ select {
 }
 
 select:hover {
-  background: #ffffff;
+  background: #61615f;
 }
 
 /***********************
@@ -279,8 +321,8 @@ LIST CLASSES
 }
 
 .listCell:hover {
-  box-shadow: 0px 0px 1px #FFFFFF;
-  background: rgb(220, 225, 232, .2);
+  box-shadow: 0px 0px 1px #61615f;
+  background: #EEEBDC;
 }
 
 li {
