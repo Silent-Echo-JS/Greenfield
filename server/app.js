@@ -30,30 +30,33 @@ app.use(express.static(`${__dirname}/../client/dist`));
 // ACCOUNTS
 //* ****************************
 app.get('/accounts', (req, res) => {
-  const query = 'SELECT * FROM accounts';
+  const sqlQuery = 'SELECT * FROM accounts';
 
-  db.query(query, (error, accounts) => {
-    if (error) {
-      console.log(error, 'app.get /accounts');
-    } else {
-      console.log(accounts, 'app.get /accounts');
-      res.send(accounts);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Accounts,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT GET RECENT DEPOSITS');
+    });
 });
 
 app.post('/accounts', (req, res) => {
   const { accountName } = req.body;
 
-  const query = `INSERT INTO accounts (account) VALUES ('${accountName}')`;
+  const sqlQuery = `INSERT INTO accounts (account) VALUES ('${accountName}')`;
 
-  db.query(query, (error, accounts) => {
-    if (error) {
-      console.log(error, 'app.post /accounts');
-    } else {
-      res.send(accounts);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Accounts,
+  })
+    .then((records) => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT GET RECENT DEPOSITS');
+    });
 });
 
 //* ****************************
@@ -65,28 +68,32 @@ app.post('/deposit', (req, res) => {
   } = req.body;
   const deci = decimal;
 
-  const query = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, deci, account) 
+  const sqlQuery = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, deci, account) 
   VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
 
-  db.query(query, (error, accounts) => {
-    if (error) {
-      console.log(error, 'app.get accounts');
-    } else {
-      res.send(accounts);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Deposit,
+  })
+    .then((records) => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 app.get('/recentDeposits', (req, res) => {
-  const query = 'SELECT * FROM deposit ORDER BY id DESC LIMIT 10;';
+  const sqlQuery = 'SELECT * FROM deposit ORDER BY id DESC LIMIT 10';
 
-  db.query(query, (error, recentDeposits) => {
-    if (error) {
-      console.log(error, 'app.get /categories');
-    } else {
-      res.send(recentDeposits);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Deposit,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 //* ****************************
@@ -98,28 +105,32 @@ app.post('/expense', (req, res) => {
   } = req.body;
   const deci = decimal;
 
-  const query = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, deci, account) 
+  const sqlQuery = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, deci, account) 
   VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${deci}', '${account}')`;
 
-  db.query(query, (error, accounts) => {
-    if (error) {
-      console.log(error, 'app.get accounts');
-    } else {
-      res.send(accounts);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Accounts,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 app.get('/recentExpenses', (req, res) => {
-  const query = 'SELECT * FROM expense ORDER BY id DESC LIMIT 10;';
+  const sqlQuery = 'SELECT * FROM expense ORDER BY id DESC LIMIT 10;';
 
-  db.query(query, (error, recentDeposits) => {
-    if (error) {
-      console.log(error, 'app.get /categories');
-    } else {
-      res.send(recentDeposits);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Expense,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 //* ****************************
@@ -128,27 +139,31 @@ app.get('/recentExpenses', (req, res) => {
 app.post('/category', (req, res) => {
   const { categoryName } = req.body;
 
-  const query = `INSERT INTO categories (category) VALUES ('${categoryName}')`;
+  const sqlQuery = `INSERT INTO categories (category) VALUES ('${categoryName}')`;
 
-  db.query(query, (error, accounts) => {
-    if (error) {
-      console.log(error, 'app.post /category');
-    } else {
-      res.send(accounts);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Categories,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 app.get('/category', (req, res) => {
-  const query = 'SELECT * FROM categories';
+  const sqlQuery = 'SELECT * FROM categories';
 
-  db.query(query, (error, categories) => {
-    if (error) {
-      console.log(error, 'app.get /categories');
-    } else {
-      res.send(categories);
-    }
-  });
+  models.sequelize.query(sqlQuery, {
+    model: models.Categories,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 const port = process.env.port || 3000;
