@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Deposit from '../Deposit.jsx';
 import Expense from '../Expense.jsx';
+import Tenants from '../Tenants.jsx';
 
 class Dashboard extends React.Component {
   render() {
@@ -15,11 +16,12 @@ class Dashboard extends React.Component {
             <li className="dashButton"><Link to="Deposit">Deposit</Link></li>
             <li className="dashButton"><Link to="Expense">Expense</Link></li>
             <li className="dashButton"><Link to="View">View</Link></li>
-            <li className="dashButton"><Link to="View">Settings</Link></li>
+            <li className="dashButton"><Link to="Settings">Settings</Link></li>
           </ul>
         </div>
         <Route name="Deposit" exact path="/Deposit" component={Deposit} />
         <Route name="Expense" exact path="/Expense" component={Expense} />
+        <Route name="Tenants" exact path="/Tenants" component={Tenants} />
       </Router>
     )
   }
