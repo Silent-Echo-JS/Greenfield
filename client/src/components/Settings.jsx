@@ -12,7 +12,7 @@ class Settings extends React.Component {
       showChangePassword: false
     }
     this.toggleEmail = this.toggleEmail.bind(this);
-    this.togglePassword = this.toggleEmail.bind(this);
+    this.togglePassword = this.togglePassword.bind(this);
     this.toggleSignout = this.toggleSignout.bind(this);
     this.signout = this.signout.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
