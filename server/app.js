@@ -166,6 +166,30 @@ app.get('/category', (req, res) => {
     });
 });
 
+//* ****************************
+// TENANT
+//* ****************************
+app.post('/newTenant', (req, res) => {
+  const {
+    firstName, lastName, email,
+    phone, altPhone, emContactName,
+    emContactNumber, notes, ownership,
+    unit, address, monthly, date, created,
+  } = req.body;
+
+  const sqlQuery = `INSERT INTO tenants (firstName, lastName, email, phone, altPhone, emContactName, emContactNumber, notes, ownership, unit, address, monthly, date, created) VALUES ('${firstName}', '${lastName}', '${email}', '${phone}', '${altPhone}', '${emContactName}', '${emContactNumber}', '${notes}', '${ownership}', '${unit}', '${address}', '${monthly}', '${date}', '${created}')`;
+
+  models.sequelize.query(sqlQuery, {
+    model: models.Tenants,
+  })
+    .then((records) => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT INSERT NEW TENANT.');
+    });
+});
+
 const port = process.env.port || 3000;
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);
