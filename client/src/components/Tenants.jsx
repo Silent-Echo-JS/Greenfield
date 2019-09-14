@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import Option from './Option.jsx';
-import ListDeposits from './ListDeposits.jsx';
+import ListTenants from './ListTenants.jsx';
 
 class Tenants extends React.Component {
   constructor(props) {
@@ -23,15 +23,28 @@ class Tenants extends React.Component {
      address: null,
      monthly: null,
      date: null,
+    tenants: { data: ['null'] }
       };
 
-      this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
     this.submitTenant = this.submitTenant.bind(this);
+    this.getTenants = this.getTenants.bind(this);
   }
 
   componentDidMount(){
+    this.getTenants();
+  }
 
+  getTenants() {
+    axios.get('/getTenants')
+      .then((tenants) => {
+        console.log(tenants, 'tenants');
+        this.setState({ tenants: tenants });
+      })
+      .catch((error) => {
+        console.log(error, 'getTenants');
+      });
   }
 
   /*TODO: ADD VERIFICATION.*/
@@ -57,7 +70,7 @@ class Tenants extends React.Component {
 
   render() {
 
-    const { firstName, lastName, email, phone, altPhone, emContactName, emContactNumber, notes, ownership, unit, address, monthly, date } = this.state;
+    const { firstName, lastName, email, phone, altPhone, emContactName, emContactNumber, notes, ownership, unit, address, monthly, date, tenants } = this.state;
     
     return (
       <center>
@@ -128,12 +141,22 @@ class Tenants extends React.Component {
 
       <div className="fieldDiv">
         <center>
-          <h2>Tenants</h2>
-            <ul>
-            {/* {recentDeposits.data.map(deposit => {
-              return <ListDeposits method={deposit} id={deposit.id} />
-            })} */}
-          </ul>
+            <h2>Tenants</h2><br /><br />
+            <table>
+              <tr class='head'>
+                <td><p>First Name</p></td>
+                <td><p>Last Name</p></td>
+                <td><p>Em. Contact</p></td>
+                <td><p>Unit</p></td>
+                <td><p>More Info</p></td>
+                <td><p>Edit</p></td>
+              </tr>
+              
+                {tenants.data.map(indvTenant => {
+                  return <ListTenants method={indvTenant} id={indvTenant.id} />
+                })}
+              
+          </table>
         </center>
       </div>
       </center>
