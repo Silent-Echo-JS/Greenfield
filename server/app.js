@@ -190,6 +190,20 @@ app.post('/newTenant', (req, res) => {
     });
 });
 
+app.get('/getTenants', (req, res) => {
+  const sqlQuery = 'SELECT * FROM tenants';
+
+  models.sequelize.query(sqlQuery, {
+    model: models.Tenants,
+  })
+    .then((records) => {
+      res.send(records[0]);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT SELECT TENANTS.');
+    });
+});
+
 const port = process.env.port || 3000;
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);
