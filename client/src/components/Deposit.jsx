@@ -11,6 +11,7 @@ class Deposit extends React.Component {
     this.state = {
       account: null,
       date: null,
+      created: new Date(),
       category: null,
       checkNumber: null,
       amount: null,

@@ -14,6 +14,8 @@ DIV CLASSES
   margin: 5px;
   height: 45px;
   margin: 5px;
+  border-radius: 5px;
+
 }
 
 .popup {
@@ -42,6 +44,8 @@ DIV CLASSES
   display: inline-block;
   vertical-align: top;
   width: 100%;
+   border-radius: 5px;
+
 }
 
 .splashTitle {
@@ -53,6 +57,8 @@ DIV CLASSES
   margin: 2px;
   width: 70%;
   height: 500px;
+   border-radius: 5px;
+
 }
 
 .page {
@@ -63,6 +69,8 @@ DIV CLASSES
   background: #CCCCCC;
   margin: 2px;
   width: 100%;
+   border-radius: 5px;
+
 }
 
 .divTitle {
@@ -72,6 +80,8 @@ DIV CLASSES
   margin: 0px;
   background: #333333;
   width: 100%;
+   border-radius: 5px;
+
 }
 
 .splashLogin {
@@ -82,6 +92,8 @@ DIV CLASSES
   background: #CCCCCC;
   width: 25%;
   height: 500px;
+   border-radius: 5px;
+
 }
 
 .fieldDiv {
@@ -92,6 +104,29 @@ DIV CLASSES
   display: inline-block;
   vertical-align: top;
   margin: 2px;
+   border-radius: 5px;
+
+}
+
+.subHead {
+  background: #CCCCCC;
+  text-align: center;
+  border: 1px solid #5F6B81;
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  border-radius: 5px;
+}
+
+.subDiv {
+  background: #CCCCCC;
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #5F6B81;
+  display: inline-block;
+  vertical-align: top;
+  margin: 2px;
+   border-radius: 5px;
 }
 
 .main {
@@ -100,6 +135,7 @@ DIV CLASSES
   vertical-align: top;
   margin: 0px;
   width: 100%;
+   border-radius: 5px;
 }
 
 .dashboard {
@@ -108,6 +144,7 @@ DIV CLASSES
   padding: 0px;
   margin: 0px 0px 0px 0px;
   width: 100%;
+   border-radius: 5px;
 }
 
 .footer {
@@ -116,6 +153,7 @@ DIV CLASSES
   padding: 0px;
   margin: 2px 0px 0px 0px;
   color: #FFFFFF;
+   border-radius: 5px;
 }
 
 .col-md-6.col-md-offset-3 {
@@ -139,6 +177,7 @@ BUTTON CLASSES
   list-style-type: none;
   margin: 2px;
   padding: 0px;
+   border-radius: 5px;
 }
 
 .navButton {
@@ -146,6 +185,7 @@ BUTTON CLASSES
   padding: 14px 16px;
   background-color: #333333;
   border: 1px solid #EEEEEE;
+  border-radius: 5px;
 }
 
 .dashButtons {
@@ -155,6 +195,7 @@ BUTTON CLASSES
   padding: 0;
   background-color: transparent;
   text-align: center;
+   border-radius: 5px;
 }
 
 .dashButton {
@@ -163,6 +204,7 @@ BUTTON CLASSES
   text-align: center;
   font-size: 1.25em;
   text-decoration: none;
+   border-radius: 5px;
 }
 
 .navButton:hover {
@@ -265,7 +307,6 @@ h4 {
 h5 {
   color: #333333;
   display: inline;
-  text-shadow: 1px 1px 0 #000000;
 }
 
 p {
