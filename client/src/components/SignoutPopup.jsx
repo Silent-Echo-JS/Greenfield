@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SettingsPopup extends React.Component {
+class SignoutPopup extends React.Component {
   render() {
     return (
       <div className="popup">
@@ -15,4 +15,4 @@ class SettingsPopup extends React.Component {
   };
 }
 
-export default SettingsPopup;
+export default SignoutPopup;

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Popup from './SettingsPopup.jsx';
+import SettingsChangePopup from './SettingsChangePopup.jsx'
+import SignoutPopup from './SignoutPopup.jsx';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class Settings extends React.Component {
       showChangeEmail: false,
       showChangePassword: false
     }
-
+    this.toggleEmail = this.toggleEmail.bind(this);
+    this.togglePassword = this.toggleEmail.bind(this);
+    this.toggleSignout = this.toggleSignout.bind(this);
     this.signout = this.signout.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
     this.changePassword = this.changePassword.bind(this);
@@ -24,9 +27,21 @@ class Settings extends React.Component {
     });
   }
 
+  toggleEmail() {
+    this.setState({
+      showChangeEmail: !this.state.showChangeEmail
+    });
+  }
+
   changePassword() {
     // make axios request to server with the new password
     // the button will prompt a popup box for user input
+    this.setState({
+      showChangePassword: !this.state.showChangePassword
+    });
+  }
+
+  togglePassword() {
     this.setState({
       showChangePassword: !this.state.showChangePassword
     });
@@ -40,25 +55,31 @@ class Settings extends React.Component {
     });
   }
 
+  toggleSignout() {
+    this.setState({
+      showSignout: !this.state.showSignout
+    });
+  }
+
   render() {
     return (
       <center>
         <h1>Settings</h1>
         <br/><br/>
         <div className="fieldDiv">
-          <button onClick={this.changeEmail}>Change Email</button>
-          <button onClick={this.changePassword}>Change Password</button>
-          <button onClick={this.signout}>Signout</button>
+          <button onClick={this.toggleEmail}>Change Email</button>
+          <button onClick={this.togglePassword}>Change Password</button>
+          <button onClick={this.toggleSignout}>Signout</button>
           {this.state.showChangeEmail ? 
-            <Popup title="Change Email" text='Change your email here' closePopup={this.changeEmail.bind(this)} />
+            <SettingsChangePopup title="Change Email" text='Change your email here:' confirmPopup={this.changeEmail.bind(this)} closePopup={this.toggleEmail.bind(this)} />
             : null
           }
           {this.state.showChangePassword ?
-            <Popup title="Change Password" text='Change your password here' closePopup={this.changePassword.bind(this)} />
+            <SettingsChangePopup title="Change Password" text='Change your password here:' confirmPopup={this.changePassword.bind(this)} closePopup={this.togglePassword.bind(this)} />
             : null
           }
           {this.state.showSignout ?
-            <Popup title="Sign Out" text='Are you sure you want to sign out?' closePopup={this.signout.bind(this)} />
+            <SignoutPopup title="Sign Out" text='Are you sure you want to sign out?' confirmPopup={this.signout.bind(this)} closePopup={this.toggleSignout.bind(this)} />
             : null
           }
         </div>
