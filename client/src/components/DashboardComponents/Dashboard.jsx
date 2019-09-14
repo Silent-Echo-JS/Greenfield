@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Deposit from '../Deposit.jsx';
 import Expense from '../Expense.jsx';
 import Tenants from '../Tenants.jsx';
+import Settings from '../Settings.jsx';
 
 class Dashboard extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class Dashboard extends React.Component {
         <Route name="Deposit" exact path="/Deposit" component={Deposit} />
         <Route name="Expense" exact path="/Expense" component={Expense} />
         <Route name="Tenants" exact path="/Tenants" component={Tenants} />
+        <Route name="Settings" exact path="/Settings" component={Settings} />
       </Router>
     )
   }
