@@ -416,3 +416,25 @@ li {
 :focus {
   outline-style: none;
 }
+
+table {
+  border: 1px solid #000000;
+  width: 100%;
+}
+
+tr {
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.head{
+  background: #BBBBBB;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #000000;
+}
+
+td {
+  width: auto;
+  padding: 5px;
+}

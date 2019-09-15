@@ -32,7 +32,6 @@ const edit = (method) => {
 }
 
 const ListDeposit = ({ method }) => {
-  console.log(method, 'method');
   return (
     <li>
       <div class='listCell'>
