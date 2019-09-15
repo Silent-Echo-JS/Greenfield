@@ -1,19 +1,13 @@
 const express = require('express');
-
-const app = express();
-const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const models = require('../app/models');
+
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-const models = require('../app/models');
-
-require('../app/config/passport')(passport, models.user);
 
 models.sequelize
   .sync()
