@@ -75,6 +75,9 @@ class Board extends React.Component {
     axios.get('/getPositions')
       .then((positions) => {
         this.setState({ positions: positions });
+        return positions;
+      })
+      .then((positions) => {
         this.setState({ position: positions.data[0].name });
       })
       .catch((error) => {
