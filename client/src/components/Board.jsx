@@ -2,16 +2,18 @@ import React from 'react';
 import axios from 'axios';
 
 import Option from './Option.jsx';
+import ListBoard from './ListBoard.jsx';
 
 class Board extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      tenants: { data: ['null'] },
+      tenants: { data: [' '] },
       tenant: null,
-      positions: { data: ['null'] },
+      positions: { data: [' '] },
       position: null,
+      members: { data: [' ']}
       };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,27 +22,31 @@ class Board extends React.Component {
     this.getPositions = this.getPositions.bind(this);
     this.addPosition = this.addPosition.bind(this);
     this.submitMember = this.submitMember.bind(this);
+    this.getMembers = this.getMembers.bind(this);
   }
 
   componentDidMount(){
     this.getTenants();
     this.getPositions();
+    this.getMembers();
   }
 
   /*TODO: ADD VERIFICATION.*/
   submit() {
-    window.alert('Added a new board member.');
     this.submitMember(this.state);
+    window.alert('Added a new board member.');
     this.componentDidMount();
   }
 
   submitMember(memberSlip) {
+    console.log(memberSlip, 'MEMBERSLIP');
+
     axios.post('/newMember', memberSlip)
       .then((res) => {
         console.log('ADDED MEMBER');
       })
       .catch((error) => {
-        console.log(error, 'SUBMIT MEMBER');
+        console.log(error, 'ADDED MEMBER');
       });
   }
 
@@ -48,6 +54,17 @@ class Board extends React.Component {
     axios.get('/getTenants')
       .then((tenants) => {
         this.setState({ tenants: tenants });
+        this.setState({ tenant: tenants.data[0].firstName + ' ' + tenants.data[0].lastName });
+      })
+      .catch((error) => {
+        console.log(error, 'getTenants');
+      });
+  }
+
+  getMembers() {
+    axios.get('/getMembers')
+      .then((members) => {
+        this.setState({ members: members });
       })
       .catch((error) => {
         console.log(error, 'getTenants');
@@ -58,6 +75,7 @@ class Board extends React.Component {
     axios.get('/getPositions')
       .then((positions) => {
         this.setState({ positions: positions });
+        this.setState({ position: positions.data[0].name });
       })
       .catch((error) => {
         console.log(error, 'getPositions');
@@ -66,7 +84,10 @@ class Board extends React.Component {
 
   addPosition() {
     const positionName = window.prompt('Type new position name:');
-    this.createPosition({ positionName });
+    this.createPosition({ 
+      positionName: positionName,
+      type: 'position'
+   });
     window.alert('Created a new position.');
     this.setState({ position: positionName });
     this.componentDidMount();
@@ -84,10 +105,11 @@ class Board extends React.Component {
 
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
+    this.componentDidMount();
   }
 
   render() {
-const { tenants, position, positions, tenant } = this.state;
+const { tenants, position, positions, tenant, members } = this.state;
     return (
       <center>
         <br />
@@ -119,11 +141,16 @@ const { tenants, position, positions, tenant } = this.state;
           </center>
       </div>
 
-      <div className="fieldDiv">
-        <center>
-            <h2>Board Members</h2><br /><br />
-        </center>
-      </div>
+        <div className="fieldDiv">
+          <center>
+            <h2>Board Members</h2>
+            <ul>
+              {members.data.map(member => {
+                return <ListBoard method={member} id={member.id} />
+              })}
+            </ul>
+          </center>
+        </div>
       </center>
     );
   }
