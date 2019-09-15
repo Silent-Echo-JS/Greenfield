@@ -13,12 +13,12 @@ class Expense extends React.Component {
       date: null,
       created: new Date(),
       category: null,
-      checkNumber: null,
-      amount: null,
+      checkNumber: '0000',
+      amount: 0,
       notes: null,
-      accounts: { data: ['null'] },
-      categories: { data: ['null'] },
-      recentExpenses: { data: ['null'] }
+      accounts: { data: [' '] },
+      categories: { data: [' '] },
+      recentExpenses: { data: [' '] }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,7 +49,7 @@ class Expense extends React.Component {
   /*TODO: ADD VERIFICATION.*/
   addNewAccount() {
     const accountName = window.prompt('Type new account name:');
-    this.createAccount({ accountName });
+    this.createAccount({ accountName: accountName, type: 'account' });
     window.alert('Created a new account.');
     this.setState({ account: accountName });
     this.componentDidMount();
@@ -69,6 +69,7 @@ class Expense extends React.Component {
     axios.get('/accounts')
       .then((accountNames) => {
         this.setState({ accounts: accountNames });
+        this.setState({ account: accountNames.data[0].name });
       })
       .catch((error) => {
         console.log(error, 'getAccounts');
@@ -78,7 +79,7 @@ class Expense extends React.Component {
   /*TODO: ADD VERIFICATION.*/
   addNewCategory() {
     const categoryName = window.prompt('Type new category name:');
-    this.createCategory({ categoryName });
+    this.createCategory({ categoryName: categoryName, type: 'category' });
     window.alert('Created a new category.');
     this.setState({ category: categoryName });
     this.componentDidMount();
@@ -97,8 +98,8 @@ class Expense extends React.Component {
   getCategories() {
     axios.get('/category')
       .then((categoryNames) => {
-        console.log(categoryNames, 'GET CATEGORIES');
         this.setState({ categories: categoryNames });
+        this.setState({ category: categoryNames.data[0].name });
       })
       .catch((error) => {
         console.log(error, '[deposit/getCategories()]');
@@ -119,7 +120,7 @@ class Expense extends React.Component {
   submitExpense(expenseSlip) {
     axios.post('/newExpense', expenseSlip)
       .then((res) => {
-        console.log(res, 'SUBMIT EXPENSE');
+        console.log('SUBMIT EXPENSE');
       })
       .catch((error) => {
         console.log(error, 'SUBMIT EXPENSE');
@@ -129,7 +130,6 @@ class Expense extends React.Component {
   getRecentExpenses() {
     axios.get('/recentExpenses')
       .then((recentExpenses) => {
-        console.log(recentExpenses, 'RECENT EXPENSES');
         this.setState({ recentExpenses: recentExpenses });
       })
       .catch((error) => {
@@ -150,7 +150,7 @@ class Expense extends React.Component {
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
             {accounts.data.map(accountOption => {
-              return <Option optionName={accountOption.account} id={accountOption.id} />
+              return <Option optionName={accountOption.name} id={accountOption.id} />
             })}
           </select><br />
           <button id="addAccount" type="submit" onClick={this.addNewAccount}>Add New Account</button>
@@ -163,7 +163,7 @@ class Expense extends React.Component {
           <h4>Category:</h4><br />
           <select id="category" onChange={this.handleChange} value={category}>
             {categories.data.map(categoryOption => {
-              return <Option optionName={categoryOption.category} />
+              return <Option optionName={categoryOption.name} />
             })}
           </select><br />
           <button id="addCategory" type="submit" onClick={this.addNewCategory}>Add New Category</button>
@@ -188,7 +188,7 @@ class Expense extends React.Component {
           <center>
             <h2>Recent Expenses</h2>
             <ul>
-            {this.state.recentExpenses.data.map(expense => {
+            {recentExpenses.data.map(expense => {
               return <ListDeposits method={expense} id={expense.id} />
             })}
           </ul>
