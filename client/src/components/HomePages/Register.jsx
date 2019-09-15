@@ -1,132 +1,95 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 class Register extends React.Component {
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.state = {
-      user: {
-        firstName: '',
-        lastName: '',
-        username: '',
-        password: ''
-      },
-      submitted: false
+      first_name: "",
+      last_name: "",
+      username: "",
+      password: "",
+      errors: {}
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  handleChange(event) {
-    const { name, value } = event.target;
-    const { user } = this.state;
-    this.setState({
-      user: {
-        ...user,
-        [name]: value
-      }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  onSubmit(e) {
+    e.preventDefault();
+
+    const newUser = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      username: this.state.email,
+      password: this.state.password
+    };
+
+    register(newUser).then(res => {
+      this.props.history.push('/');
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    this.setState({ submitted: true });
-    const { user } = this.state;
-    if (user.firstName && user.lastName && user.username && user.password) {
-      this.props.register(user);
-    }
-  }
-
   render() {
-    const { registering } = this.props;
-    const { user, submitted } = this.state;
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <h2>Sign Up</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
-          <div
-            className={
-              "form-group" + (submitted && !user.firstName ? " has-error" : "")
-            }
-          >
-            <label htmlFor="firstName"><h3>First Name: </h3></label>
-            <input
-              type="text"
-              className="form-control"
-              name="firstName"
-              value={user.firstName}
-              onChange={this.handleChange}
-            />
-            {submitted && !user.firstName && (
-              <div className="help-block">First Name is required</div>
-            )}
+          <div className="col-md-6 mt-5 mx-auto">
+            <form noValidate onSubmit={this.onSubmit}>
+              <h1 className="h3 mb-3 font-weight-normal">Register</h1>
+              <div className="form-group">
+                <label htmlFor="name">First name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="first_name"
+                  placeholder="Enter your first name"
+                  value={this.state.first_name}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="name">Last name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="last_name"
+                  placeholder="Enter your lastname name"
+                  value={this.state.last_name}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  name="username"
+                  placeholder="Enter username"
+                  value={this.state.username}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-lg btn-primary btn-block"
+              >
+                Register!
+              </button>
+            </form>
           </div>
-          <div
-            className={
-              "form-group" + (submitted && !user.lastName ? " has-error" : "")
-            }
-          >
-            <label htmlFor="lastName"><h3>Last Name: </h3></label>
-            <input
-              type="text"
-              className="form-control"
-              name="lastName"
-              value={user.lastName}
-              onChange={this.handleChange}
-            />
-            {submitted && !user.lastName && (
-              <div className="help-block">Last Name is required</div>
-            )}
-          </div>
-          <div
-            className={
-              "form-group" + (submitted && !user.username ? " has-error" : "")
-            }
-          >
-            <label htmlFor="username"><h3>Username: </h3></label>
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              value={user.username}
-              onChange={this.handleChange}
-            />
-            {submitted && !user.username && (
-              <div className="help-block">Username is required</div>
-            )}
-          </div>
-          <div
-            className={
-              "form-group" + (submitted && !user.password ? " has-error" : "")
-            }
-          >
-            <label htmlFor="password"><h3>Password: </h3></label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={user.password}
-              onChange={this.handleChange}
-            />
-            {submitted && !user.password && (
-              <div className="help-block">Password is required</div>
-            )}
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary">Register</button>
-            {registering && (
-              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            )}
-            <br /><br />
-            <Link to="/" className="btn btn-link">
-             <button>Login</button>
-            </Link>
-          </div>
-        </form>
-      </div>
     );
   }
 }
