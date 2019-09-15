@@ -16,8 +16,9 @@ const ListTenants = ({ method }) => {
     <tr>
     <td><p>{method.firstName}</p></td>
     <td><p>{method.lastName}</p></td>
-    <td><p>{method.emContact}</p></td>
-    <td><p>{method.Unit}</p></td>
+    <td><p>{method.emContactName}</p></td>
+    <td><p>{method.emContactNumber}</p></td>
+    <td><p>{method.unit}</p></td>
     <td><button>More Info</button></td>
     <td><button>Edit</button></td>
     </tr>
