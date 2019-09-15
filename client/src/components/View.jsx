@@ -4,7 +4,7 @@ import axios from 'axios';
 import Option from './Option.jsx';
 import ListTenants from './ListTenants.jsx';
 
-class Tenants extends React.Component {
+class View extends React.Component {
   constructor(props) {
     super(props);
 
@@ -145,8 +145,7 @@ class Tenants extends React.Component {
               <tr class='head'>
                 <td><p>First Name</p></td>
                 <td><p>Last Name</p></td>
-                <td><p>I.C.E Name</p></td>
-                <td><p>I.C.E Number</p></td>
+                <td><p>Em. Contact</p></td>
                 <td><p>Unit</p></td>
                 <td><p>More Info</p></td>
                 <td><p>Edit</p></td>
@@ -164,4 +163,4 @@ class Tenants extends React.Component {
   }
 }
 
-export default Tenants;
+export default View;
