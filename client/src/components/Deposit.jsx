@@ -13,12 +13,12 @@ class Deposit extends React.Component {
       date: null,
       created: new Date(),
       category: null,
-      checkNumber: null,
-      amount: null,
+      checkNumber: '0000',
+      amount: 0,
       notes: null,
-      accounts: { data: ['null'] },
-      categories: { data: ['null']},
-      recentDeposits: { data: ['null']}
+      accounts: { data: [' '] },
+      categories: { data: [' ']},
+      recentDeposits: { data: [' ']}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,7 +49,11 @@ class Deposit extends React.Component {
   /*TODO: ADD VERIFICATION.*/
   addNewAccount() {
     const accountName = window.prompt('Type new account name:');
-    this.createAccount({ accountName });
+    this.createAccount({ 
+      accountName: accountName, 
+      type: 'account',
+      created: new Date()
+    });
     window.alert('Created a new account.');
     this.setState({ account: accountName });
     this.componentDidMount();
@@ -68,7 +72,9 @@ class Deposit extends React.Component {
   getAccounts() {
     axios.get('/accounts')
       .then((accountNames) => {
+        console.log('accounts retrieved.')
         this.setState({ accounts: accountNames });
+        this.setState({ account: accountNames.data[0].name });
       })
       .catch((error) => {
         console.log(error, 'getAccounts');
@@ -78,7 +84,10 @@ class Deposit extends React.Component {
   /*TODO: ADD VERIFICATION.*/
   addNewCategory() {
     const categoryName = window.prompt('Type new category name:');
-    this.createCategory({ categoryName });
+    this.createCategory({ 
+      categoryName: categoryName, 
+      created: new Date(), 
+      type: 'category' });
     window.alert('Created a new category.');
     this.setState({ category: categoryName });
     this.componentDidMount();
@@ -97,8 +106,8 @@ class Deposit extends React.Component {
   getCategories() {
     axios.get('/category')
       .then((categoryNames) => {
-        console.log(categoryNames, 'GET CATEGORIES');
-        this.setState({ categories: categoryNames });
+        this.setState({ categories: categoryNames});
+        this.setState({ category: categoryNames.data[0].name });
       })
       .catch((error) => {
         console.log(error, '[deposit/getCategories()]');
@@ -110,8 +119,8 @@ class Deposit extends React.Component {
     const { amount, checkNumber} = this.state;
     this.setState({ amount: parseInt(amount, 10) });
     this.setState({ checkNumber: parseInt(checkNumber, 10) })
-    console.log(new Date(), 'date');
     this.setState({ created: new Date() });
+    console.log(this.state, 'state');
     this.submitDeposit(this.state);
     window.alert('Submitted a new deposit.');
     this.componentDidMount();
@@ -120,7 +129,7 @@ class Deposit extends React.Component {
   submitDeposit(depositSlip) {
     axios.post('/newDeposit', depositSlip)
       .then((res) => {
-        console.log(res, 'SUBMIT DEPOSIT');
+        console.log('SUBMIT DEPOSIT');
       })
       .catch((error) => {
         console.log(error, 'SUBMIT DEPOSIT');
@@ -130,7 +139,6 @@ class Deposit extends React.Component {
   getRecentDeposits(){
     axios.get('/recentDeposits')
       .then((recentDeposits) => {
-        console.log(recentDeposits, 'RECENT DEPOSIT');
         this.setState({ recentDeposits: recentDeposits });
       })
       .catch((error) => {
@@ -151,7 +159,7 @@ class Deposit extends React.Component {
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
             {accounts.data.map(accountOption => {
-              return <Option optionName={accountOption.account} id={accountOption.id} />
+              return <Option optionName={accountOption.name} id={accountOption.id} />
             })}
           </select><br />
           <button id="addAccount" type="submit" onClick={this.addNewAccount}>Add New Account</button>
@@ -164,7 +172,7 @@ class Deposit extends React.Component {
           <h4>Category:</h4><br />
           <select id="category" onChange={this.handleChange} value={category}>
             {categories.data.map(categoryOption => {
-              return <Option optionName={categoryOption.category}/>
+              return <Option optionName={categoryOption.name} />
             })}
           </select><br />
           <button id="addCategory" type="submit" onClick={this.addNewCategory}>Add New Category</button>
