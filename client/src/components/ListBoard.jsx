@@ -20,8 +20,8 @@ const ListBoard = ({ method }) => {
         </div>
 
         <div class='listItem'>
-          <h4>Name:</h4> <p>{method.name}</p><br />
-          <h4>Position:</h4> <p>{method.position}</p><br />
+          <h4>Name:</h4> {method.name}<br />
+          <h4>Position:</h4> {method.position}<br />
         </div>
       </div>
     </li>

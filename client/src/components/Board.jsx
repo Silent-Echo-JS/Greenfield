@@ -115,12 +115,11 @@ class Board extends React.Component {
 const { tenants, position, positions, tenant, members } = this.state;
     return (
       <center>
-        <br />
-        <div className='subHead'><h1>Board</h1></div><br /><br />
+        <div className='subHead'><h1>Board</h1></div>
 
         <div className="fieldDiv">
-          <center><h2>Add Board Member</h2></center><br />
-          <center>
+          <center><h2>Add Board Member</h2><br />
+          
           <div class='subDiv'>
               <h4>Select Tenant for Board Member:</h4><br />
               <select id="tenant" value={tenant} onChange={this.handleChange}>
@@ -136,7 +135,7 @@ const { tenants, position, positions, tenant, members } = this.state;
                   return <Option optionName={positionOption.name} id={positionOption.id} />
                 })}
               </select><br />
-              <h4>Or:</h4><button id="addPosition" type="submit" onClick={this.addPosition}>Add New Position</button>
+              <button id="addPosition" type="submit" onClick={this.addPosition}>Add New Position</button>
               <br /><br />
 
           <button id="submit" type="submit" onClick={this.submit}>Submit</button>

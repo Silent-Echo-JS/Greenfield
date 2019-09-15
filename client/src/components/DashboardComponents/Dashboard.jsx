@@ -10,7 +10,11 @@ class Dashboard extends React.Component {
   render() {
     return (
       <Router>
-        <div class='title'><h1>Simple HOA</h1></div>
+        <div class='title'>
+          <img class='reduced' src="https://i.ibb.co/J2skB7Y/logo.png" />
+          <h1>Simple HOA</h1>
+          </div>
+
         <div class='dashboard'>
           <ul class="dashButtons">
             <li className="dashButton"><Link to="Board">Board</Link></li>

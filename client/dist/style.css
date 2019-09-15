@@ -1,5 +1,5 @@
 body {
-  background: #EEEEEE;
+  background: #18181E;
 }
 
 /***********************
@@ -15,7 +15,20 @@ DIV CLASSES
   height: 45px;
   margin: 5px;
   border-radius: 5px;
+}
 
+.about {
+    text-align: left;
+    vertical-align: middle;
+    margin: 25px;
+    display: inline-block;
+}
+
+.login {
+    color: #CCCCCC;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 .popup {
@@ -44,8 +57,7 @@ DIV CLASSES
   display: inline-block;
   vertical-align: top;
   width: 100%;
-   border-radius: 5px;
-
+  border-radius: 5px;
 }
 
 .splashTitle {
@@ -57,8 +69,7 @@ DIV CLASSES
   margin: 2px;
   width: 70%;
   height: 500px;
-   border-radius: 5px;
-
+  border-radius: 5px;
 }
 
 .page {
@@ -69,8 +80,7 @@ DIV CLASSES
   background: #CCCCCC;
   margin: 2px;
   width: 100%;
-   border-radius: 5px;
-
+  border-radius: 5px;
 }
 
 .divTitle {
@@ -80,53 +90,39 @@ DIV CLASSES
   margin: 0px;
   background: #333333;
   width: 100%;
-   border-radius: 5px;
-
-}
-
-.splashLogin {
-  display: inline-block;
-  vertical-align: top;
-  padding: 2px;
-  margin: 2px;
-  background: #CCCCCC;
-  width: 25%;
-  height: 500px;
-   border-radius: 5px;
-
+  border-radius: 5px;
 }
 
 .fieldDiv {
-  background: #DDDDDD;
+  background: #333333;
   padding: 25px;
   text-align: left;
-  border: 1px solid #5F6B81;
+  border: 1px solid #DEC79B;
   display: inline-block;
   vertical-align: top;
   margin: 2px;
-   border-radius: 5px;
-
+  border-radius: 5px;
 }
 
 .subHead {
-  background: #CCCCCC;
+  background: #333333;
   text-align: center;
-  border: 1px solid #5F6B81;
+  border: 1px solid #DEC79B;
   display: inline-block;
   vertical-align: top;
-  width: 50%;
+  width: 100%;
   border-radius: 5px;
 }
 
 .subDiv {
-  background: #CCCCCC;
-  padding: 5px;
+  background: #666666;
+  padding: 15px;
   text-align: left;
-  border: 1px solid #5F6B81;
+  border: 1px solid #DEC79B;
   display: inline-block;
   vertical-align: top;
   margin: 2px;
-   border-radius: 5px;
+  border-radius: 5px;
 }
 
 .main {
@@ -139,28 +135,28 @@ DIV CLASSES
 }
 
 .dashboard {
-  background: #333333;
+  background: #DEC79B;
   text-align: center;
   padding: 0px;
-  margin: 0px 0px 0px 0px;
+  margin: 0px;
   width: 100%;
-   border-radius: 5px;
+  border-radius: 5px;
 }
 
 .footer {
-  background: #333333;
-  text-align: center;
+  bottom: 5px;
+  right: 5px;
+  position: absolute;
+  text-align: right;
   padding: 0px;
-  margin: 2px 0px 0px 0px;
-  color: #FFFFFF;
-   border-radius: 5px;
+  margin: 0px;
+  color: #444444;
 }
 
 .col-md-6.col-md-offset-3 {
-  background: #DDDDDD;
   padding: 15px;
   margin: 15px;
-  border: 1px solid #5F6B81;
+  /* width: 300px; */
 }
 
 .homePages {
@@ -177,7 +173,6 @@ BUTTON CLASSES
   list-style-type: none;
   margin: 2px;
   padding: 0px;
-   border-radius: 5px;
 }
 
 .navButton {
@@ -185,7 +180,6 @@ BUTTON CLASSES
   padding: 14px 16px;
   background-color: #333333;
   border: 1px solid #EEEEEE;
-  border-radius: 5px;
 }
 
 .dashButtons {
@@ -195,7 +189,6 @@ BUTTON CLASSES
   padding: 0;
   background-color: transparent;
   text-align: center;
-   border-radius: 5px;
 }
 
 .dashButton {
@@ -204,40 +197,39 @@ BUTTON CLASSES
   text-align: center;
   font-size: 1.25em;
   text-decoration: none;
-   border-radius: 5px;
 }
 
 .navButton:hover {
-  background-color: #3e75ec;
+  background-color: #18181E;
 }
 
 .dashButton:hover {
-  background-color: #3e75ec;
+  background-color: #18181E;
 }
 
 button {
-  background: #294B93;
-  color: #EEEEEE;
+  background: #18181E;
+  color: #CCCCCC;
   padding: 5px;
   height: 25px;
   border: none;
   border-radius: 5px;
   width: 100%;
-  border: 1px solid #333333;
+  border: 1px solid #DEC79B;
 }
 
 button:hover {
-  background-color: #3e75ec;
-  color: #EEEEEE;
+  background-color: #DEC79B;
+  color: #18181E;
 }
 
 button:focus {
-  background-color: #172b55;
-  color: #EEEEEE;
+  background-color: #e3bb72;
+  color: #18181E;
 }
 
 button:disabled {
-  background-color: #172b55;
+  background-color: #5c5c5c;
   color: #CCCCCC;
 }
 
@@ -274,7 +266,10 @@ TEXT CLASSES
 ***********************/
 .title {
   color: #ffffff;
-  text-align: left
+  text-align: left;
+  vertical-align: middle;
+  display: inline-block;
+  width: auto;
 }
 
 .btn.btn-link {
@@ -282,25 +277,25 @@ TEXT CLASSES
 }
 
 h1 {
-  color: #333333;
+  color: #DEC79B;
   display: inline;
-  font-family: 'Playfair Display SC', serif;
+  font-family: 'Nova Round', cursive;
 }
 
 h2 {
-  color: #294B93;
+  color: #DEC79B;
   display: inline;
-  text-shadow: #000000;
-  font-family: 'Playfair Display SC', serif;
+  font-family: 'Helvetica', serif;
 }
 
 h3 {
-  color: #EEEEEE;
+  color: #CCCCCC;
   display: inline;
+  font-family: 'Helvetica', serif;
 }
 
 h4 {
-  color: #333333;
+  color: #18181E;
   display: inline;
 }
 
@@ -310,27 +305,27 @@ h5 {
 }
 
 p {
-  color: #333333;
+  color: #CCCCCC;
   display: inline;
 }
 
 a:link {
-  color: #CCCCCC;
+  color: #18181E;
   text-decoration: none;
 }
 
 a:visited {
-  color: #CCCCCC;
+  color: #18181E;
   text-decoration: none;
 }
 
 a:hover {
-  color: #CCCCCC;
+  color: #DEC79B;
   text-decoration: none;
 }
 
 a:active {
-  color: #CCCCCC;
+  color: #18181E;
   text-decoration: none;
 }
 
@@ -338,8 +333,7 @@ a:active {
 INPUT FIELD CLASSES
 ***********************/
 input {
-  background: #EEEBDC;
-  opacity: .8;
+  background: #CCCCCC;
   color: #000000;
   padding: 5px;
   border-radius: 5px;
@@ -348,13 +342,12 @@ input {
 }
 
 input:hover {
-  background: #61615f;
-  color: #FFFFFF;
+  background: #DEC79B;
+  color: #18181E;
 }
 
 textarea {
-  background: #EEEBDC;
-  opacity: .8;
+  background: #CCCCCC;
   color: #000000;
   padding: 5px;
   border: none;
@@ -364,15 +357,15 @@ textarea {
 }
 
 textarea:hover {
-  background: #61615f;
+  background: #DEC79B;
+  color: #000000;
 }
 
 /***********************
 SELECT CLASSES
 ***********************/
 select {
-  background: #EEEBDC;
-  opacity: .8;
+  background: #CCCCCC;
   color: #000000;
   padding: 5px;
   border-radius: 5px;
@@ -382,7 +375,8 @@ select {
 }
 
 select:hover {
-  background: #61615f;
+  background: #DEC79B;
+  color: #18181E;
 }
 
 /***********************
@@ -399,18 +393,20 @@ LIST CLASSES
   vertical-align: middle;
   width: 100%;
   padding: 5px;
+  background: #666666;
+  border: 1px solid #DEC79B;
+  color: #CCCCCC;
 }
 
 .listCell:hover {
-  box-shadow: 0px 0px 1px #61615f;
-  background: #EEEBDC;
+  box-shadow: 0px 0px 10px #CCCCCC;
+  /* background: #EEEBDC; */
 }
 
 li {
   text-align: left;
   list-style-type: none;
   padding: 0px;
-  color: #FFFFFF;
 }
 
 :focus {
@@ -424,17 +420,38 @@ table {
 
 tr {
     padding: 5px;
-    border: 1px solid #000000;
+    border: 1px solid #DEC79B;
+    color: #CCCCCC;
+    background: #666666;
 }
 
 .head{
-  background: #BBBBBB;
+  background: #CCCCCC;
   text-align: center;
   padding: 5px;
-  border: 1px solid #000000;
+  border: 1px solid #DEC79B;
+  color: #18181E;
 }
 
 td {
   width: auto;
   padding: 5px;
+  color: #18181E;
+}
+
+tr:hover{
+  background: #DEC79B;
+}
+
+.reduced {
+  max-width: 50px;
+  max-height: 50px;
+  padding: 0;
+  margin: 0;
+}
+.imgsplash {
+  max-width: 200px;
+  max-height: 200px;
+  padding: 0;
+  margin: 0;
 }

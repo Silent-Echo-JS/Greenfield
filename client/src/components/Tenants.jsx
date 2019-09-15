@@ -73,12 +73,11 @@ class Tenants extends React.Component {
     
     return (
       <center>
-        <br />
-        <div className='subHead'><h1>Tenants</h1></div><br /><br />
+        <div className='subHead'><h1>Tenants</h1></div>
 
         <div className="fieldDiv">
-          <center><h2>Add Tenant</h2></center><br />
-          <center>
+          <center><h2>Add Tenant</h2><br />
+          
           <div class='subDiv'>
           <h4>First Name:</h4><br />
           <input id="firstName" type="text" onChange={this.handleChange} value={firstName} />
@@ -105,9 +104,9 @@ class Tenants extends React.Component {
           <br /><br />
 
           <h4>Emergency Contact:</h4><br />
-          <h5>Name:</h5>
+          <h4>Name:</h4>
           <input id="emContactName" type="text" onChange={this.handleChange} value={emContactName} /><br />
-          <h5>Phone:</h5>
+          <h4>Phone:</h4>
           <input id="emContactNumber" type="text" onChange={this.handleChange} value={emContactNumber} />
           <br /><br />
           </div>
@@ -143,13 +142,13 @@ class Tenants extends React.Component {
             <h2>Tenants</h2><br /><br />
             <table>
               <tr class='head'>
-                <td><p>First Name</p></td>
-                <td><p>Last Name</p></td>
-                <td><p>I.C.E Name</p></td>
-                <td><p>I.C.E Number</p></td>
-                <td><p>Unit</p></td>
-                <td><p>More Info</p></td>
-                <td><p>Edit</p></td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>I.C.E Name</td>
+                <td>I.C.E Number</td>
+                <td>Unit</td>
+                <td>More Info</td>
+                <td>Edit</td>
               </tr>
               
                 {tenants.data.map(indvTenant => {
