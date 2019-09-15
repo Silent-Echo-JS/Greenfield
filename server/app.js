@@ -30,14 +30,13 @@ app.use(express.static(`${__dirname}/../client/dist`));
 // ACCOUNTS
 //* ****************************
 app.get('/accounts', (req, res) => {
-  const sqlQuery = 'SELECT * FROM accounts';
+  const sqlQuery = 'SELECT * FROM Subcategories WHERE type="account"';
 
   models.sequelize.query(sqlQuery, {
-    model: models.Accounts,
+    model: models.Subcategory,
   })
     .then((records) => {
-      console.log(records[0], 'RECORDS');
-      res.send(records[0]);
+      res.send(records);
     })
     .catch((error) => {
       console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
@@ -45,9 +44,9 @@ app.get('/accounts', (req, res) => {
 });
 
 app.post('/accounts', (req, res) => {
-  const { accountName } = req.body;
+  const { accountName, type } = req.body;
 
-  const sqlQuery = `INSERT INTO accounts (account) VALUES ('${accountName}')`;
+  const sqlQuery = `INSERT INTO Subcategories (name, type) VALUES ('${accountName}', '${type}')`;
 
   models.sequelize.query(sqlQuery, {
     model: models.Accounts,
@@ -68,7 +67,7 @@ app.post('/newDeposit', (req, res) => {
     account, date, category, notes, amount, checkNumber, created,
   } = req.body;
 
-  const sqlQuery = `INSERT INTO deposit (checkNumber, date, created, amount, category, notes, account) 
+  const sqlQuery = `INSERT INTO deposits (checkNumber, date, created, amount, category, notes, account) 
   VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
 
   models.sequelize.query(sqlQuery, {
@@ -83,7 +82,7 @@ app.post('/newDeposit', (req, res) => {
 });
 
 app.get('/recentDeposits', (req, res) => {
-  const sqlQuery = 'SELECT * FROM deposit ORDER BY id DESC LIMIT 10';
+  const sqlQuery = 'SELECT * FROM deposits ORDER BY id DESC LIMIT 5';
 
   models.sequelize.query(sqlQuery, {
     model: models.Deposit,
@@ -105,7 +104,7 @@ app.post('/newExpense', (req, res) => {
     account, date, category, notes, amount, checkNumber, created,
   } = req.body;
 
-  const sqlQuery = `INSERT INTO expense (checkNumber, date, created, amount, category, notes, account) 
+  const sqlQuery = `INSERT INTO expenses (checkNumber, date, created, amount, category, notes, account) 
   VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
 
   models.sequelize.query(sqlQuery, {
@@ -120,7 +119,7 @@ app.post('/newExpense', (req, res) => {
 });
 
 app.get('/recentExpenses', (req, res) => {
-  const sqlQuery = 'SELECT * FROM expense ORDER BY id DESC LIMIT 10;';
+  const sqlQuery = 'SELECT * FROM expenses ORDER BY id DESC LIMIT 5;';
 
   models.sequelize.query(sqlQuery, {
     model: models.Expense,
@@ -137,12 +136,12 @@ app.get('/recentExpenses', (req, res) => {
 // CATEGORY
 //* ****************************
 app.post('/category', (req, res) => {
-  const { categoryName } = req.body;
+  const { categoryName, type } = req.body;
 
-  const sqlQuery = `INSERT INTO categories (category) VALUES ('${categoryName}')`;
+  const sqlQuery = `INSERT INTO Subcategories (name, type) VALUES ('${categoryName}', '${type}')`;
 
   models.sequelize.query(sqlQuery, {
-    model: models.Categories,
+    model: models.Subcategory,
   })
     .then((records) => {
       res.send(records);
@@ -153,16 +152,16 @@ app.post('/category', (req, res) => {
 });
 
 app.get('/category', (req, res) => {
-  const sqlQuery = 'SELECT * FROM categories';
+  const sqlQuery = 'SELECT * FROM Subcategories WHERE type="category"';
 
   models.sequelize.query(sqlQuery, {
-    model: models.Categories,
+    model: models.Subcategory,
   })
     .then((records) => {
-      res.send(records[0]);
+      res.send(records);
     })
     .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT CATEGORIES.');
+      console.log(error, 'ERROR: CANNOT SELECT SUBCATEGORY.');
     });
 });
 
@@ -191,7 +190,7 @@ app.post('/newTenant', (req, res) => {
 });
 
 app.get('/getTenants', (req, res) => {
-  const sqlQuery = 'SELECT * FROM tenants';
+  const sqlQuery = 'SELECT * FROM tenants ORDER BY id DESC';
 
   models.sequelize.query(sqlQuery, {
     model: models.Tenants,
@@ -201,6 +200,36 @@ app.get('/getTenants', (req, res) => {
     })
     .catch((error) => {
       console.log(error, 'ERROR: CANNOT SELECT TENANTS.');
+    });
+});
+
+app.get('/getPositions', (req, res) => {
+  const sqlQuery = 'SELECT * FROM boards';
+
+  models.sequelize.query(sqlQuery, {
+    model: models.Board,
+  })
+    .then((positions) => {
+      res.send(positions[0]);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT SELECT POSITIONS.');
+    });
+});
+
+app.post('/newPosition', (req, res) => {
+  const { positionName } = req.body;
+
+  const sqlQuery = `INSERT INTO boards (name) VALUES ('${positionName}')`;
+
+  models.sequelize.query(sqlQuery, {
+    model: models.Board,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT INSERT NEW POSITION.');
     });
 });
 
