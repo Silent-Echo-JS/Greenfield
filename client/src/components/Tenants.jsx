@@ -39,7 +39,6 @@ class Tenants extends React.Component {
   getTenants() {
     axios.get('/getTenants')
       .then((tenants) => {
-        console.log(tenants, 'tenants');
         this.setState({ tenants: tenants });
       })
       .catch((error) => {
@@ -49,15 +48,15 @@ class Tenants extends React.Component {
 
   /*TODO: ADD VERIFICATION.*/
   submit() {
-    this.componentDidMount();
     window.alert('Added a new tenant.');
     this.submitTenant(this.state);
+    this.componentDidMount();
   }
 
   submitTenant(tenantSlip) {
     axios.post('/newTenant', tenantSlip)
       .then((res) => {
-        console.log(res, 'ADDED TENANT');
+        console.log('ADDED TENANT');
       })
       .catch((error) => {
         console.log(error, 'SUBMIT TENANT');
