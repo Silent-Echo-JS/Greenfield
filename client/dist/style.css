@@ -5,18 +5,6 @@ body {
 /***********************
 DIV CLASSES
 ***********************/
-.header {
-  border-radius: 5px;
-  width: 100%;
-  padding: 0px;
-  text-align: center;
-  vertical-align: top;
-  margin: 5px;
-  height: 45px;
-  margin: 5px;
-  border-radius: 5px;
-}
-
 .about {
     text-align: left;
     vertical-align: middle;
@@ -53,46 +41,6 @@ DIV CLASSES
   background: white;
 }
 
-.splash {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  border-radius: 5px;
-}
-
-.splashTitle {
-  display: inline-block;
-  vertical-align: center;
-  padding: 2px;
-  text-align: center;
-  background: #CCCCCC;
-  margin: 2px;
-  width: 70%;
-  height: 500px;
-  border-radius: 5px;
-}
-
-.page {
-  display: inline-block;
-  vertical-align: center;
-  padding: 2px;
-  text-align: center;
-  background: #CCCCCC;
-  margin: 2px;
-  width: 100%;
-  border-radius: 5px;
-}
-
-.divTitle {
-  display: inline-block;
-  vertical-align: top;
-  padding: 0px;
-  margin: 0px;
-  background: #333333;
-  width: 100%;
-  border-radius: 5px;
-}
-
 .fieldDiv {
   background: #333333;
   padding: 25px;
@@ -123,15 +71,6 @@ DIV CLASSES
   vertical-align: top;
   margin: 2px;
   border-radius: 5px;
-}
-
-.main {
-  background: #EEEEEE;
-  text-align: left;
-  vertical-align: top;
-  margin: 0px;
-  width: 100%;
-   border-radius: 5px;
 }
 
 .dashboard {
@@ -169,19 +108,6 @@ DIV CLASSES
 /***********************
 BUTTON CLASSES
 ***********************/
-.headerButtons {
-  list-style-type: none;
-  margin: 2px;
-  padding: 0px;
-}
-
-.navButton {
-  float: right;
-  padding: 14px 16px;
-  background-color: #333333;
-  border: 1px solid #EEEEEE;
-}
-
 .dashButtons {
   list-style-type: none;
   display: inline;
@@ -197,10 +123,6 @@ BUTTON CLASSES
   text-align: center;
   font-size: 1.25em;
   text-decoration: none;
-}
-
-.navButton:hover {
-  background-color: #18181E;
 }
 
 .dashButton:hover {
@@ -231,34 +153,6 @@ button:focus {
 button:disabled {
   background-color: #5c5c5c;
   color: #CCCCCC;
-}
-
-.button {
-  display: inline-block;
-  max-width: 100%;
-  margin-top: 50px;
-  border: 0;
-  padding: 0 18px;
-  text-align: center;
-  width: 100%;
-  height: 37px;
-  border-radius: 5px;
-  -webkit-font-smoothing: antialiased;
-  /* -moz-osx-font-smoothing: grayscale;
-  -moz-font-feature-settings: "liga"on; */
-  color: rgba(0, 0, 0, 0.84) !important;
-  fill: rgba(0, 0, 0, 0.84) !important;
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.05);
-  font: inherit;
-  outline: none;
-}
-
-.button .svgIcon {
-  vertical-align: middle;
-  fill: rgba(0, 0, 0, 0.54);
-  padding-right: 4px;
-  height: 37px;
-  display: inline-block;
 }
 
 /***********************
