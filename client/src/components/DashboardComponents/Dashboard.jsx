@@ -1,15 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Deposit from '../Deposit.jsx';
-import Expense from '../Expense.jsx';
-import Tenants from '../Tenants.jsx';
-import Board from '../Board.jsx';
-import Settings from '../Settings.jsx';
 
 class Dashboard extends React.Component {
   render() {
     return (
-      <Router>
+      <div>
         <div class='title'>
           <img class='reduced' src="https://i.ibb.co/J2skB7Y/logo.png" />
           <h1>Simple HOA</h1>
@@ -21,16 +16,10 @@ class Dashboard extends React.Component {
             <li className="dashButton"><Link to="Tenants">Tenants</Link></li>
             <li className="dashButton"><Link to="Deposit">Deposit</Link></li>
             <li className="dashButton"><Link to="Expense">Expense</Link></li>
-            <li className="dashButton"><Link to="View">View</Link></li>
             <li className="dashButton"><Link to="Settings">Settings</Link></li>
           </ul>
         </div>
-        <Route name="Deposit" exact path="/Deposit" component={Deposit} />
-        <Route name="Expense" exact path="/Expense" component={Expense} />
-        <Route name="Tenants" exact path="/Tenants" component={Tenants} />
-        <Route name="Board" exact path="/Board" component={Board} />
-        <Route name="Settings" exact path="/Settings" component={Settings} />
-      </Router>
+      </div>
     )
   }
 }

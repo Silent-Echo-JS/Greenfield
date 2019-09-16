@@ -7,7 +7,7 @@ class Settings extends React.Component {
         <div className='subHead'><h1>Settings</h1></div><br /><br />
         <br/><br/>
         <div className="fieldDiv">
-          <button onClick={this.toggleSignout}>Signout</button>
+          <button>Signout</button>
         </div>
       </center>
     )
