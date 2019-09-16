@@ -1,5 +1,5 @@
-module.exports = function (sequelize, Sequelize) {
-  var Board = sequelize.define('board', {
+module.exports = function(sequelize, Sequelize) {
+  const Board = sequelize.define('board', {
     id: {
       autoIncrement: true,
       primaryKey: true,
