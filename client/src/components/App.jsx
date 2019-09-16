@@ -23,7 +23,6 @@ class App extends React.Component {
           <Navbar />
           <Route path="/about" component={About} />
           
-          <Route path="/mtest" exact={true} component={MTest} />
           <SecureRoute path="/" exact={true} component={Dashboard} />
           <Route path='/login' render={() => <Login baseUrl='https://dev-785992.okta.com' />} />
           <SecureRoute path='/implicit/callback' exact={true} component={Dashboard} />
