@@ -43,6 +43,7 @@
     "react-router": "5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-hash-link": "^1.2.2",
+    "reactstrap": "^8.0.1",
     "sequelize": "^5.18.4",
     "webpack-dev-server": "^3.8.0"
   }
