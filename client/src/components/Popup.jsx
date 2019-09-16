@@ -1,6 +1,12 @@
 import React from 'react';
 
-class SignoutPopup extends React.Component {
+// this is not used within the current state of the app
+// to use, do something like this:
+// {this.state.showSignout ?
+//   <Popup title="Sign Out" text='Are you sure you want to sign out?' closePopup={this.signout.bind(this)} />
+//     : null
+//  } */}
+class Popup extends React.Component {
   render() {
     return (
       <div className="popup">
@@ -15,4 +21,4 @@ class SignoutPopup extends React.Component {
   };
 }
 
-export default SignoutPopup;
+export default Popup;
