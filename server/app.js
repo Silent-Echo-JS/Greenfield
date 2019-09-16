@@ -1,19 +1,13 @@
 const express = require('express');
-
-const app = express();
-const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const models = require('../app/models');
+
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-const models = require('../app/models');
-
-require('../app/config/passport')(passport, models.user);
 
 models.sequelize
   .sync()
@@ -204,32 +198,64 @@ app.get('/getTenants', (req, res) => {
 });
 
 app.get('/getPositions', (req, res) => {
-  const sqlQuery = 'SELECT * FROM boards';
+  const sqlQuery = 'SELECT * FROM Subcategories WHERE type="position"';
 
   models.sequelize.query(sqlQuery, {
-    model: models.Board,
+    model: models.Subcategory,
   })
     .then((positions) => {
-      res.send(positions[0]);
+      res.send(positions);
     })
     .catch((error) => {
       console.log(error, 'ERROR: CANNOT SELECT POSITIONS.');
     });
 });
 
-app.post('/newPosition', (req, res) => {
-  const { positionName } = req.body;
 
-  const sqlQuery = `INSERT INTO boards (name) VALUES ('${positionName}')`;
+app.get('/getMembers', (req, res) => {
+  const sqlQuery = 'SELECT * FROM boards ORDER BY id DESC LIMIT 5;';
 
   models.sequelize.query(sqlQuery, {
     model: models.Board,
+  })
+    .then((members) => {
+      console.log(members, 'MEMBERS');
+      res.send(members[0]);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT SELECT MEMBERS.');
+    });
+});
+
+app.post('/newPosition', (req, res) => {
+  const { positionName, type } = req.body;
+
+  const sqlQuery = `INSERT INTO Subcategories (name, type) VALUES ('${positionName}', '${type}')`;
+
+  models.sequelize.query(sqlQuery, {
+    model: models.Subcategory,
   })
     .then((records) => {
       res.send(records);
     })
     .catch((error) => {
       console.log(error, 'ERROR: CANNOT INSERT NEW POSITION.');
+    });
+});
+
+app.post('/newMember', (req, res) => {
+  const { tenant, position } = req.body;
+
+  const sqlQuery = `INSERT INTO boards (name, position) VALUES ('${tenant}', '${position}')`;
+
+  models.sequelize.query(sqlQuery, {
+    model: models.Board,
+  })
+    .then((records) => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT INSERT NEW TENANT.');
     });
 });
 

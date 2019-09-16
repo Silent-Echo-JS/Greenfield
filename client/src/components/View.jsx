@@ -4,7 +4,7 @@ import axios from 'axios';
 import Option from './Option.jsx';
 import ListTenants from './ListTenants.jsx';
 
-class Tenants extends React.Component {
+class View extends React.Component {
   constructor(props) {
     super(props);
 
@@ -73,11 +73,12 @@ class Tenants extends React.Component {
     
     return (
       <center>
-        <div className='subHead'><h1>Tenants</h1></div>
+        <br />
+        <div className='subHead'><h1>Tenants</h1></div><br /><br />
 
         <div className="fieldDiv">
-          <center><h2>Add Tenant</h2><br />
-          
+          <center><h2>Add Tenant</h2></center><br />
+          <center>
           <div class='subDiv'>
           <h4>First Name:</h4><br />
           <input id="firstName" type="text" onChange={this.handleChange} value={firstName} />
@@ -104,9 +105,9 @@ class Tenants extends React.Component {
           <br /><br />
 
           <h4>Emergency Contact:</h4><br />
-          <h4>Name:</h4>
+          <h5>Name:</h5>
           <input id="emContactName" type="text" onChange={this.handleChange} value={emContactName} /><br />
-          <h4>Phone:</h4>
+          <h5>Phone:</h5>
           <input id="emContactNumber" type="text" onChange={this.handleChange} value={emContactNumber} />
           <br /><br />
           </div>
@@ -142,13 +143,12 @@ class Tenants extends React.Component {
             <h2>Tenants</h2><br /><br />
             <table>
               <tr class='head'>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>I.C.E Name</td>
-                <td>I.C.E Number</td>
-                <td>Unit</td>
-                <td>More Info</td>
-                <td>Edit</td>
+                <td><p>First Name</p></td>
+                <td><p>Last Name</p></td>
+                <td><p>Em. Contact</p></td>
+                <td><p>Unit</p></td>
+                <td><p>More Info</p></td>
+                <td><p>Edit</p></td>
               </tr>
               
                 {tenants.data.map(indvTenant => {
@@ -163,4 +163,4 @@ class Tenants extends React.Component {
   }
 }
 
-export default Tenants;
+export default View;

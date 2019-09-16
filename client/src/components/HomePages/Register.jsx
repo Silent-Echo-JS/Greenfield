@@ -45,14 +45,14 @@ class Register extends React.Component {
     const { user, submitted } = this.state;
     return (
       <div className="col-md-6 col-md-offset-3">
-        <h2>Register</h2>
+        <h2>Sign Up</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div
             className={
               "form-group" + (submitted && !user.firstName ? " has-error" : "")
             }
           >
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName"><h3>First Name: </h3></label>
             <input
               type="text"
               className="form-control"
@@ -69,7 +69,7 @@ class Register extends React.Component {
               "form-group" + (submitted && !user.lastName ? " has-error" : "")
             }
           >
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName"><h3>Last Name: </h3></label>
             <input
               type="text"
               className="form-control"
@@ -86,7 +86,7 @@ class Register extends React.Component {
               "form-group" + (submitted && !user.username ? " has-error" : "")
             }
           >
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username"><h3>Username: </h3></label>
             <input
               type="text"
               className="form-control"
@@ -103,7 +103,7 @@ class Register extends React.Component {
               "form-group" + (submitted && !user.password ? " has-error" : "")
             }
           >
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password"><h3>Password: </h3></label>
             <input
               type="password"
               className="form-control"
@@ -120,8 +120,9 @@ class Register extends React.Component {
             {registering && (
               <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             )}
+            <br /><br />
             <Link to="/" className="btn btn-link">
-              Cancel
+             <button>Login</button>
             </Link>
           </div>
         </form>

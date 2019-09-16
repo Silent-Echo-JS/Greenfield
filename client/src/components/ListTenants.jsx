@@ -14,10 +14,11 @@ const ListTenants = ({ method }) => {
   console.log(method, 'method');
   return (
     <tr>
-    <td><p>{method.firstName}</p></td>
-    <td><p>{method.lastName}</p></td>
-    <td><p>{method.emContact}</p></td>
-    <td><p>{method.Unit}</p></td>
+    <td>{method.firstName}</td>
+    <td>{method.lastName}</td>
+    <td>{method.emContactName}</td>
+    <td>{method.emContactNumber}</td>
+    <td>{method.unit}</td>
     <td><button>More Info</button></td>
     <td><button>Edit</button></td>
     </tr>

@@ -142,11 +142,12 @@ class Expense extends React.Component {
 
     return (
       <center>
-        <h1>Expense</h1><br /><br />
+        <div className='subHead'><h1>Expense</h1></div>
 
         <div className="fieldDiv">
-          <center><h2>New Expense</h2></center><br /><br />
+          <center><h2>New Expense</h2></center>
 
+    <div class='subDiv'>
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
             {accounts.data.map(accountOption => {
@@ -182,6 +183,7 @@ class Expense extends React.Component {
           <br /><br />
 
           <button id="submit" type="submit" onClick={this.submit}>Submit</button>
+          </div>
         </div>
 
         <div className="fieldDiv">
