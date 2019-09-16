@@ -14,25 +14,18 @@ class App extends React.Component {
   render() {
     return (
       <HashRouter>
-        <Security
-          issuer="https://dev-334033.okta.com/oauth2/default"
-          clientId="0oa1cspbxnLfDPYQb357"
-          redirectUri={window.location.origin + "/implicit/callback"}
+        <Security issuer='https://dev-785992.okta.com/oauth2/default'
+          clientId='0oa1cspbxnLfDPYQb357'
+          redirectUri={window.location.origin + '/implicit/callback'}
           onAuthRequired={onAuthRequired}
         >
+
           <Navbar />
           <Route path="/about" component={About} />
-
+          
           <SecureRoute path="/" exact={true} component={Dashboard} />
-          <Route
-            path="/login"
-            render={() => <Login baseUrl="https://dev-334033.okta.com" />}
-          />
-          <SecureRoute
-            path="/implicit/callback"
-            exact={true}
-            component={ImplicitCallback}
-          />
+          <Route path='/login' render={() => <Login baseUrl='https://dev-785992.okta.com' />} />
+          <SecureRoute path='/implicit/callback' exact={true} component={Dashboard} />
         </Security>
       </HashRouter>
     );
