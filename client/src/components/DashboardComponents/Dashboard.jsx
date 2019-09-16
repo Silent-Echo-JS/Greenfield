@@ -1,26 +1,24 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
 
 class Dashboard extends React.Component {
   render() {
     return (
-      <div>
-        <div class='title'>
-          <img class='reduced' src="https://i.ibb.co/J2skB7Y/logo.png" />
-          <h1>Simple HOA</h1>
-          </div>
-
-        <div class='dashboard'>
-          <ul class="dashButtons">
-            <li className="dashButton"><Link to="Board">Board</Link></li>
-            <li className="dashButton"><Link to="Tenants">Tenants</Link></li>
-            <li className="dashButton"><Link to="Deposit">Deposit</Link></li>
-            <li className="dashButton"><Link to="Expense">Expense</Link></li>
-            <li className="dashButton"><Link to="Settings">Settings</Link></li>
-          </ul>
-        </div>
-      </div>
-    )
+      <Container>
+        <Row>
+          <Col md={{ size: 6 }}>
+            {/* Financials Component 6 col */}
+            {/* Maintenence Ticket Component 6 col */}
+          </Col>
+          <Col md={{ size: 6 }}>{/* Calendar Component 6 col */}</Col>
+        </Row>
+        <Row>
+          <Col>{/* Tenants table 9-col */}</Col>
+          <Col>{/* Board table 3-col */}</Col>
+        </Row>
+      </Container>
+    );
   }
 }
 
