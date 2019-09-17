@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, HashRouter } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 import { Security, SecureRoute, ImplicitCallback } from "@okta/okta-react";
 import Navbar from "./HeaderComponent/Navbar.jsx";
 import Dashboard from "./DashboardComponents/Dashboard.jsx";
@@ -10,7 +10,8 @@ import Expense from "./Expense.jsx";
 import Tenants from "./Tenants.jsx";
 import Board from "./Board.jsx";
 import Settings from "./Settings.jsx";
-import NavBar from "./HeaderComponent/Navbar.jsx";
+import InputInfo from "./Auth/InputInfo.jsx";
+
 
 function onAuthRequired({ history }) {
   history.push("/login");
@@ -24,7 +25,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Security
           issuer="https://dev-785992.okta.com/oauth2/default"
           clientId="0oa1cspbxnLfDPYQb357"
@@ -34,17 +35,17 @@ class App extends React.Component {
           {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
           <Navbar />
           <Route path="/about" component={About} />
-
           <Route path="/Deposit" component={Deposit} />
           <Route path="/Expense" component={Expense} />
           <Route path="/Tenants" component={Tenants} />
           <Route path="/Board" component={Board} />
           <Route path="/Settings" component={Settings} />
+          <Route path="/auth/:firebaseId" component={InputInfo}/>
 
           <SecureRoute path="/" exact={true} component={Dashboard} />
           <Route
             path="/login"
-            render={() => <Login baseUrl="https://dev-785992.okta.com" />}
+            component={Login} />}
           />
           <Route
             path="/implicit/callback"
@@ -52,7 +53,7 @@ class App extends React.Component {
             component={ImplicitCallback}
           />
         </Security>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
