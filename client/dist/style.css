@@ -1,15 +1,15 @@
 body {
-  background: #18181E;
+  background: white;
 }
 
 /***********************
 DIV CLASSES
 ***********************/
 .about {
-    text-align: left;
-    vertical-align: middle;
-    margin: 25px;
-    display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  margin: 25px;
+  display: inline-block;
 }
 
 .fieldDiv {
@@ -96,9 +96,9 @@ BUTTON CLASSES
   text-decoration: none;
 }
 
-.dashButton:hover {
+/* .dashButton:hover {
   background-color: #18181E;
-}
+} */
 
 button {
   background: #18181E;
@@ -111,10 +111,10 @@ button {
   border: 1px solid #DEC79B;
 }
 
-button:hover {
+/* button:hover {
   background-color: #DEC79B;
   color: #18181E;
-}
+} */
 
 button:focus {
   background-color: #e3bb72;
@@ -206,10 +206,10 @@ input {
   margin: 2px;
 }
 
-input:hover {
+/* input:hover {
   background: #DEC79B;
   color: #18181E;
-}
+} */
 
 textarea {
   background: #CCCCCC;
@@ -221,10 +221,10 @@ textarea {
   height: 50px;
 }
 
-textarea:hover {
+/* textarea:hover {
   background: #DEC79B;
   color: #000000;
-}
+} */
 
 /***********************
 SELECT CLASSES
@@ -239,10 +239,10 @@ select {
   height: 30px;
 }
 
-select:hover {
+/* select:hover {
   background: #DEC79B;
   color: #18181E;
-}
+} */
 
 /***********************
 LIST CLASSES
@@ -284,13 +284,13 @@ table {
 }
 
 tr {
-    padding: 5px;
-    border: 1px solid #DEC79B;
-    color: #CCCCCC;
-    background: #666666;
+  padding: 5px;
+  border: 1px solid #DEC79B;
+  color: #CCCCCC;
+  background: #666666;
 }
 
-.head{
+.head {
   background: #CCCCCC;
   text-align: center;
   padding: 5px;
@@ -304,7 +304,7 @@ td {
   color: #18181E;
 }
 
-tr:hover{
+tr:hover {
   background: #DEC79B;
 }
 
@@ -314,6 +314,7 @@ tr:hover{
   padding: 0;
   margin: 0;
 }
+
 .imgsplash {
   max-width: 200px;
   max-height: 200px;
