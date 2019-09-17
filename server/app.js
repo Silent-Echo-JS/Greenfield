@@ -22,9 +22,34 @@ models.sequelize
 
 app.use(express.static(`${__dirname}/../client/dist`));
 
-//* ****************************
+
+// *****************************
+// SAVING PROFILE INFO
+// *****************************
+app.post('/insertUserInfo', (req, res) => {
+  
+  const {
+    operationName, address, city, state, zipcode, phone, email, firebaseId,
+  } = req.body;
+
+  const sqlQuery = `INSERT INTO user (operationName, address, city, state, zipcode, phone, email, firebaseId) 
+  VALUES ('${operationName}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
+
+  models.sequelize.query(sqlQuery, {
+    model: models.User,
+  })
+    .then((records) => {
+      res.send(records);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
+    });
+});
+
+
+// *****************************
 // ACCOUNTS
-//* ****************************
+// *****************************
 app.get('/accounts', (req, res) => {
   const sqlQuery = 'SELECT * FROM Subcategories WHERE type="account"';
 
@@ -55,9 +80,9 @@ app.post('/accounts', (req, res) => {
     });
 });
 
-//* ****************************
+// *****************************
 // DEPOSIT
-//* ****************************
+// *****************************
 app.post('/newDeposit', (req, res) => {
   const {
     account, date, category, notes, amount, checkNumber, created,
@@ -92,9 +117,9 @@ app.get('/recentDeposits', (req, res) => {
     });
 });
 
-//* ****************************
+// *****************************
 // EXPENSES
-//* ****************************
+// *****************************
 app.post('/newExpense', (req, res) => {
   const {
     account, date, category, notes, amount, checkNumber, created,
@@ -128,9 +153,9 @@ app.get('/recentExpenses', (req, res) => {
     });
 });
 
-//* ****************************
+// *****************************
 // CATEGORY
-//* ****************************
+// *****************************
 app.post('/category', (req, res) => {
   const { categoryName, type } = req.body;
 
@@ -161,9 +186,9 @@ app.get('/category', (req, res) => {
     });
 });
 
-//* ****************************
+// *****************************
 // TENANT
-//* ****************************
+// *****************************
 app.post('/newTenant', (req, res) => {
   const {
     firstName, lastName, email,
