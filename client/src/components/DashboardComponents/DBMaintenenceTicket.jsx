@@ -16,8 +16,8 @@ class DBMaintenenceTicket extends Component {
   }
   render() {
     return (
-      <Form className="p-4 bg-light mt-2 mb-2">
-        <h5 className="ml-1">Submit a Maintenence Ticket</h5>
+      <Form className="p-4 mb-4 dashboard-card">
+        <h5 className="ml-1">Submit a Maintenance Ticket</h5>
         <FormGroup row className="mt-2">
           <Col>
             <Input
@@ -44,7 +44,7 @@ class DBMaintenenceTicket extends Component {
           <Col>
             <Input type="select" name="select" size="sm" id="exampleSelect">
               <option selected>Choose a department</option>
-              <option>Maintenence</option>
+              <option>Maintenance</option>
               <option>Groundskeeping</option>
               <option>Pool Maintenence</option>
               <option>Painters</option>
@@ -63,20 +63,10 @@ class DBMaintenenceTicket extends Component {
         <hr />
         <FormGroup row>
           <div>
-            <Button
-              outline
-              size="sm"
-              className="ml-3 float-left"
-              color="primary"
-            >
+            <Button size="sm" className="ml-3 float-left btn-custom">
               Add this ticket
             </Button>{" "}
-            <Button
-              outline
-              size="sm"
-              className="ml-3 float-right"
-              color="primary"
-            >
+            <Button size="sm" className="ml-3 float-right btn-custom">
               See All Open Tickets
             </Button>{" "}
           </div>

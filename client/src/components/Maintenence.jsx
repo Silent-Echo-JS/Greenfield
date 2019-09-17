@@ -17,7 +17,7 @@ const Maintenence = () => {
       <div className="col-10 offset-1 mt-4 mb-2">
         <Row>
           <Col>
-            <h1>Maintenence Tickets</h1>
+            <h1>Maintenance Tickets</h1>
           </Col>
           <Col>
             <Form>
