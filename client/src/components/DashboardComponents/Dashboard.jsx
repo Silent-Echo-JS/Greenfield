@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
+import DBFinancials from "./DBFinancials.jsx";
+import DBMaintenenceTicket from "./DBMaintenenceTicket.jsx";
+import DBCalendar from "./DBCalendar.jsx";
+import DBTenantsTable from "./DBTenantsTable.jsx";
+import DBBoardTable from "./DBBoardTable.jsx";
 
 class Dashboard extends React.Component {
   render() {
@@ -8,14 +13,20 @@ class Dashboard extends React.Component {
       <Container>
         <Row>
           <Col md={{ size: 6 }}>
-            {/* Financials Component 6 col */}
-            {/* Maintenence Ticket Component 6 col */}
+            <DBFinancials />
+            <DBMaintenenceTicket />
           </Col>
-          <Col md={{ size: 6 }}>{/* Calendar Component 6 col */}</Col>
+          <Col md={{ size: 6 }}>
+            <DBCalendar />
+          </Col>
         </Row>
         <Row>
-          <Col>{/* Tenants table 9-col */}</Col>
-          <Col>{/* Board table 3-col */}</Col>
+          <Col md={{ size: 9 }}>
+            <DBTenantsTable />
+          </Col>
+          <Col md={{ size: 3 }}>
+            <DBBoardTable />
+          </Col>
         </Row>
       </Container>
     );
