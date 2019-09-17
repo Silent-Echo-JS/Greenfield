@@ -7,10 +7,7 @@ class DBFinancials extends Component {
   }
   render() {
     return (
-      <div
-        className="bg-light"
-        style="display:inline; height:400px width: 100%"
-      >
+      <div className="bg-success" Style="height:400px width: 100%">
         Financials Component goes here
       </div>
     );
