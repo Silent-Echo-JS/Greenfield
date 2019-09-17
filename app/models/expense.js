@@ -14,7 +14,7 @@ module.exports = function (sequelize, Sequelize) {
       notEmpty: true
     },
     date:{
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
       notEmpty: true
     },
     notes: {
@@ -34,7 +34,7 @@ module.exports = function (sequelize, Sequelize) {
       notEmpty: true
     },
     user: {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
       notEmpty: true
     },
   });
