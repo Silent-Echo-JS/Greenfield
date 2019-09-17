@@ -5,6 +5,25 @@ body {
 /***********************
 DIV CLASSES
 ***********************/
+.dashboard-card {
+  background-color: #c1dad6
+}
+
+.dashboard-card-2 {
+  background-color: #6d929b;
+  color: white
+}
+
+.dashboard-card-3 {
+  background-color: #acd1e9;
+  color: black
+}
+
+
+.btn-custom {
+  background-color: #6d929b
+}
+
 .about {
   text-align: left;
   vertical-align: middle;
@@ -88,19 +107,19 @@ BUTTON CLASSES
   text-align: center;
 }
 
-.dashButton {
+/* .dashButton {
   display: inline;
   padding: 0px 15px 0px 15px;
   text-align: center;
   font-size: 1.25em;
   text-decoration: none;
-}
+} */
 
 /* .dashButton:hover {
   background-color: #18181E;
 } */
 
-button {
+/* button {
   background: #18181E;
   color: #CCCCCC;
   padding: 5px;
@@ -109,7 +128,7 @@ button {
   border-radius: 5px;
   width: 100%;
   border: 1px solid #DEC79B;
-}
+} */
 
 /* button:hover {
   background-color: #DEC79B;
@@ -142,7 +161,6 @@ TEXT CLASSES
 }
 
 h1 {
-  color: #DEC79B;
   display: inline;
   font-family: 'Nova Round', cursive;
 }
@@ -153,19 +171,18 @@ h2 {
   font-family: 'Helvetica', serif;
 }
 
-h3 {
+/* h3 {
   color: #CCCCCC;
   display: inline;
   font-family: 'Helvetica', serif;
-}
+} */
 
-h4 {
+/* h4 {
   color: #18181E;
   display: inline;
-}
+} */
 
 h5 {
-  color: #333333;
   display: inline;
 }
 
@@ -197,21 +214,21 @@ a:active {
 /***********************
 INPUT FIELD CLASSES
 ***********************/
-input {
+/* input {
   background: #CCCCCC;
   color: #000000;
   padding: 5px;
   border-radius: 5px;
   border: none;
   margin: 2px;
-}
+} */
 
 /* input:hover {
   background: #DEC79B;
   color: #18181E;
 } */
 
-textarea {
+/* textarea {
   background: #CCCCCC;
   color: #000000;
   padding: 5px;
@@ -219,7 +236,7 @@ textarea {
   border-radius: 5px;
   width: 250px;
   height: 50px;
-}
+} */
 
 /* textarea:hover {
   background: #DEC79B;
@@ -247,13 +264,13 @@ select {
 /***********************
 LIST CLASSES
 ***********************/
-.listItem {
+/* .listItem {
   display: inline-block;
   vertical-align: middle;
   padding: 5px;
-}
+} */
 
-.listCell {
+/* .listCell {
   display: inline-block;
   vertical-align: middle;
   width: 100%;
@@ -261,12 +278,12 @@ LIST CLASSES
   background: #666666;
   border: 1px solid #DEC79B;
   color: #CCCCCC;
-}
+} */
 
-.listCell:hover {
+/* .listCell:hover {
   box-shadow: 0px 0px 10px #CCCCCC;
-  /* background: #EEEBDC; */
-}
+  background: #EEEBDC;
+} */
 
 li {
   text-align: left;
@@ -278,16 +295,17 @@ li {
   outline-style: none;
 }
 
-table {
-  border: 1px solid #000000;
-  width: 100%;
+th {
+  background-color: #c1dad6
 }
 
+/* table {
+  border: 1px solid #000000;
+  width: 100%;
+} */
+
 tr {
-  padding: 5px;
-  border: 1px solid #DEC79B;
-  color: #CCCCCC;
-  background: #666666;
+  background: white;
 }
 
 .head {
@@ -298,7 +316,7 @@ tr {
   color: #18181E;
 }
 
-td {
+/* td {
   width: auto;
   padding: 5px;
   color: #18181E;
@@ -306,7 +324,7 @@ td {
 
 tr:hover {
   background: #DEC79B;
-}
+} */
 
 .reduced {
   max-width: 50px;

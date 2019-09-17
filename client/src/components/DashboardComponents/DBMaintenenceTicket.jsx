@@ -16,63 +16,61 @@ class DBMaintenenceTicket extends Component {
   }
   render() {
     return (
-      <Form className="p-4 bg-light mt-2 mb-2">
-        <h5>Submit a Maintenence Ticket</h5>
+      <Form className="p-4 mb-4 dashboard-card">
+        <h5 className="ml-1">Submit a Maintenance Ticket</h5>
         <FormGroup row className="mt-2">
-          <Label for="exampleEmail" sm={2}>
-            Title
-          </Label>
-          <Col sm={10}>
+          <Col>
             <Input
               type="text"
               name="issue"
               id="maintenence_issue"
               placeholder="What's the issue?"
+              size="sm"
             />
           </Col>
         </FormGroup>
-
         <FormGroup row>
-          <Label for="exampleText" sm={2}>
-            Text Area
-          </Label>
-          <Col sm={10}>
-            <Input type="textarea" name="text" id="exampleText" placeholder="Please describe the issue that needs to be addressed"/>
+          <Col>
+            <Input
+              type="textarea"
+              name="text"
+              id="exampleText"
+              placeholder="Provide details about the issue"
+              size="sm"
+            />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleSelect" sm={2}>
-            Department
-          </Label>
-          <Col sm={10}>
-            <Input type="select" name="select" id="exampleSelect" />
+          <Col>
+            <Input type="select" name="select" size="sm" id="exampleSelect">
+              <option selected>Choose a department</option>
+              <option>Maintenance</option>
+              <option>Groundskeeping</option>
+              <option>Pool Maintenence</option>
+              <option>Painters</option>
+            </Input>
           </Col>
         </FormGroup>
-
-        
-        <FormGroup tag="fieldset" row>
-          <Col sm={10}>
-            <FormGroup check>
-              <Label check>
-                <Input type="radio" name="radio2" /> Option one is this and
-                that—be sure to include why it's great
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="radio" name="radio2" /> Option two can be something
-                else and selecting it will deselect option one
-              </Label>
-            </FormGroup>
-            <FormGroup check disabled>
-              <Label check>
-                <Input type="radio" name="radio2" disabled /> Option three is
-                disabled
-              </Label>
-            </FormGroup>
+        <FormGroup row>
+          <Col>
+            <Input type="select" name="select" size="sm" id="exampleSelect">
+              <option selected>Assign this task to...</option>
+              <option>Dan Murphy</option>
+              <option>Raphael Khan</option>
+            </Input>
           </Col>
         </FormGroup>
-        
+        <hr />
+        <FormGroup row>
+          <div>
+            <Button size="sm" className="ml-3 float-left btn-custom">
+              Add this ticket
+            </Button>{" "}
+            <Button size="sm" className="ml-3 float-right btn-custom">
+              See All Open Tickets
+            </Button>{" "}
+          </div>
+        </FormGroup>
       </Form>
     );
   }
