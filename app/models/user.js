@@ -5,16 +5,28 @@ module.exports = function (sequelize, Sequelize) {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    firstname: {
+    operationName: {
       type: Sequelize.STRING,
       notEmpty: true,
     },
-    lastname: {
+    address: {
       type: Sequelize.STRING,
       notEmpty: true,
     },
-    username: {
+    city: {
       type: Sequelize.TEXT,
+    },
+    state: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    zipcode: {
+      type: Sequelize.INTEGER(11),
+      allowNull: false,
+    },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
     email: {
       type: Sequelize.STRING,
@@ -22,17 +34,11 @@ module.exports = function (sequelize, Sequelize) {
         isEmail: true,
       },
     },
-    password: {
+    firebaseId: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    last_login: {
-      type: Sequelize.DATE,
-    },
-    status: {
-      type: Sequelize.ENUM('active', 'inactive'),
-      defaultValue: 'active',
-    },
   });
+  // User.sync();
   return User;
 };
