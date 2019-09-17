@@ -12,11 +12,13 @@ class Dashboard extends React.Component {
     return (
       <Container>
         <Row>
-          <Col md={{ size: 6 }}>
+          <Col md={{ size: 12 }}>
             <DBFinancials />
-            <DBMaintenenceTicket />
           </Col>
           <Col md={{ size: 6 }}>
+            <DBMaintenenceTicket />
+          </Col>
+          <Col>
             <DBCalendar />
           </Col>
         </Row>
