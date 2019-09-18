@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import firebase from './firebase';
 import { Row, Col, Button, Form, FormGroup } from 'reactstrap';
 
 
@@ -9,7 +8,7 @@ export default class Profile extends Component {
   constructor(){
     this.state = {
       userInfo: {
-        operationName: "",
+        name: "",
         address: "",
         city: "",
         state: "",
@@ -59,7 +58,7 @@ export default class Profile extends Component {
                   <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="organizationName" name="organizationName" placeholder="Organization Name"
+                        onChange={this.handleChange} type="name" name="name" placeholder="Organization Name"
                       />
                     </FormGroup>
                     <FormGroup>
