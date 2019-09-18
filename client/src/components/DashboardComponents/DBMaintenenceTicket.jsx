@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import StaffSelect from "./StaffSelect.jsx";
 import {
   Col,
   Button,
@@ -10,11 +11,9 @@ import {
 } from "reactstrap";
 
 class DBMaintenenceTicket extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
+    const { staff } = this.props;
+    console.log(staff);
     return (
       <Form className="p-4 mb-4 dashboard-card">
         <h5 className="ml-1">Submit a Maintenance Ticket</h5>
@@ -42,7 +41,7 @@ class DBMaintenenceTicket extends Component {
         </FormGroup>
         <FormGroup row>
           <Col>
-            <Input type="select" name="select" size="sm" id="exampleSelect">
+            <Input type="select" name="select" size="sm">
               <option selected>Choose a department</option>
               <option>Maintenance</option>
               <option>Groundskeeping</option>
@@ -53,11 +52,7 @@ class DBMaintenenceTicket extends Component {
         </FormGroup>
         <FormGroup row>
           <Col>
-            <Input type="select" name="select" size="sm" id="exampleSelect">
-              <option selected>Assign this task to...</option>
-              <option>Dan Murphy</option>
-              <option>Raphael Khan</option>
-            </Input>
+            <StaffSelect staff={staff} />
           </Col>
         </FormGroup>
         <hr />

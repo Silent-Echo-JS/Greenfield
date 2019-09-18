@@ -8,16 +8,16 @@ import DBTenantsTable from "./DBTenantsTable.jsx";
 import DBBoardTable from "./DBBoardTable.jsx";
 
 class Dashboard extends React.Component {
-
   componentDidMount() {
     // check localStorage for firebase id
     // if it doesn't exist (meaning the user is not logged in), redirect to the login page
-    if (!localStorage.getItem('uid')) {
-      return this.props.history.push('/login');
+    if (!localStorage.getItem("uid")) {
+      return this.props.history.push("/login");
     }
   }
-  
+
   render() {
+    const { staff } = this.props;
     return (
       <Container>
         <Row>
@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
             <DBFinancials />
           </Col>
           <Col md={{ size: 6 }}>
-            <DBMaintenenceTicket />
+            <DBMaintenenceTicket staff={staff} />
           </Col>
           <Col>
             <DBCalendar />
