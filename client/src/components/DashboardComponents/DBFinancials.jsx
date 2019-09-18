@@ -38,10 +38,10 @@ class DBFinancials extends Component {
               <hr />
               <Col>
                 <div className="align-middle">
-                  <Button size="sm" block>
+                  <Button className="btn-custom" size="sm" block>
                     Record a deposit
                   </Button>
-                  <Button size="sm" block>
+                  <Button className="btn-custom" size="sm" block>
                     Record an expense
                   </Button>
                 </div>

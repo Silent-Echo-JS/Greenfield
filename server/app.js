@@ -7,9 +7,15 @@ const models = require('../app/models');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
 
 // models.sequelize
 //   .sync()
@@ -20,7 +26,7 @@ app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 //     console.log(err, 'Something went wrong with the Database Update!');
 //   });
 
-// app.use(express.static(`${__dirname}/../client/dist`));
+app.use(express.static(`${__dirname}/../client/dist`));
 
 // //* ****************************
 // // ACCOUNTS

@@ -186,10 +186,10 @@ h5 {
   display: inline;
 }
 
-p {
+/* p {
   color: #CCCCCC;
   display: inline;
-}
+} */
 
 a:link {
   color: #18181E;
@@ -296,7 +296,8 @@ li {
 }
 
 th {
-  background-color: #c1dad6
+  background-color: #6d929b;
+  color: white
 }
 
 /* table {
