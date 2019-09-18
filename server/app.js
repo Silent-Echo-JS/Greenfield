@@ -52,10 +52,10 @@ app.post('/insertUserInfo', (req, res) => {
       return models.sequelize.query(sqlQuery, {
         model: models.Hoa,
       })
-        .then((userInfo) => res.send({ hoaInfoWasSaved: true }))
+        .then((userInfo) => res.send({ updated: true }))
         .catch((err) => {
           console.error('ERROR: Info was not saved.', err);
-          res.status(500).send({ hoaInfoWasSaved: false });
+          res.status(500).send({ updated: false });
         });
 
     });

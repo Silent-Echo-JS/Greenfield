@@ -31,14 +31,15 @@ export default class Profile extends Component {
     event.preventDefault();
     axios.post(`/insertUserInfo`, { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
       .then((res) => {
-        if (res.data.hoaInfoWasSaved) {
+        console.log('SHOW YOURSELF HOA FORM SUBMIT DATA', res.data);
+        if (res.data.updated) {
           this.props.history.push('/');
         } else {
-          alert('Unable to save your HOA info');
+          alert('Unable to save HOA info');
         }
       })
       .catch((err) => {
-        alert('Unable to save your HOA info');
+        alert('Unable to update HOA info');
       })
 
   }
