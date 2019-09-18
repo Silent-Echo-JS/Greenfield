@@ -164,7 +164,7 @@ const BoardMembers = sequelize.define('boardMembers', {
   position: {
     type: Sequelize.STRING,
     allowNull: true,
-  }
+  },
 }, {
   freezeTableName: true,
   timeStamps: false,
@@ -202,7 +202,6 @@ const Expenses = sequelize.define('expenses', {
   payType: {
     type: Sequelize.ENUM('Utilities', 'Insurance', 'Maintenance', 'Custodial', 'Interest', 'Fees', 'Taxes', 'Reserve Expense'),
     allowNull: true,
-    values: ['credit', 'check', 'cash'],
   },
   amount: {
     type: Sequelize.DECIMAL,
@@ -250,7 +249,6 @@ const Revenues = sequelize.define('revenues', {
   payType: {
     type: Sequelize.ENUM('Dues', 'Interest Income'),
     allowNull: true,
-    values: ['credit', 'check', 'cash'],
   },
   amountPaid: {
     type: Sequelize.DECIMAL,
@@ -285,7 +283,6 @@ const Staff = sequelize.define('staff', {
   department: {
     type: Sequelize.ENUM('Groundskeeping', 'Pool', 'Painting', 'Plumber', 'Electrician', 'Administrative Assistant', 'General Contractor'),
     allowNull: true,
-    values: ['maintenance', '', ''],
   },
   firstName: {
     type: Sequelize.STRING,
@@ -310,7 +307,7 @@ const Staff = sequelize.define('staff', {
   createdAt: {
     type: Sequelize.DATE,
     allowNull: true,
-  }
+  },
 }, {
   freezeTableName: true,
   timeStamps: false,
@@ -347,7 +344,7 @@ const WorkTickets = sequelize.define('workTickets', {
     references: {
       model: Staff,
       key: 'id',
-    }
+    },
   },
   isOpen: {
     type: Sequelize.TINYINT(1),
@@ -362,6 +359,146 @@ const WorkTickets = sequelize.define('workTickets', {
   timeStamps: false,
 });
 
+// make a YTD revenue table
+const RevenueYTD = sequelize.define('revenueYTD', {
+  id: {
+    type: Sequelize.INTEGER(11),
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  hoaId: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false,
+    foreignKey: true,
+    references: {
+      model: Hoa,
+      key: 'id',
+    },
+  },
+  totalYTD: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  jan: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  feb: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  mar: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  apr: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  may: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  jun: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  jul: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  aug: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  sep: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  oct: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  nov: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  dec: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+});
+
+// make a YTD expense table
+const ExpenseYTD = sequelize.define('expenseYTD', {
+  id: {
+    type: Sequelize.INTEGER(11),
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  hoaId: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false,
+    foreignKey: true,
+    references: {
+      model: Hoa,
+      key: 'id',
+    },
+  },
+  totalYTD: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  jan: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  feb: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  mar: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  apr: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  may: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  jun: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  jul: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  aug: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  sep: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  oct: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  nov: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+  dec: {
+    type: Sequelize.DECIMAL,
+    allowNull: true,
+  },
+});
+
 // sync all of the models
 Hoa.sync();
 Homeowners.sync();
@@ -370,6 +507,8 @@ Revenues.sync();
 Expenses.sync();
 Staff.sync();
 WorkTickets.sync();
+RevenueYTD.sync();
+ExpenseYTD.sync();
 
 
 // export all of the models
@@ -381,4 +520,5 @@ module.exports.Revenues = Revenues;
 module.exports.Expenses = Expenses;
 module.exports.Staff = Staff;
 module.exports.WorkTickets = WorkTickets;
-module.exports.sequelize = sequelize;
+module.exports.RevenueYTD = RevenueYTD;
+module.exports.ExpenseYTD = ExpenseYTD;
