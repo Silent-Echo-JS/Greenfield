@@ -171,20 +171,6 @@ const BoardMembers = sequelize.define('boardMembers', {
   timeStamps: false,
 });
 
-// favRecipes.belongsToMany(Users, {
-//   through: 'users_recipes',
-//   foreignKey: 'recipeId',
-//   onDelete: 'cascade',
-//   hooks: true,
-// });
-
-// Users.belongsToMany(favRecipes, {
-//   through: 'users_recipes',
-//   foreignKey: 'userId',
-//   onDelete: 'cascade',
-//   hooks: true,
-// });
-
 // make an expenses table
 const Expenses = sequelize.define('expenses', {
   id: {
@@ -197,7 +183,7 @@ const Expenses = sequelize.define('expenses', {
     allowNull: false,
     foreignKey: true,
     references: {
-      model: homeowners,
+      model: Homeowners,
       key: 'id',
     },
   },
@@ -206,7 +192,7 @@ const Expenses = sequelize.define('expenses', {
     allowNull: false,
     foreignKey: true,
     references: {
-      model: hoa,
+      model: Hoa,
       key: 'id',
     },
   },
@@ -243,7 +229,7 @@ const Revenues = sequelize.define('revenues', {
     allowNull: false,
     foreignKey: true,
     references: {
-      model: hoa,
+      model: Hoa,
       key: 'id',
     },
   },
@@ -252,7 +238,7 @@ const Revenues = sequelize.define('revenues', {
     allowNull: false,
     foreignKey: true,
     references: {
-      model: homeowners,
+      model: Homeowners,
       key: 'id',
     },
   },
@@ -291,7 +277,7 @@ const Staff = sequelize.define('staff', {
     allowNull: false,
     foreignKey: true,
     references: {
-      model: hoa,
+      model: Hoa,
       key: 'id',
     },
   },
@@ -336,7 +322,7 @@ const WorkTickets = sequelize.define('workTickets', {
     allowNull: false,
     foreignKey: true,
     references: {
-      model: hoa,
+      model: Hoa,
       key: 'id',
     },
   },
@@ -353,7 +339,7 @@ const WorkTickets = sequelize.define('workTickets', {
     allowNull: true,
     foreignKey: true,
     references: {
-      model: staff,
+      model: Staff,
       key: 'id',
     }
   },
