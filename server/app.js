@@ -60,7 +60,25 @@ app.get('/api/viewExpenses', (req, res) => {
 
 // Add a Homeowner
 app.post('/api/addHomeOwner', (req, res) => {
-
+  models.Homeowners.create({
+    hoaId: req.body.hoaId,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    monthlyDues: req.body.monthlyDues,
+    email: req.body.email,
+    phone: req.body.phone,
+  })
+    .then(() => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // Delete a Homeowner
