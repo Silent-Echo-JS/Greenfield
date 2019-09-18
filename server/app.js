@@ -31,7 +31,7 @@ app.post('/api/addDeposit', (req, res) => {
 });
 
 // View All Deposits/Revenue
-app.get('/api/viewRevenues' (req, res) => {
+app.get('/api/viewRevenues', (req, res) => {
 
 
 });
@@ -48,7 +48,7 @@ app.post('/api/addExpense', (req, res) => {
 });
 
 // View Expenses
-app.get('/api/viewExpenses' (req, res) => {
+app.get('/api/viewExpenses', (req, res) => {
 
 
 });
