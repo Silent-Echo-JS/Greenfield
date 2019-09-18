@@ -4,3 +4,4 @@ client/dist/bundle.js
 config.json
 firebase.js
 .env
+credentials.json

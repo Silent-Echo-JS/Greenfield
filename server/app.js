@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const models = require('../app/models/db');
+const models = require('../app/models/db.js');
 
 const app = express();
 
@@ -149,14 +149,32 @@ app.get('/api/viewHomeowners', (req, res) => {
 
 // Add a Staff Person
 app.post('/api/addStaff', (req, res) => {
-
-
+  models.Staff.create({
+    hoaId: req.body.hoaId,
+    department: req.body.department,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    phone: req.body.phone,
+    email: req.body.email,
+  })
+    .then(() => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
-// View Staff
-app.get('/api/viewStaff', (req, res) => {
-
-
+// Get ALL Staff
+app.get('/api/getStaff', (req, res) => {
+  models.Staff.findAll()
+    .then((staff) => {
+      res.send(staff);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //* ****************************
@@ -164,13 +182,23 @@ app.get('/api/viewStaff', (req, res) => {
 //* ****************************
 
 // Add a Work Ticket
-app.post('api/addTicket', (req, res) => {
-
-
+app.post('/api/addTicket', (req, res) => {
+  models.WorkTickets.create({
+    hoaId: req.body.hoaId,
+    title: req.body.title,
+    description: req.body.description,
+    assignedTo: req.body.assignedTo,
+  })
+    .then(() => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
-// View Open Tickets
-app.get('api/viewOpenTickets', (req, res) => {
+// Get Open Tickets
+app.get('api/getOpenTickets', (req, res) => {
 
 
 });
@@ -211,5 +239,5 @@ app.get('*', (req, res) => {
 
 const port = process.env.port || 3000;
 app.listen(port, () => {
-  console.log(`server listening on port ${port}`);
+  console.log(`you servin on port ${port}`);
 });
