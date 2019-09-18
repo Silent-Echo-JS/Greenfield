@@ -8,7 +8,9 @@ export default class Login extends Component {
   handleClick() {
     firebase.loginWithGoogle()
       .then((data) => {
+        console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1');
         const firebaseId = data.user.uid;
+        console.log('--------------------------fireBasedID', firebaseId);
         localStorage.setItem('uid', firebaseId)
         axios.get(`/checkForUser/${firebaseId}`)
           .then((res) => {
@@ -20,7 +22,7 @@ export default class Login extends Component {
             }
           }).catch(err => {
             console.error('Error checking user status', err);
-            alert('Unable to Login User');
+            // alert('Unable to Login User');
           });
       })
       .catch((err) => {

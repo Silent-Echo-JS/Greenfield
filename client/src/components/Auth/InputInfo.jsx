@@ -29,7 +29,7 @@ export default class Profile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.post(`/insertUserInfo`, { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
+    axios.post('/saveHoaInfo', { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
       .then((res) => {
         console.log('SHOW YOURSELF HOA FORM SUBMIT DATA', res.data);
         if (res.data.updated) {

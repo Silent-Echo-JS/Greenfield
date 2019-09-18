@@ -22,11 +22,11 @@ app.use(session({
 app.use(express.static(`${__dirname}/../client/dist`));
 
 
-// *****************************
-// SAVING PROFILE INFO
-// *****************************
+//* ****************************
+// HOA
+//* ****************************
 
-app.post('/insertUserInfo', (req, res) => {
+app.post('/saveHoaInfo', (req, res) => {
   const {
     name, address, city, state, zipcode, phone, email, firebaseId,
   } = req.body;
@@ -199,22 +199,6 @@ app.post('/api/addBoardMember', (req, res) => {
 
 // Delete a Board Member
 app.post('/api/deleteBoardMember', (req, res) => {
-
-
-});
-
-//* ****************************
-// HOA
-//* ****************************
-
-// Create a HOA
-app.post('api/signUp', (req, res) => {
-
-
-});
-
-// Login to HOA
-app.get('api/login', (req, res) => {
 
 
 });
