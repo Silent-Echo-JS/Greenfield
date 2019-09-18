@@ -135,7 +135,7 @@ BUTTON CLASSES
   color: #18181E;
 } */
 
-button:focus {
+/* button:focus {
   background-color: #e3bb72;
   color: #18181E;
 }
@@ -143,7 +143,7 @@ button:focus {
 button:disabled {
   background-color: #5c5c5c;
   color: #CCCCCC;
-}
+} */
 
 /***********************
 TEXT CLASSES
@@ -192,16 +192,16 @@ h5 {
 } */
 
 a:link {
-  color: #18181E;
+  color: #000000;
   text-decoration: none;
 }
 
-a:visited {
+/* a:visited {
   color: #18181E;
   text-decoration: none;
-}
+} */
 
-a:hover {
+/* a:hover {
   color: #DEC79B;
   text-decoration: none;
 }
@@ -209,7 +209,7 @@ a:hover {
 a:active {
   color: #18181E;
   text-decoration: none;
-}
+} */
 
 /***********************
 INPUT FIELD CLASSES

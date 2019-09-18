@@ -24,7 +24,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <Dashboard />
+      <>
+        <Navbar />
+        <Dashboard />
+      </>
       // <HashRouter>
       //   <Security
       //     issuer="https://dev-785992.okta.com/oauth2/default"
