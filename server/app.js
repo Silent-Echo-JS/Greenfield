@@ -138,21 +138,45 @@ app.post('/api/addTicket', (req, res) => {
 });
 
 // Get Open Tickets
-app.get('api/getOpenTickets', (req, res) => {
-
-
+app.get('/api/getOpenTickets', (req, res) => {
+  models.WorkTickets.findAll({
+    isOpen: 1,
+  })
+    .then((openTickets) => {
+      res.send(openTickets);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
-// View All Tickets
-app.get('api/viewAllTickets', (req, res) => {
-
-
+// Get All Tickets
+app.get('/api/getAllTickets', (req, res) => {
+  models.WorkTickets.findAll()
+    .then((allTickets) => {
+      res.send(allTickets);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // Close a Work Ticket
-app.post('api/closeWorkTicket', (req, res) => {
-
-
+app.post('/api/closeWorkTicket', (req, res) => {
+  models.WorkTickets.update({
+    isOpen: 0,
+    dateCompleted: models.sequelize.literal('CURRENT_TIMESTAMP'),
+  }, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //* ****************************

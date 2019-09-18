@@ -371,6 +371,7 @@ WorkTickets.sync();
 
 
 // export all of the models
+module.exports.sequelize = sequelize;
 module.exports.Hoa = Hoa;
 module.exports.Homeowners = Homeowners;
 module.exports.BoardMembers = BoardMembers;
