@@ -2,6 +2,7 @@ node_modules
 package-lock.json
 client/dist/bundle.js
 config.json
-firebase.js
+client/src/components/Auth/firebase.js
 .env
 credentials.json
+
