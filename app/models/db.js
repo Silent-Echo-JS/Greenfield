@@ -202,6 +202,7 @@ const Expenses = sequelize.define('expenses', {
   },
   payType: {
     type: Sequelize.ENUM,
+    values: ['Utilities','Insurance','Maintenance','Custodial','Interest','Fees','Taxes','Reserve Expense'],
     allowNull: true,
   },
   amount: {
@@ -249,6 +250,7 @@ const Revenues = sequelize.define('revenues', {
   },
   payType: {
     type: Sequelize.ENUM,
+    values: ['Dues','Interest Income']
     allowNull: true,
   },
   amountPaid: {
@@ -283,6 +285,7 @@ const Staff = sequelize.define('staff', {
   },
   department: {
     type: Sequelize.ENUM,
+    value: ['Groundskeeping','Pool','Painting','Plumber','Electrician','Administrative Assistant','General Contractor'],
     allowNull: true,
   },
   firstName: {
