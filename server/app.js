@@ -83,8 +83,18 @@ app.post('/api/addHomeOwner', (req, res) => {
 
 // Delete a Homeowner
 
-app.post('/api/removeHomeowner', (req, res) => {
-
+app.delete('/api/removeHomeowner', (req, res) => {
+  models.Homeowners.destroy({
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send(204)
+    })
+    .catch((error) => {
+      console.error(error);
+    })
 
 });
 
