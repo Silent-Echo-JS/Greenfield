@@ -9,16 +9,16 @@ class Deposit extends React.Component {
     super(props);
 
     this.state = {
-      account: null,
-      date: null,
+      account: '',
+      date: '',
       created: new Date(),
-      category: null,
+      category: '',
       checkNumber: '0000',
       amount: 0,
-      notes: null,
-      accounts: { data: [' '] },
-      categories: { data: [' ']},
-      recentDeposits: { data: [' ']}
+      notes: '',
+      accounts: { data: [] },
+      categories: { data: []},
+      recentDeposits: { data: []}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,6 +37,11 @@ class Deposit extends React.Component {
   }
 
   componentDidMount(){
+    // check localStorage for firebase id
+    // if it doesn't exist (meaning the user is not logged in), redirect to the login page
+    if (!localStorage.getItem('uid')) {
+      return this.props.history.push('/login');
+    }
     this.getAccounts();
     this.getCategories();
     this.getRecentDeposits();
@@ -72,7 +77,7 @@ class Deposit extends React.Component {
   getAccounts() {
     axios.get('/accounts')
       .then((accountNames) => {
-        console.log('accounts retrieved.')
+        console.log('accounts retrieved.', accountNames)
         this.setState({ accounts: accountNames });
         this.setState({ account: accountNames.data[0].name });
       })
@@ -151,16 +156,18 @@ class Deposit extends React.Component {
 
     return (
       <center>
+        <h1>Deposit Page</h1>
+        {/*
         <div className='subHead'><h1>Deposit</h1></div>
 
         <div className="fieldDiv">
           <center><h2>New Deposit</h2></center>
 
-          <div class='subDiv'>
+          <div className='subDiv'>
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
-            {accounts.data.map(accountOption => {
-              return <Option optionName={accountOption.name} id={accountOption.id} />
+            {accounts.data.map((accountOption, i) => {
+              return <Option key={i} optionName={accountOption.name} id={accountOption.id} />
             })}
           </select><br />
           <button id="addAccount" type="submit" onClick={this.addNewAccount}>Add New Account</button>
@@ -172,8 +179,8 @@ class Deposit extends React.Component {
 
           <h4>Category:</h4><br />
           <select id="category" onChange={this.handleChange} value={category}>
-            {categories.data.map(categoryOption => {
-              return <Option optionName={categoryOption.name} />
+            {categories.data.map((categoryOption, i) => {
+              return <Option key={i} optionName={categoryOption.name} />
             })}
           </select><br />
           <button id="addCategory" type="submit" onClick={this.addNewCategory}>Add New Category</button>
@@ -199,12 +206,13 @@ class Deposit extends React.Component {
         <center>
           <h2>Recent Deposits</h2>
             <ul>
-            {recentDeposits.data.map(deposit => {
-              return <ListDeposits method={deposit} id={deposit.id} />
+            {recentDeposits.data.map((deposit, i) => {
+              return <ListDeposits key={i} method={deposit} id={deposit.id} />
             })}
           </ul>
         </center>
       </div>
+      */}
       </center>
     );
   }

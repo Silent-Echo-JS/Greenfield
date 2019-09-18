@@ -1,4 +1,3 @@
-
 const Sequelize = require('sequelize');
 
 const {
@@ -8,6 +7,7 @@ const {
   HOST,
   DB_PORT,
 } = process.env;
+
 const sequelize = new Sequelize(DATABASE, USER_NAME, USER_PASSWORD, {
   host: HOST,
   port: DB_PORT,
@@ -22,7 +22,6 @@ sequelize.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
-
 
 // make a HOA table
 const Hoa = sequelize.define('hoa', {
@@ -165,7 +164,7 @@ const BoardMembers = sequelize.define('boardMembers', {
   position: {
     type: Sequelize.STRING,
     allowNull: true,
-  }
+  },
 }, {
   freezeTableName: true,
   timeStamps: false,
@@ -308,7 +307,7 @@ const Staff = sequelize.define('staff', {
   createdAt: {
     type: Sequelize.DATE,
     allowNull: true,
-  }
+  },
 }, {
   freezeTableName: true,
   timeStamps: false,
