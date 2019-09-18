@@ -8,28 +8,31 @@ export default class Login extends Component {
   handleClick() {
     firebase.loginWithGoogle()
       .then((data) => {
-        console.log("====data", data)
-        axios.get(`/checkForUser/${data.user.uid}`)
+        const firebaseId = data.user.uid;
+        localStorage.setItem('uid', firebaseId)
+        axios.get(`/checkForUser/${firebaseId}`)
           .then((res) => {
+            console.log("========data", res);
             if (res.data.registered) {
-              this.props.history.push('/')
+              this.props.history.push('/');
             } else {
-              this.props.history.push(`/auth/${data.user.uid}`)
+              this.props.history.push('/InputInfo');
             }
-          })
-
+          }).catch(err => {
+            console.error('Error checking user status', err);
+            alert('Unable to Login User');
+          });
       })
-      .catch((error) => {
-        console.log("=======error", error)
-      })
-
+      .catch((err) => {
+        console.error("=======error", err)
+      });
   }
 
   render() {
     return (
       <div>
         <h1>Login</h1>
-        <button onClick={this.handleClick}>Login with Google</button>
+        <button onClick={this.handleClick.bind(this)}>Login with Google</button>
       </div>
     )
   };

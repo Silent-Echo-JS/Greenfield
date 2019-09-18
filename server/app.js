@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const models = require('../app/models/db');
@@ -8,7 +9,7 @@ const models = require('../app/models/db');
 const app = express();
 
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(bodyParser.json());
 app.use(session({
@@ -17,6 +18,7 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+// serve static files
 app.use(express.static(`${__dirname}/../client/dist`));
 
 
@@ -29,17 +31,20 @@ app.post('/insertUserInfo', (req, res) => {
     name, address, city, state, zipcode, phone, email, firebaseId,
   } = req.body;
 
+  console.log('req bodyuyyy', req.body);
+
   // when a user signs in, query the database for the user's firebaseId
   // if the firebaseId already exists (meaning the user has already exists), return their info
   // else, insert the new user's data into the table
-  const sqlQuery1 = `SELECT * FROM hoa WHERE firebaseId=${firebaseId}`;
+  const sqlQuery1 = `SELECT * FROM hoa WHERE firebaseId='${firebaseId}'`;
 
   models.sequelize.query(sqlQuery1, {
     model: models.Hoa,
   })
-    .then((currentUserInfo) => {
-      if (currentUserInfo) {
-        return res.send(currentUserInfo);
+    .then(currentUserInfo => {
+      console.log('uuyyyy', currentUserInfo.length);
+      if (currentUserInfo.length) {
+        return res.send(currentUserInfo[0]);
       }
       const sqlQuery = `INSERT INTO hoa (name, address, city, state, zipcode, phone, email, firebaseId) 
         VALUES ('${name}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
@@ -47,26 +52,30 @@ app.post('/insertUserInfo', (req, res) => {
       return models.sequelize.query(sqlQuery, {
         model: models.Hoa,
       })
-        .then((userInfo) => res.send(userInfo))
+        .then((userInfo) => res.send({ hoaInfoWasSaved: true }))
         .catch((err) => {
-          console.error(err, 'ERROR: Info was not saved.');
+          console.error('ERROR: Info was not saved.', err);
+          res.status(500).send({ hoaInfoWasSaved: false });
         });
+
     });
 });
 
 app.get('/checkForUser/:firebaseId', (req, res) => {
-  const sqlQuery = `SELECT * FROM users WHERE firebaseId=${req.params.firebaseId}`;
-  console.log("======request", req.params);
-  return models.sequelize.query(
+  const sqlQuery = `SELECT * FROM hoa WHERE firebaseId='${req.params.firebaseId}'`;
+  models.sequelize.query(
     sqlQuery,
     {
       model: models.Hoa,
     },
-  ).then((records) => res.send({
-    registered: !!records.length,
-  }))
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
+  ).then((records) => {
+    console.log('yyyyyyyyyyy', records);
+    res.send({
+      registered: !!records.length,
+    });
+  })
+    .catch((err) => {
+      console.error(err, 'ERROR: CANNOT SELECT ACCOUNTS.');
     });
 });
 
@@ -82,7 +91,7 @@ app.post('/api/addDeposit', (req, res) => {
 });
 
 // View All Deposits/Revenue
-app.get('/api/viewRevenues' (req, res) => {
+app.get('/api/viewRevenues', (req, res) => {
 
 
 });
@@ -99,7 +108,7 @@ app.post('/api/addExpense', (req, res) => {
 });
 
 // View Expenses
-app.get('/api/viewExpenses' (req, res) => {
+app.get('/api/viewExpenses', (req, res) => {
 
 
 });
@@ -208,6 +217,11 @@ app.post('api/signUp', (req, res) => {
 app.get('api/login', (req, res) => {
 
 
+});
+
+// force requests to client files
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/../client/dist/index.html`));
 });
 
 

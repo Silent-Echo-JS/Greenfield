@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import { Row, Col, Button, Form, FormGroup } from 'reactstrap';
+import { Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
 
 
 export default class Profile extends Component {
-
-  constructor(){
+  constructor() {
+    super();
     this.state = {
       userInfo: {
         name: "",
+        email: '',
         address: "",
         city: "",
         state: "",
@@ -26,22 +27,26 @@ export default class Profile extends Component {
   }
 
 
-  handleClick() {
-    axios.post(`/insertUserInfo`, {...this.state})
-    .then((res)=> {
-      
-    })
-    .catch((err)=> {
-
-    })
+  handleSubmit(event) {
+    event.preventDefault();
+    axios.post(`/insertUserInfo`, { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
+      .then((res) => {
+        if (res.data.hoaInfoWasSaved) {
+          this.props.history.push('/');
+        } else {
+          alert('Unable to save your HOA info');
+        }
+      })
+      .catch((err) => {
+        alert('Unable to save your HOA info');
+      })
 
   }
 
   render() {
     console.log('========props', this.props)
-      return (
+    return (
       <Fragment>
-        <NavBar />
         <div className="bg pt-5">
           <Row className="mt-5">
             <Col
@@ -55,42 +60,46 @@ export default class Profile extends Component {
               </div>
               <div className="profile-body pt-3">
                 <div className="profile-form">
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit.bind(this)}>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="name" name="name" placeholder="Organization Name"
+                        onChange={this.handleChange.bind(this)} type="name" name="name" placeholder="Organization Name"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="address" name="address" placeholder="Address"
+                        onChange={this.handleChange.bind(this)} type="email" name="email" placeholder="Organization Email"
+                      />
+                    </FormGroup>                    
+                    <FormGroup>
+                      <Input
+                        onChange={this.handleChange.bind(this)} type="address" name="address" placeholder="Address"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="city" name="city" placeholder="City"
+                        onChange={this.handleChange.bind(this)} type="city" name="city" placeholder="City"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="state" name="state" placeholder="State"
+                        onChange={this.handleChange.bind(this)} type="state" name="state" placeholder="State"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="zipcode" name="zipcode" placeholder="Zipcode"
+                        onChange={this.handleChange.bind(this)} type="zipcode" name="zipcode" placeholder="Zipcode"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange} type="phone" name="phone" placeholder="Phone Number"
+                        onChange={this.handleChange.bind(this)} type="phone" name="phone" placeholder="Phone Number"
                       />
                     </FormGroup>
 
                     <Row>
                       <Col className="col-12">
                         <Button
-                          onClick={this.handleClick}
                           type="submit"
                           id="login-button"
                           className="float-right mr-3 mb-3 sm-12"
