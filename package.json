@@ -1,7 +1,7 @@
 {
   "name": "greenfield",
   "scripts": {
-    "start": "node --ignore client server/app.js",
+    "start": "node server/app.js",
     "build:client-dev": "webpack --config webpack.config.js --mode development --watch",
     "build:client-prod": "webpack --config webpack.config.js --mode production"
   },
@@ -21,6 +21,9 @@
     "webpack-cli": "3.3.6"
   },
   "dependencies": {
+    "@babel/parser": "^7.6.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-for-of": "^7.4.4",
     "@okta/okta-auth-js": "^2.8.0",
     "@okta/okta-react": "^1.2.3",
     "@okta/okta-signin-widget": "^3.2.1",
@@ -34,7 +37,7 @@
     "express-handlebars": "^3.1.0",
     "express-partials": "^0.3.0",
     "express-session": "^1.16.2",
-    "firebase": "^6.10.0",
+    "firebase": "^6.6.1",
     "googleapis": "^39.2.0",
     "html-webpack-plugin": "^3.2.0",
     "moment": "^2.24.0",
