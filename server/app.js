@@ -26,8 +26,19 @@ app.use(express.static(`${__dirname}/../client/dist`));
 
 // Add a Deposit
 app.post('/api/addDeposit', (req, res) => {
-
-
+  models.Revenues.create({
+    hoaId: req.body.hoaId,
+    accountId: req.body.accountId,
+    date: models.sequelize.literal('CURRENT_TIMESTAMP'),
+    amountPaid: req.body.amountPaid,
+    description: req.body.description,
+  })
+    .then((deposit) => {
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // View All Deposits/Revenue
