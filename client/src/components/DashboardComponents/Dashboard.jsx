@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { staff } = this.props;
+    const { staff, homeowners } = this.props;
     return (
       <Container>
         <Row>
@@ -33,7 +33,7 @@ class Dashboard extends React.Component {
         </Row>
         <Row>
           <Col md={{ size: 9 }}>
-            <DBTenantsTable />
+            <DBTenantsTable homeowners={homeowners} />
           </Col>
           <Col md={{ size: 3 }}>
             <DBBoardTable />

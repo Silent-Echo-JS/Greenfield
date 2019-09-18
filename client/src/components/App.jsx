@@ -21,12 +21,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      staff: []
+      staff: [],
+      departments: [],
+      homeowners: []
     };
   }
 
   componentDidMount() {
     this.getAllStaff();
+    this.getAllMembers();
   }
 
   getAllStaff() {
@@ -37,15 +40,25 @@ class App extends React.Component {
     );
   }
 
+  getAllMembers() {
+    return Axios.get("/api/getHomeowners").then(homeowners =>
+      this.setState({
+        homeowners: homeowners.data
+      })
+    );
+  }
+
   render() {
-    const { staff } = this.state;
+    const { staff, homeowners } = this.state;
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
         <Navbar />
         <Route
           path="/"
-          render={props => <Dashboard {...props} staff={staff} />}
+          render={props => (
+            <Dashboard {...props} staff={staff} homeowners={homeowners} />
+          )}
         />
         <Route path="/login" component={Login} />
         <Route path="/InputInfo" component={InputInfo} />
