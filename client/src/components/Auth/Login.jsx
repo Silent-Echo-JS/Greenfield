@@ -1,54 +1,41 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import OktaSignInWidget from './OktaSignInWidget.jsx';
-import { withAuth } from '@okta/okta-react';
+import axios from 'axios';
+import firebase from './firebase';
 
-export default withAuth(class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
-    this.state = {
-      authenticated: null
-    };
-    this.checkAuthentication();
-  }
+export default class Login extends Component {
 
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
-    }
-  }
 
-  componentDidUpdate() {
-    this.checkAuthentication();
-  }
-
-  onSuccess(res) {
-    if (res.status === 'SUCCESS') {
-      return this.props.auth.redirect({
-        sessionToken: res.session.token
+  handleClick() {
+    firebase.loginWithGoogle()
+      .then((data) => {
+        console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1');
+        const firebaseId = data.user.uid;
+        console.log('--------------------------fireBasedID', firebaseId);
+        localStorage.setItem('uid', firebaseId)
+        axios.get(`/checkForUser/${firebaseId}`)
+          .then((res) => {
+            console.log("========data", res);
+            if (res.data.registered) {
+              this.props.history.push('/');
+            } else {
+              this.props.history.push('/InputInfo');
+            }
+          }).catch(err => {
+            console.error('Error checking user status', err);
+            // alert('Unable to Login User');
+          });
+      })
+      .catch((err) => {
+        console.error("=======error", err)
       });
-    } else {
-      // The user can be in another authentication state that requires further action.
-      // For more information about these states, see:
-      //   https://github.com/okta/okta-signin-widget#rendereloptions-success-error
-    }
-  }
-
-  onError(err) {
-    console.log('error logging in', err);
   }
 
   render() {
-    if (this.state.authenticated === null) return null;
-    return this.state.authenticated ?
-      <Redirect to={{
-        pathname: '/' }} /> :
-      <OktaSignInWidget
-        baseUrl={this.props.baseUrl}
-        onSuccess={this.onSuccess}
-        onError={this.onError} />;
-  }
-});
+    return (
+      <div>
+        <h1>Login</h1>
+        <button onClick={this.handleClick.bind(this)}>Login with Google</button>
+      </div>
+    )
+  };
+}

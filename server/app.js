@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const models = require('../app/models/db.js');
@@ -17,7 +18,72 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+// serve static files
 app.use(express.static(`${__dirname}/../client/dist`));
+
+
+//* ****************************
+// HOA
+//* ****************************
+
+// when a user attemps to login, this endpoint will be hit (see handleClick function in Login.jsx):
+app.get('/checkForUser/:firebaseId', (req, res) => {
+  // query the database for the user with the attached firebaseId
+  const sqlQuery = `SELECT * FROM hoa WHERE firebaseId='${req.params.firebaseId}'`;
+  models.sequelize.query(
+    sqlQuery,
+    {
+      model: models.Hoa,
+    },
+  ).then((hoaInfoFromDb) => {
+    // hoaInfoFromDb is an array of the user's info from the database
+    console.log('yyyyyyyyyyy', hoaInfoFromDb);
+    res.send({
+      // send back an object with regisetered equal to true or false:
+      /* registered will be false if an empty array is returned (this means this is the first time
+         the user signed-in so the firebaseId wasn't saved in the db yet) */
+      registered: !!hoaInfoFromDb.length,
+    });
+  })
+    .catch((err) => {
+      console.error(err, 'ERROR: CANNOT SELECT ACCOUNTS.');
+    });
+});
+
+// this endpoint is hit when a new user sumbits the HoaInfo form (see handleSubmit in InputInfo.jsx)
+app.post('/saveHoaInfo', (req, res) => {
+  const {
+    name, address, city, state, zipcode, phone, email, firebaseId,
+  } = req.body;
+
+  console.log('req bodyuyyy', req.body);
+
+  // when the form is submitted, query the database for the user with the logged-in firebaseId
+  const sqlQuery1 = `SELECT * FROM hoa WHERE firebaseId='${firebaseId}'`;
+  models.sequelize.query(sqlQuery1, {
+    model: models.Hoa,
+  })
+    .then(currentHoaInfo => {
+      console.log('uuyyyy', currentHoaInfo.length);
+      // return the user's info retrieved fro mthe database
+      if (currentHoaInfo.length) {
+        return res.send(currentHoaInfo[0]);
+      }
+      /* else, if currentHoaInfo comes back as an empty array (meaning they're a new user),
+         save their data in the database */
+      const sqlQuery = `INSERT INTO hoa (name, address, city, state, zipcode, phone, email, firebaseId) 
+        VALUES ('${name}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
+      return models.sequelize.query(sqlQuery, {
+        model: models.Hoa,
+      })
+        .then(() => res.send({ infoWasSaved: true }))
+        .catch((err) => {
+          console.error('ERROR: Info was not saved.', err);
+          res.status(500).send({ infoWasSaved: false });
+        });
+
+    });
+});
 
 
 //* ****************************
@@ -171,20 +237,9 @@ app.post('/api/deleteBoardMember', (req, res) => {
 
 });
 
-//* ****************************
-// HOA
-//* ****************************
-
-// Create a HOA
-app.post('api/signUp', (req, res) => {
-
-
-});
-
-// Login to HOA
-app.get('api/login', (req, res) => {
-
-
+// force requests to client files
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/../client/dist/index.html`));
 });
 
 

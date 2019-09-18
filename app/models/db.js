@@ -1,4 +1,3 @@
-
 const Sequelize = require('sequelize');
 
 const {
@@ -8,6 +7,7 @@ const {
   HOST,
   DB_PORT,
 } = process.env;
+
 const sequelize = new Sequelize(DATABASE, USER_NAME, USER_PASSWORD, {
   host: HOST,
   port: DB_PORT,
@@ -22,7 +22,6 @@ sequelize.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
-
 
 // make a HOA table
 const Hoa = sequelize.define('hoa', {
@@ -203,6 +202,7 @@ const Expenses = sequelize.define('expenses', {
   payType: {
     type: Sequelize.ENUM('Utilities', 'Insurance', 'Maintenance', 'Custodial', 'Interest', 'Fees', 'Taxes', 'Reserve Expense'),
     allowNull: true,
+    values: ['credit', 'check', 'cash'],
   },
   amount: {
     type: Sequelize.DECIMAL,
@@ -250,6 +250,7 @@ const Revenues = sequelize.define('revenues', {
   payType: {
     type: Sequelize.ENUM('Dues', 'Interest Income'),
     allowNull: true,
+    values: ['credit', 'check', 'cash'],
   },
   amountPaid: {
     type: Sequelize.DECIMAL,
@@ -284,6 +285,7 @@ const Staff = sequelize.define('staff', {
   department: {
     type: Sequelize.ENUM('Groundskeeping', 'Pool', 'Painting', 'Plumber', 'Electrician', 'Administrative Assistant', 'General Contractor'),
     allowNull: true,
+    values: ['maintenance', '', ''],
   },
   firstName: {
     type: Sequelize.STRING,
@@ -358,7 +360,7 @@ const WorkTickets = sequelize.define('workTickets', {
 }, {
   freezeTableName: true,
   timeStamps: false,
-})
+});
 
 // sync all of the models
 Hoa.sync();
@@ -378,3 +380,4 @@ module.exports.Revenues = Revenues;
 module.exports.Expenses = Expenses;
 module.exports.Staff = Staff;
 module.exports.WorkTickets = WorkTickets;
+module.exports.sequelize = sequelize;
