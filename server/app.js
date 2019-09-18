@@ -126,27 +126,79 @@ app.get('/api/viewExpenses', (req, res) => {
 
 // Add a Homeowner
 app.post('/api/addHomeOwner', (req, res) => {
-
+  models.Homeowners.create({
+    hoaId: req.body.hoaId,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    monthlyDues: req.body.monthlyDues,
+    email: req.body.email,
+    phone: req.body.phone,
+  })
+    .then(() => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // Delete a Homeowner
 
-app.post('/api/removeHomeowner', (req, res) => {
-
-
+app.delete('/api/removeHomeowner', (req, res) => {
+  models.Homeowners.destroy({
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send(204)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // Update a Homeowner
 
-app.put('/api/updateHomeowner', (req, res) => {
-
-
+app.post('/api/updateHomeowner', (req, res) => {
+  models.Homeowners.update({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    monthlyDues: req.body.monthlyDues,
+    email: req.body.email,
+    phone: req.body.phone,
+  }, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
-// View HomeOwners
-app.get('/api/viewHomeowners', (req, res) => {
-
-
+// Get ALL HomeOwners
+app.get('/api/getHomeowners', (req, res) => {
+  models.Homeowners.findAll()
+    .then((homeowners) => {
+      res.send(homeowners);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //* ****************************
@@ -204,21 +256,45 @@ app.post('/api/addTicket', (req, res) => {
 });
 
 // Get Open Tickets
-app.get('api/getOpenTickets', (req, res) => {
-
-
+app.get('/api/getOpenTickets', (req, res) => {
+  models.WorkTickets.findAll({
+    isOpen: 1,
+  })
+    .then((openTickets) => {
+      res.send(openTickets);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
-// View All Tickets
-app.get('api/viewAllTickets', (req, res) => {
-
-
+// Get All Tickets
+app.get('/api/getAllTickets', (req, res) => {
+  models.WorkTickets.findAll()
+    .then((allTickets) => {
+      res.send(allTickets);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // Close a Work Ticket
-app.post('api/closeWorkTicket', (req, res) => {
-
-
+app.post('/api/closeWorkTicket', (req, res) => {
+  models.WorkTickets.update({
+    isOpen: 0,
+    dateCompleted: models.sequelize.literal('CURRENT_TIMESTAMP'),
+  }, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //* ****************************
@@ -227,14 +303,51 @@ app.post('api/closeWorkTicket', (req, res) => {
 
 // Add a Board Member
 app.post('/api/addBoardMember', (req, res) => {
-
-
+  models.BoardMembers.create({
+    accountId: req.body.id,
+    hoaId: req.body.hoaId,
+    position: req.body.position,
+  })
+    .then(() => {
+      models.Homeowners.update({
+        isBoardMember: 1,
+      }, {
+        where: {
+          id: req.body.id,
+        },
+      });
+    })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
+
 
 // Delete a Board Member
 app.post('/api/deleteBoardMember', (req, res) => {
-
-
+  models.Homeowners.update({
+    isBoardMember: 0,
+  }, {
+    where: {
+      id: req.body.accountId,
+    },
+  })
+    .then(() => {
+      models.BoardMembers.destroy({
+        where: {
+          id: req.body.id,
+        },
+      });
+    })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // force requests to client files
