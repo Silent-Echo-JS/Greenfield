@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Row, Col } from "reactstrap";
 
 class DBCalendar extends Component {
   constructor(props) {
@@ -7,8 +8,8 @@ class DBCalendar extends Component {
   }
   render() {
     return (
-      <div className="bg-primary" Style="display:flex height:400px width: 100%">
-        Calendar Component goes here
+      <div className="dashboard-card p-4">
+        <h5>Upcoming Events</h5>
       </div>
     );
   }

@@ -7,9 +7,15 @@ const models = require('../app/models/db');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true,
+}));
 
 // models.sequelize
 //   .sync()
@@ -54,6 +60,22 @@ app.post('/insertUserInfo', (req, res) => {
         .catch((err) => {
           console.error(err, 'ERROR: Info was not saved.');
         });
+    });
+});
+
+app.get('/checkForUser/:firebaseId', (req, res) => {
+  const sqlQuery = `SELECT * FROM users WHERE firebaseId=${req.params.firebaseId}`;
+  console.log("======request", req.params);
+  return models.sequelize.query(
+    sqlQuery,
+    {
+      model: models.Hoa,
+    },
+  ).then((records) => res.send({
+    registered: !!records.length,
+  }))
+    .catch((error) => {
+      console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
     });
 });
 

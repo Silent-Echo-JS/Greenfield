@@ -11,6 +11,7 @@ import Tenants from "./Tenants.jsx";
 import Board from "./Board.jsx";
 import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
+import firebase from "../../../client/src/components/Auth/firebase.js";
 
 
 function onAuthRequired({ history }) {
@@ -26,6 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
+      {/* <Dashboard /> */}
         <Security
           issuer="https://dev-785992.okta.com/oauth2/default"
           clientId="0oa1cspbxnLfDPYQb357"
@@ -35,17 +37,17 @@ class App extends React.Component {
           {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
           <Navbar />
           <Route path="/about" component={About} />
+
           <Route path="/Deposit" component={Deposit} />
           <Route path="/Expense" component={Expense} />
           <Route path="/Tenants" component={Tenants} />
           <Route path="/Board" component={Board} />
           <Route path="/Settings" component={Settings} />
-          <Route path="/auth/:firebaseId" component={InputInfo}/>
 
           <SecureRoute path="/" exact={true} component={Dashboard} />
           <Route
             path="/login"
-            component={Login} />}
+            render={() => <Login baseUrl="https://dev-785992.okta.com" />}
           />
           <Route
             path="/implicit/callback"

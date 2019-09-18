@@ -1,54 +1,36 @@
-// import React, { Component } from 'react';
-// import { Redirect } from 'react-router-dom';
-// import OktaSignInWidget from './OktaSignInWidget.jsx';
-// import { withAuth } from '@okta/okta-react';
+import React, { Component } from 'react';
+import axios from 'axios';
+import firebase from './firebase';
 
-// export default withAuth(class Login extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.onSuccess = this.onSuccess.bind(this);
-//     this.onError = this.onError.bind(this);
-//     this.state = {
-//       authenticated: null
-//     };
-//     this.checkAuthentication();
-//   }
+export default class Login extends Component {
 
-//   async checkAuthentication() {
-//     const authenticated = await this.props.auth.isAuthenticated();
-//     if (authenticated !== this.state.authenticated) {
-//       this.setState({ authenticated });
-//     }
-//   }
 
-//   componentDidUpdate() {
-//     this.checkAuthentication();
-//   }
+  handleClick() {
+    firebase.loginWithGoogle()
+      .then((data) => {
+        console.log("====data", data)
+        axios.get(`/checkForUser/${data.user.uid}`)
+          .then((res) => {
+            if (res.data.registered) {
+              this.props.history.push('/')
+            } else {
+              this.props.history.push(`/auth/${data.user.uid}`)
+            }
+          })
 
-//   onSuccess(res) {
-//     if (res.status === 'SUCCESS') {
-//       return this.props.auth.redirect({
-//         sessionToken: res.session.token
-//       });
-//     } else {
-//       // The user can be in another authentication state that requires further action.
-//       // For more information about these states, see:
-//       //   https://github.com/okta/okta-signin-widget#rendereloptions-success-error
-//     }
-//   }
+      })
+      .catch((error) => {
+        console.log("=======error", error)
+      })
 
-//   onError(err) {
-//     console.log('error logging in', err);
-//   }
+  }
 
-//   render() {
-//     if (this.state.authenticated === null) return null;
-//     return this.state.authenticated ?
-//       <Redirect to={{
-//         pathname: '/' }} /> :
-//       <OktaSignInWidget
-//         baseUrl={this.props.baseUrl}
-//         onSuccess={this.onSuccess}
-//         onError={this.onError} />;
-//   }
-// });
+  render() {
+    return (
+      <div>
+        <h1>Login</h1>
+        <button onClick={this.handleClick}>Login with Google</button>
+      </div>
+    )
+  };
+}
