@@ -13,13 +13,13 @@ const edit = (method) => {
 const ListBoard = ({ method }) => {
   return (
     <li>
-      <div class='listCell'>
-        <div class='listItem'>
+      <div className='listCell'>
+        <div className='listItem'>
           <button onClick={() => edit(method)}>Edit Deposit</button><br /><br />
           <button onClick={() => moreInfo(method)}>More Info</button>
         </div>
 
-        <div class='listItem'>
+        <div className='listItem'>
           <h4>Name:</h4> {method.name}<br />
           <h4>Position:</h4> {method.position}<br />
         </div>

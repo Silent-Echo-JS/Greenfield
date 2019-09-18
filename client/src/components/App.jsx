@@ -37,7 +37,6 @@ class App extends React.Component {
         <Route path="/Tenants" component={Tenants} />
         <Route path="/Board" component={Board} />
         <Route path="/Settings" component={Settings} />
-        <Route path="/calendar" component={CalendarPage} />
       </BrowserRouter>
     );
   }

@@ -21,38 +21,38 @@ class NavBar extends React.Component {
           <Nav tabs>
             <NavItem>
               <NavLink href="#" active>
-                <i class="fas fa-home mr-2"></i>
+                <i className="fas fa-home mr-2"></i>
                 Dashboard
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">
-                <i class="fas fa-file-invoice-dollar mr-2"></i>Financials
+                <i className="fas fa-file-invoice-dollar mr-2"></i>Financials
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">
-                <i class="fas fa-wrench mr-2"></i>Work Tickets
+                <i className="fas fa-wrench mr-2"></i>Work Tickets
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">
-                <i class="far fa-calendar-alt mr-2"></i>Calendar
+                <i className="far fa-calendar-alt mr-2"></i>Calendar
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">
-                <i class="fas fa-users mr-2"></i>Members
+                <i className="fas fa-users mr-2"></i>Members
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">
-                <i class="fas fa-users-cog mr-2"></i>Board
+                <i className="fas fa-users-cog mr-2"></i>Board
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#" firebaseId={firebaseId} onClick={this.logoutUser} >
-                <i class="fas fa-users-cog mr-2"></i>Logout
+                <i className="fas fa-users-cog mr-2"></i>Logout
               </NavLink>
             </NavItem>
           </Nav>
