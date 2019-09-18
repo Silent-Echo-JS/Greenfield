@@ -242,7 +242,7 @@ app.post('/api/addBoardMember', (req, res) => {
 });
 
 // Delete a Board Member
-app.post('/api/deleteBoardMember', (req, res) => {
+app.delete('/api/deleteBoardMember', (req, res) => {
 
 
 });
