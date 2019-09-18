@@ -11,6 +11,7 @@ import Tenants from "./Tenants.jsx";
 import Board from "./Board.jsx";
 import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
+import Maintenence from "./Maintenence.jsx";
 import firebase from "../../../client/src/components/Auth/firebase.js";
 
 function onAuthRequired({ history }) {
@@ -68,6 +69,7 @@ class App extends React.Component {
         <Route path="/Tenants" component={Tenants} />
         <Route path="/Board" staff={staff} component={Board} />
         <Route path="/Settings" component={Settings} />
+        <Route path="/Maintenance" component={Mainetence} />
       </BrowserRouter>
     );
   }
