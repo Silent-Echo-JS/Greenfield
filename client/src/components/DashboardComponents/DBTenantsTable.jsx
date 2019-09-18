@@ -3,13 +3,13 @@ import { Table, Button, Row, Col } from "reactstrap";
 
 const DBTenantsTable = () => {
   return (
-    <div className="p-4 dashboard-card-2 mb-4">
+    <div className="p-4 dashboard-card mb-4">
       <Row>
         <Col>
           <h5>HOA Members</h5>
         </Col>
         <Col>
-          <Button className="float-right mb-4" color="primary" size="sm">
+          <Button className="float-right mb-4 btn-custom" size="sm">
             Edit members
           </Button>
         </Col>

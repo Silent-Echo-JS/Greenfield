@@ -24,35 +24,36 @@ class App extends React.Component {
 
   render() {
     return (
-      <HashRouter>
-        <Security
-          issuer="https://dev-785992.okta.com/oauth2/default"
-          clientId="0oa1cspbxnLfDPYQb357"
-          redirectUri={window.location.origin + "/implicit/callback"}
-          onAuthRequired={onAuthRequired}
-        >
-          {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
-          <Navbar />
-          <Route path="/about" component={About} />
+      <Dashboard />
+      // <HashRouter>
+      //   <Security
+      //     issuer="https://dev-785992.okta.com/oauth2/default"
+      //     clientId="0oa1cspbxnLfDPYQb357"
+      //     redirectUri={window.location.origin + "/implicit/callback"}
+      //     onAuthRequired={onAuthRequired}
+      //   >
+      //     {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
+      //     <Navbar />
+      //     <Route path="/about" component={About} />
 
-          <Route path="/Deposit" component={Deposit} />
-          <Route path="/Expense" component={Expense} />
-          <Route path="/Tenants" component={Tenants} />
-          <Route path="/Board" component={Board} />
-          <Route path="/Settings" component={Settings} />
+      //     <Route path="/Deposit" component={Deposit} />
+      //     <Route path="/Expense" component={Expense} />
+      //     <Route path="/Tenants" component={Tenants} />
+      //     <Route path="/Board" component={Board} />
+      //     <Route path="/Settings" component={Settings} />
 
-          <SecureRoute path="/" exact={true} component={Dashboard} />
-          <Route
-            path="/login"
-            render={() => <Login baseUrl="https://dev-785992.okta.com" />}
-          />
-          <Route
-            path="/implicit/callback"
-            exact={true}
-            component={ImplicitCallback}
-          />
-        </Security>
-      </HashRouter>
+      //     <SecureRoute path="/" exact={true} component={Dashboard} />
+      //     <Route
+      //       path="/login"
+      //       render={() => <Login baseUrl="https://dev-785992.okta.com" />}
+      //     />
+      //     <Route
+      //       path="/implicit/callback"
+      //       exact={true}
+      //       component={ImplicitCallback}
+      //     />
+      //   </Security>
+      // </HashRouter>
     );
   }
 }
