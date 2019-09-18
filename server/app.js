@@ -237,14 +237,51 @@ app.post('/api/closeWorkTicket', (req, res) => {
 
 // Add a Board Member
 app.post('/api/addBoardMember', (req, res) => {
-
-
+  models.BoardMembers.create({
+    accountId: req.body.id,
+    hoaId: req.body.hoaId,
+    position: req.body.position,
+  })
+    .then(() => {
+      models.Homeowners.update({
+        isBoardMember: 1,
+      }, {
+        where: {
+          id: req.body.id,
+        },
+      });
+    })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
+
 // Delete a Board Member
-app.delete('/api/deleteBoardMember', (req, res) => {
-
-
+app.post('/api/deleteBoardMember', (req, res) => {
+  models.Homeowners.update({
+    isBoardMember: 0,
+  }, {
+    where: {
+      id: req.body.accountId,
+    },
+  })
+    .then(() => {
+      models.BoardMembers.destroy({
+        where: {
+          id: req.body.id,
+        },
+      });
+    })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //* ****************************
