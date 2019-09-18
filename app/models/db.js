@@ -177,15 +177,6 @@ const Expenses = sequelize.define('expenses', {
     autoIncrement: true,
     primaryKey: true,
   },
-  accountId: {
-    type: Sequelize.INTEGER(11),
-    allowNull: false,
-    foreignKey: true,
-    references: {
-      model: Homeowners,
-      key: 'id',
-    },
-  },
   hoaId: {
     type: Sequelize.INTEGER(11),
     allowNull: false,
@@ -195,12 +186,21 @@ const Expenses = sequelize.define('expenses', {
       key: 'id',
     },
   },
+  accountId: {
+    type: Sequelize.INTEGER(11),
+    allowNull: true,
+    foreignKey: true,
+    references: {
+      model: Homeowners,
+      key: 'id',
+    },
+  },
   date: {
     type: Sequelize.DATE,
     allowNull: true,
   },
   payType: {
-    type: Sequelize.ENUM('Utilities', 'Insurance', 'Maintenance', 'Custodial', 'Interest', 'Fees', 'Taxes', 'Reserve Expense'),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   amount: {
@@ -241,13 +241,12 @@ const Revenues = sequelize.define('revenues', {
       key: 'id',
     },
   },
-
   date: {
     type: Sequelize.DATE,
     allowNull: true,
   },
   payType: {
-    type: Sequelize.ENUM('Dues', 'Interest Income'),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   amountPaid: {
@@ -281,7 +280,7 @@ const Staff = sequelize.define('staff', {
     },
   },
   department: {
-    type: Sequelize.ENUM('Groundskeeping', 'Pool', 'Painting', 'Plumber', 'Electrician', 'Administrative Assistant', 'General Contractor'),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   firstName: {
@@ -500,15 +499,15 @@ const ExpenseYTD = sequelize.define('expenseYTD', {
 });
 
 // sync all of the models
-Hoa.sync();
-Homeowners.sync();
-BoardMembers.sync();
-Revenues.sync();
-Expenses.sync();
-Staff.sync();
-WorkTickets.sync();
-RevenueYTD.sync();
-ExpenseYTD.sync();
+// Hoa.sync();
+// Homeowners.sync();
+// BoardMembers.sync();
+// Staff.sync();
+// WorkTickets.sync();
+// Revenues.sync();
+// RevenueYTD.sync();
+// Expenses.sync();
+// ExpenseYTD.sync();
 
 
 // export all of the models

@@ -21,6 +21,9 @@
     "webpack-cli": "3.3.6"
   },
   "dependencies": {
+    "@babel/parser": "^7.6.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-for-of": "^7.4.4",
     "@okta/okta-auth-js": "^2.8.0",
     "@okta/okta-react": "^1.2.3",
     "@okta/okta-signin-widget": "^3.2.1",
