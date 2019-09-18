@@ -170,20 +170,6 @@ const BoardMembers = sequelize.define('boardMembers', {
   timeStamps: false,
 });
 
-// favRecipes.belongsToMany(Users, {
-//   through: 'users_recipes',
-//   foreignKey: 'recipeId',
-//   onDelete: 'cascade',
-//   hooks: true,
-// });
-
-// Users.belongsToMany(favRecipes, {
-//   through: 'users_recipes',
-//   foreignKey: 'userId',
-//   onDelete: 'cascade',
-//   hooks: true,
-// });
-
 // make an expenses table
 const Expenses = sequelize.define('expenses', {
   id: {

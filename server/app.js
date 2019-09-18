@@ -17,15 +17,6 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-// models.sequelize
-//   .sync()
-//   .then(() => {
-//     console.log('Nice! Database looks fine');
-//   })
-//   .catch((err) => {
-//     console.log(err, 'Something went wrong with the Database Update!');
-//   });
-
 app.use(express.static(`${__dirname}/../client/dist`));
 
 
@@ -80,244 +71,145 @@ app.get('/checkForUser/:firebaseId', (req, res) => {
 });
 
 
-// *****************************
-// ACCOUNTS
-// *****************************
-app.get('/accounts', (req, res) => {
-  const sqlQuery = 'SELECT * FROM Subcategories WHERE type="account"';
+//* ****************************
+// REVENUES
+//* ****************************
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Subcategory,
-  })
-    .then((records) => {
-      res.send(records);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
-    });
+// Add a Deposit
+app.post('/api/addDeposit', (req, res) => {
+
+
 });
 
-app.post('/accounts', (req, res) => {
-  const { accountName, type } = req.body;
+// View All Deposits/Revenue
+app.get('/api/viewRevenues' (req, res) => {
 
-  const sqlQuery = `INSERT INTO Subcategories (name, type) VALUES ('${accountName}', '${type}')`;
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Accounts,
-  })
-    .then((records) => {
-      res.send(201);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT INSERT INTO ACCOUNTS.');
-    });
 });
 
-// *****************************
-// DEPOSIT
-// *****************************
-app.post('/newDeposit', (req, res) => {
-  const {
-    account, date, category, notes, amount, checkNumber, created,
-  } = req.body;
 
-  const sqlQuery = `INSERT INTO deposits (checkNumber, date, created, amount, category, notes, account) 
-  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Deposit,
-  })
-    .then((records) => {
-      res.send(201);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT INSERT NEW DEPOSIT.');
-    });
-});
-
-app.get('/recentDeposits', (req, res) => {
-  const sqlQuery = 'SELECT * FROM deposits ORDER BY id DESC LIMIT 5';
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Deposit,
-  })
-    .then((records) => {
-      console.log(records, 'records');
-      res.send(records[0]);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
-
-// *****************************
+//* ****************************
 // EXPENSES
-// *****************************
-app.post('/newExpense', (req, res) => {
-  const {
-    account, date, category, notes, amount, checkNumber, created,
-  } = req.body;
+//* ****************************
 
-  const sqlQuery = `INSERT INTO expenses (checkNumber, date, created, amount, category, notes, account) 
-  VALUES ('${checkNumber}', '${date}', '${created}', '${amount}', '${category}', '${notes}', '${account}')`;
+// Add an Expense
+app.post('/api/addExpense', (req, res) => {
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Accounts,
-  })
-    .then((records) => {
-      res.send(records);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+
 });
 
-app.get('/recentExpenses', (req, res) => {
-  const sqlQuery = 'SELECT * FROM expenses ORDER BY id DESC LIMIT 5;';
+// View Expenses
+app.get('/api/viewExpenses' (req, res) => {
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Expense,
-  })
-    .then((records) => {
-      res.send(records[0]);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 
-// *****************************
-// CATEGORY
-// *****************************
-app.post('/category', (req, res) => {
-  const { categoryName, type } = req.body;
-
-  const sqlQuery = `INSERT INTO Subcategories (name, type) VALUES ('${categoryName}', '${type}')`;
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Subcategory,
-  })
-    .then((records) => {
-      res.send(records);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT INSERT NEW CATEGORY.');
-    });
-});
-
-app.get('/category', (req, res) => {
-  const sqlQuery = 'SELECT * FROM Subcategories WHERE type="category"';
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Subcategory,
-  })
-    .then((records) => {
-      res.send(records);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT SUBCATEGORY.');
-    });
-});
-
-// *****************************
-// TENANT
-// *****************************
-app.post('/newTenant', (req, res) => {
-  const {
-    firstName, lastName, email,
-    phone, altPhone, emContactName,
-    emContactNumber, notes, ownership,
-    unit, address, monthly, date, created,
-  } = req.body;
-
-  const sqlQuery = `INSERT INTO tenants (firstName, lastName, email, phone, altPhone, emContactName, emContactNumber, notes, ownership, unit, address, monthly, date, created) VALUES ('${firstName}', '${lastName}', '${email}', '${phone}', '${altPhone}', '${emContactName}', '${emContactNumber}', '${notes}', '${ownership}', '${unit}', '${address}', '${monthly}', '${date}', '${created}')`;
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Tenants,
-  })
-    .then((records) => {
-      res.send(201);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT INSERT NEW TENANT.');
-    });
-});
-
-app.get('/getTenants', (req, res) => {
-  const sqlQuery = 'SELECT * FROM tenants ORDER BY id DESC';
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Tenants,
-  })
-    .then((records) => {
-      res.send(records[0]);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT TENANTS.');
-    });
-});
-
-app.get('/getPositions', (req, res) => {
-  const sqlQuery = 'SELECT * FROM Subcategories WHERE type="position"';
-
-  models.sequelize.query(sqlQuery, {
-    model: models.Subcategory,
-  })
-    .then((positions) => {
-      res.send(positions);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT POSITIONS.');
-    });
 });
 
 
-app.get('/getMembers', (req, res) => {
-  const sqlQuery = 'SELECT * FROM boards ORDER BY id DESC LIMIT 5;';
+//* ****************************
+// HOMEOWNERS
+//* ****************************
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Board,
-  })
-    .then((members) => {
-      console.log(members, 'MEMBERS');
-      res.send(members[0]);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT MEMBERS.');
-    });
+// Add a Homeowner
+app.post('/api/addHomeOwner', (req, res) => {
+
 });
 
-app.post('/newPosition', (req, res) => {
-  const { positionName, type } = req.body;
+// Delete a Homeowner
 
-  const sqlQuery = `INSERT INTO Subcategories (name, type) VALUES ('${positionName}', '${type}')`;
+app.post('/api/removeHomeowner', (req, res) => {
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Subcategory,
-  })
-    .then((records) => {
-      res.send(records);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT INSERT NEW POSITION.');
-    });
+
 });
 
-app.post('/newMember', (req, res) => {
-  const { tenant, position } = req.body;
+// Update a Homeowner
 
-  const sqlQuery = `INSERT INTO boards (name, position) VALUES ('${tenant}', '${position}')`;
+app.put('/api/updateHomeowner', (req, res) => {
 
-  models.sequelize.query(sqlQuery, {
-    model: models.Board,
-  })
-    .then((records) => {
-      res.send(201);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT INSERT NEW TENANT.');
-    });
+
 });
+
+// View HomeOwners
+app.get('/api/viewHomeowners', (req, res) => {
+
+
+});
+
+//* ****************************
+// STAFF
+//* ****************************
+
+// Add a Staff Person
+app.post('/api/addStaff', (req, res) => {
+
+
+});
+
+// View Staff
+app.get('/api/viewStaff', (req, res) => {
+
+
+});
+
+//* ****************************
+// WORK TICKETS
+//* ****************************
+
+// Add a Work Ticket
+app.post('api/addTicket', (req, res) => {
+
+
+});
+
+// View Open Tickets
+app.get('api/viewOpenTickets', (req, res) => {
+
+
+});
+
+// View All Tickets
+app.get('api/viewAllTickets', (req, res) => {
+
+
+});
+
+// Close a Work Ticket
+app.post('api/closeWorkTicket', (req, res) => {
+
+
+});
+
+//* ****************************
+// BOARD MEMBERS
+//* ****************************
+
+// Add a Board Member
+app.post('/api/addBoardMember', (req, res) => {
+
+
+});
+
+// Delete a Board Member
+app.post('/api/deleteBoardMember', (req, res) => {
+
+
+});
+
+//* ****************************
+// HOA
+//* ****************************
+
+// Create a HOA
+app.post('api/signUp', (req, res) => {
+
+
+});
+
+// Login to HOA
+app.get('api/login', (req, res) => {
+
+
+});
+
 
 const port = process.env.port || 3000;
 app.listen(port, () => {
