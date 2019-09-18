@@ -124,10 +124,15 @@ app.post('/api/updateHomeowner', (req, res) => {
     });
 });
 
-// View HomeOwners
-app.get('/api/viewHomeowners', (req, res) => {
-
-
+// Get ALL HomeOwners
+app.get('/api/getHomeowners', (req, res) => {
+  models.Homeowners.findAll()
+    .then((homeowners) => {
+      res.send(homeowners);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //* ****************************
