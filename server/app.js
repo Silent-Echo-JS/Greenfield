@@ -26,6 +26,31 @@ app.use(express.static(`${__dirname}/../client/dist`));
 // HOA
 //* ****************************
 
+// when a user attemps to login, this endpoint will be hit (see handleClick function in Login.jsx):
+app.get('/checkForUser/:firebaseId', (req, res) => {
+  // query the database for the user with the attached firebaseId
+  const sqlQuery = `SELECT * FROM hoa WHERE firebaseId='${req.params.firebaseId}'`;
+  models.sequelize.query(
+    sqlQuery,
+    {
+      model: models.Hoa,
+    },
+  ).then((hoaInfoFromDb) => {
+    // hoaInfoFromDb is an array of the user's info from the database
+    console.log('yyyyyyyyyyy', hoaInfoFromDb);
+    res.send({
+      // send back an object with regisetered equal to true or false:
+      /* registered will be false if an empty array is returned (this means this is the first time
+         the user signed-in so the firebaseId wasn't saved in the db yet) */
+      registered: !!hoaInfoFromDb.length,
+    });
+  })
+    .catch((err) => {
+      console.error(err, 'ERROR: CANNOT SELECT ACCOUNTS.');
+    });
+});
+
+// this endpoint is hit when a new user sumbits the HoaInfo form (see handleSubmit in InputInfo.jsx)
 app.post('/saveHoaInfo', (req, res) => {
   const {
     name, address, city, state, zipcode, phone, email, firebaseId,
@@ -33,49 +58,30 @@ app.post('/saveHoaInfo', (req, res) => {
 
   console.log('req bodyuyyy', req.body);
 
-  // when a user signs in, query the database for the user's firebaseId
-  // if the firebaseId already exists (meaning the user has already exists), return their info
-  // else, insert the new user's data into the table
+  // when the form is submitted, query the database for the user with the logged-in firebaseId
   const sqlQuery1 = `SELECT * FROM hoa WHERE firebaseId='${firebaseId}'`;
-
   models.sequelize.query(sqlQuery1, {
     model: models.Hoa,
   })
-    .then(currentUserInfo => {
-      console.log('uuyyyy', currentUserInfo.length);
-      if (currentUserInfo.length) {
-        return res.send(currentUserInfo[0]);
+    .then(currentHoaInfo => {
+      console.log('uuyyyy', currentHoaInfo.length);
+      // return the user's info retrieved fro mthe database
+      if (currentHoaInfo.length) {
+        return res.send(currentHoaInfo[0]);
       }
+      /* else, if currentHoaInfo comes back as an empty array (meaning they're a new user),
+         save their data in the database */
       const sqlQuery = `INSERT INTO hoa (name, address, city, state, zipcode, phone, email, firebaseId) 
         VALUES ('${name}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
-
       return models.sequelize.query(sqlQuery, {
         model: models.Hoa,
       })
-        .then((userInfo) => res.send({ updated: true }))
+        .then(() => res.send({ infoWasSaved: true }))
         .catch((err) => {
           console.error('ERROR: Info was not saved.', err);
-          res.status(500).send({ updated: false });
+          res.status(500).send({ infoWasSaved: false });
         });
 
-    });
-});
-
-app.get('/checkForUser/:firebaseId', (req, res) => {
-  const sqlQuery = `SELECT * FROM hoa WHERE firebaseId='${req.params.firebaseId}'`;
-  models.sequelize.query(
-    sqlQuery,
-    {
-      model: models.Hoa,
-    },
-  ).then((records) => {
-    console.log('yyyyyyyyyyy', records);
-    res.send({
-      registered: !!records.length,
-    });
-  })
-    .catch((err) => {
-      console.error(err, 'ERROR: CANNOT SELECT ACCOUNTS.');
     });
 });
 

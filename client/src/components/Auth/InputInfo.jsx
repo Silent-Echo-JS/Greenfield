@@ -17,6 +17,8 @@ export default class Profile extends Component {
         phone: "",
       }
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -29,10 +31,11 @@ export default class Profile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.post('/saveHoaInfo', { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
+    console.log('======================userInfo', this.state.userInfo);
+    axios.post(`/saveHoaInfo`, { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
       .then((res) => {
         console.log('SHOW YOURSELF HOA FORM SUBMIT DATA', res.data);
-        if (res.data.updated) {
+        if (res.data.infoWasSaved) {
           this.props.history.push('/');
         } else {
           alert('Unable to save HOA info');
@@ -61,40 +64,40 @@ export default class Profile extends Component {
               </div>
               <div className="profile-body pt-3">
                 <div className="profile-form">
-                  <Form onSubmit={this.handleSubmit.bind(this)}>
+                  <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="name" name="name" placeholder="Organization Name"
+                        onChange={this.handleChange} type="name" name="name" placeholder="Organization Name"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="email" name="email" placeholder="Organization Email"
+                        onChange={this.handleChange} type="email" name="email" placeholder="Organization Email"
                       />
                     </FormGroup>                    
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="address" name="address" placeholder="Address"
+                        onChange={this.handleChange} type="address" name="address" placeholder="Address"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="city" name="city" placeholder="City"
+                        onChange={this.handleChange} type="city" name="city" placeholder="City"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="state" name="state" placeholder="State"
+                        onChange={this.handleChange} type="state" name="state" placeholder="State"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="zipcode" name="zipcode" placeholder="Zipcode"
+                        onChange={this.handleChange} type="zipcode" name="zipcode" placeholder="Zipcode"
                       />
                     </FormGroup>
                     <FormGroup>
                       <Input
-                        onChange={this.handleChange.bind(this)} type="phone" name="phone" placeholder="Phone Number"
+                        onChange={this.handleChange} type="phone" name="phone" placeholder="Phone Number"
                       />
                     </FormGroup>
 
