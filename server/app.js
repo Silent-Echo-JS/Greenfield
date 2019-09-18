@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const models = require('../app/models');
+const models = require('../app/models/db');
 
 const app = express();
 
@@ -11,14 +11,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 
-models.sequelize
-  .sync()
-  .then(() => {
-    console.log('Nice! Database looks fine');
-  })
-  .catch((err) => {
-    console.log(err, 'Something went wrong with the Database Update!');
-  });
+// models.sequelize
+//   .sync()
+//   .then(() => {
+//     console.log('Nice! Database looks fine');
+//   })
+//   .catch((err) => {
+//     console.log(err, 'Something went wrong with the Database Update!');
+//   });
 
 app.use(express.static(`${__dirname}/../client/dist`));
 
@@ -26,23 +26,34 @@ app.use(express.static(`${__dirname}/../client/dist`));
 // *****************************
 // SAVING PROFILE INFO
 // *****************************
+
 app.post('/insertUserInfo', (req, res) => {
-  
   const {
-    operationName, address, city, state, zipcode, phone, email, firebaseId,
+    name, address, city, state, zipcode, phone, email, firebaseId,
   } = req.body;
 
-  const sqlQuery = `INSERT INTO user (operationName, address, city, state, zipcode, phone, email, firebaseId) 
-  VALUES ('${operationName}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
+  // when a user signs in, query the database for the user's firebaseId
+  // if the firebaseId already exists (meaning the user has already exists), return their info
+  // else, insert the new user's data into the table
+  const sqlQuery1 = `SELECT * FROM hoa WHERE firebaseId=${firebaseId}`;
 
-  models.sequelize.query(sqlQuery, {
-    model: models.User,
+  models.sequelize.query(sqlQuery1, {
+    model: models.Hoa,
   })
-    .then((records) => {
-      res.send(records);
-    })
-    .catch((error) => {
-      console.log(error, 'ERROR: CANNOT SELECT ACCOUNTS.');
+    .then((currentUserInfo) => {
+      if (currentUserInfo) {
+        return res.send(currentUserInfo);
+      }
+      const sqlQuery = `INSERT INTO hoa (name, address, city, state, zipcode, phone, email, firebaseId) 
+        VALUES ('${name}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
+
+      return models.sequelize.query(sqlQuery, {
+        model: models.Hoa,
+      })
+        .then((userInfo) => res.send(userInfo))
+        .catch((err) => {
+          console.error(err, 'ERROR: Info was not saved.');
+        });
     });
 });
 
