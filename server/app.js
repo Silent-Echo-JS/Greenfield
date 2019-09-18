@@ -94,15 +94,34 @@ app.delete('/api/removeHomeowner', (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-    })
-
+    });
 });
 
 // Update a Homeowner
 
-app.put('/api/updateHomeowner', (req, res) => {
-
-
+app.post('/api/updateHomeowner', (req, res) => {
+  models.Homeowners.update({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    monthlyDues: req.body.monthlyDues,
+    email: req.body.email,
+    phone: req.body.phone,
+  }, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send(204);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // View HomeOwners
