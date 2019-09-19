@@ -10,18 +10,18 @@ class NavBar extends React.Component {
 
   logoutUser() {
     localStorage.clear();
-    this.props.history.push('/login');
+    this.props.history.push("/login");
   }
 
   render() {
-    const firebaseId = localStorage.getItem('uid');
+    const firebaseId = localStorage.getItem("uid");
     return (
       <Row className="mt-4">
         <Col sm={{ size: 10, offset: 1 }}>
           <Nav tabs>
             <NavItem>
-              <NavLink href="#" active>
-                <i className="fas fa-home mr-2"></i>
+              <NavLink tag={Link} to="/">
+                <i class="fas fa-home mr-2"></i>
                 Dashboard
               </NavLink>
             </NavItem>
@@ -31,8 +31,8 @@ class NavBar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">
-                <i className="fas fa-wrench mr-2"></i>Work Tickets
+              <NavLink tag={Link} to="/Maintenance">
+                <i class="fas fa-wrench mr-2"></i>Work Tickets
               </NavLink>
             </NavItem>
             <NavItem>
@@ -51,8 +51,12 @@ class NavBar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#" firebaseId={firebaseId} onClick={this.logoutUser} >
-                <i className="fas fa-users-cog mr-2"></i>Logout
+              <NavLink
+                href="#"
+                firebaseId={firebaseId}
+                onClick={this.logoutUser}
+              >
+                <i class="fas fa-users-cog mr-2"></i>Logout
               </NavLink>
             </NavItem>
           </Nav>
@@ -71,9 +75,9 @@ class NavBar extends React.Component {
 //           <ul class="headerButtons">
 //             <li className="navButton"><Link to="/">Home</Link></li>
 //             <li className="navButton"><Link to="/about">About</Link></li>
-          //   <li className="navButton">
-          //    {firebaseId && <Link to="#" onClick={this.logoutUser.bind(this)}>Logout</Link>}
-          //   </li>
+//   <li className="navButton">
+//    {firebaseId && <Link to="#" onClick={this.logoutUser.bind(this)}>Logout</Link>}
+//   </li>
 //           </ul>
 //         </div>
 //       </div>
