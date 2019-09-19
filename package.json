@@ -55,6 +55,7 @@
     "react_google_calendar": "^2.2.4444",
     "reactstrap": "^8.0.1",
     "sequelize": "^5.18.4",
+    "sweetalert2": "^8.17.6",
     "webpack-dev-server": "^3.8.0"
   }
 }
