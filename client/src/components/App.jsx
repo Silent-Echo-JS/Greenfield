@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter, HashRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Axios from "axios";
 import Navbar from "./HeaderComponent/Navbar.jsx";
 import Dashboard from "./DashboardComponents/Dashboard.jsx";
@@ -62,32 +62,35 @@ class App extends React.Component {
   render() {
     const { staff, homeowners, workTickets } = this.state;
     return (
-      <HashRouter>
+      <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
-        <Navbar />
-        <Route
-          path="/"
-          render={props => (
-            <Dashboard {...props} staff={staff} homeowners={homeowners} />
-          )}
-        />
+
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/InputInfo" component={InputInfo} />
-          <Route path="/about" component={About} />
-          <Route path="/Deposit" component={Deposit} />
-          <Route path="/Expense" component={Expense} />
-          <Route path="/Tenants" component={Tenants} />
-          <Route path="/Board" staff={staff} component={Board} />
-          <Route path="/Settings" component={Settings} />
-          <Route
-            path="/Maintenance"
-            render={props => (
-              <Maintenence {...props} workTickets={workTickets} staff={staff} />
-            )}
-          />
+          <Navbar>
+            <Route
+              path="/"
+              exact
+              render={props => (
+                <Dashboard {...props} staff={staff} homeowners={homeowners} />
+              )}
+            />
+            <Route path="/about" component={About} />
+            <Route path="/Deposit" component={Deposit} />
+            <Route path="/Expense" component={Expense} />
+            <Route path="/Tenants" component={Tenants} />
+            <Route path="/Board" staff={staff} component={Board} />
+            <Route path="/Settings" component={Settings} />
+            <Route
+              path="/Maintenance"
+              render={props => (
+                <Maintenence {...props} workTickets={workTickets} staff={staff} />
+              )}
+            />
+          </Navbar>
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
