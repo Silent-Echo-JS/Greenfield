@@ -22,6 +22,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      hoaId: 0,
       staff: [],
       departments: [],
       homeowners: [],
@@ -35,6 +36,7 @@ class App extends React.Component {
     this.getAllWorkTickets();
   }
 
+  // Sets state.staff to an array of all current staff members
   getAllStaff() {
     return Axios.get("/api/getStaff").then(response =>
       this.setState({
@@ -43,6 +45,7 @@ class App extends React.Component {
     );
   }
 
+  // Sets state.homeowners to an array of all current members of the HOA
   getAllMembers() {
     return Axios.get("/api/getHomeowners").then(homeowners =>
       this.setState({
@@ -51,6 +54,7 @@ class App extends React.Component {
     );
   }
 
+  // Sets state.workTickets to an array of all open work tickets
   getAllWorkTickets() {
     return Axios.get("/api/getOpenTickets").then(tickets =>
       this.setState({
@@ -60,7 +64,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { staff, homeowners, workTickets } = this.state;
+    const { staff, homeowners, workTickets, hoaId } = this.state;
     return (
       <HashRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}

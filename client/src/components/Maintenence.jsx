@@ -36,19 +36,7 @@ const Maintenence = props => {
           <Col>
             <h1>Maintenance Tickets</h1>
           </Col>
-          <Col>
-            <Form>
-              <FormGroup inline row>
-                <Input
-                  type="search"
-                  name="search"
-                  id="searchTickets"
-                  placeholder="Search tickets"
-                  className="mr-3"
-                />
-              </FormGroup>
-            </Form>
-          </Col>
+          <Col className="float-right">Sort function here</Col>
         </Row>
         <Table hover bordered size="sm" md={{ size: 10, offset: 1 }}>
           <thead className="bg-green">
