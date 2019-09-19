@@ -51,8 +51,9 @@ const Maintenence = props => {
           <tbody>
             {workTickets.map(ticket => {
               let staffMember = filterStaff(staff, ticket.assignedTo);
+              console.log(staffMember);
               return (
-                <tr>
+                <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>
                   <td className="td-sm">{ticket.title}</td>
                   <td className="td-sm">{staffMember[0].fullName}</td>

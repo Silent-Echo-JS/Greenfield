@@ -93,12 +93,15 @@ app.post('/saveHoaInfo', (req, res) => {
 
 // Add a Deposit
 app.post('/api/addDeposit', (req, res) => {
+  const {
+    hoaId, accountId, amountPaid, description,
+  } = req.body;
   models.Revenues.create({
-    hoaId: req.body.hoaId,
-    accountId: req.body.accountId,
+    hoaId,
+    accountId,
     date: models.sequelize.literal('CURRENT_TIMESTAMP'),
-    amountPaid: req.body.amountPaid,
-    description: req.body.description,
+    amountPaid,
+    description,
   })
     .then(() => {
       res.send(201);
@@ -111,9 +114,10 @@ app.post('/api/addDeposit', (req, res) => {
 // get All Revenues (For now, this is just Dues.
 // However, this can be expanded to other revenue sources as well)
 app.get('/api/getRevenues', (req, res) => {
+  const { hoaId } = req.body;
   models.Revenues.findAll({
     where: {
-      hoaId: req.body.hoaId,
+      hoaId,
     },
   })
     .then((revenues) => {
@@ -131,12 +135,15 @@ app.get('/api/getRevenues', (req, res) => {
 
 // Add an Expense
 app.post('/api/addExpense', (req, res) => {
+  const {
+    hoaId, payType, amountPaidOut, description,
+  } = req.body;
   models.Expenses.create({
-    hoaId: req.body.hoaId,
+    hoaId,
     date: models.sequelize.literal('CURRENT_TIMESTAMP'),
-    payType: req.body.payType,
-    amountPaidOut: req.body.amountPaidOut,
-    description: req.body.description,
+    payType,
+    amountPaidOut,
+    description,
   })
     .then(() => {
       res.send(201);
@@ -148,9 +155,10 @@ app.post('/api/addExpense', (req, res) => {
 
 // get ALL Expenses
 app.get('/api/getExpenses', (req, res) => {
+  const { hoaId } = req.body;
   models.Expenses.findAll({
     where: {
-      hoaId: req.body.hoaId,
+      hoaId,
     },
   })
     .then((allExpenses) => {
@@ -163,10 +171,13 @@ app.get('/api/getExpenses', (req, res) => {
 
 // get Expenses of a certain type
 app.get('/api/getTypeExpenses', (req, res) => {
+  const {
+    hoaId, payType,
+  } = req.body;
   models.Expenses.findAll({
     where: {
-      hoaId: req.body.hoaId,
-      payType: req.body.payType,
+      hoaId,
+      payType,
     },
   })
     .then((typeExpenses) => {
@@ -184,18 +195,21 @@ app.get('/api/getTypeExpenses', (req, res) => {
 
 // Add a Homeowner
 app.post('/api/addHomeOwner', (req, res) => {
+  const {
+    hoaId, firstName, lastName, address, city, state, zipcode, monthlyDues, email, phone,
+  } = req.body;
   models.Homeowners.create({
-    hoaId: req.body.hoaId,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    hoaId,
+    firstName,
+    lastName,
     fullName: `${req.body.lastName}, ${req.body.firstName}`,
-    address: req.body.address,
-    city: req.body.city,
-    state: req.body.state,
-    zipcode: req.body.zipcode,
-    monthlyDues: req.body.monthlyDues,
-    email: req.body.email,
-    phone: req.body.phone,
+    address,
+    city,
+    state,
+    zipcode,
+    monthlyDues,
+    email,
+    phone,
   })
     .then(() => {
       res.send(201);
@@ -208,9 +222,10 @@ app.post('/api/addHomeOwner', (req, res) => {
 // Delete a Homeowner
 
 app.delete('/api/removeHomeowner', (req, res) => {
+  const { id } = req.body;
   models.Homeowners.destroy({
     where: {
-      id: req.body.id,
+      id,
     },
   })
     .then(() => {
@@ -224,20 +239,23 @@ app.delete('/api/removeHomeowner', (req, res) => {
 // Update a Homeowner
 
 app.post('/api/updateHomeowner', (req, res) => {
+  const {
+    firstName, lastName, address, city, state, zipcode, monthlyDues, email, phone, id,
+  } = req.body;
   models.Homeowners.update({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    firstName,
+    lastName,
     fullName: `${req.body.lastName}, ${req.body.firstName}`,
-    address: req.body.address,
-    city: req.body.city,
-    state: req.body.state,
-    zipcode: req.body.zipcode,
-    monthlyDues: req.body.monthlyDues,
-    email: req.body.email,
-    phone: req.body.phone,
+    address,
+    city,
+    state,
+    zipcode,
+    monthlyDues,
+    email,
+    phone,
   }, {
     where: {
-      id: req.body.id,
+      id,
     },
   })
     .then(() => {
@@ -250,7 +268,12 @@ app.post('/api/updateHomeowner', (req, res) => {
 
 // Get ALL HomeOwners
 app.get('/api/getHomeowners', (req, res) => {
-  models.Homeowners.findAll()
+  const { hoaId } = req.body;
+  models.Homeowners.findAll({
+    where: {
+      hoaId,
+    }
+  })
     .then((homeowners) => {
       res.send(homeowners);
     })
@@ -259,20 +282,26 @@ app.get('/api/getHomeowners', (req, res) => {
     });
 });
 
+// Get a Homeowners current balance
+app.post()
+
 //* ****************************
 // STAFF
 //* ****************************
 
 // Add a Staff Person
 app.post('/api/addStaff', (req, res) => {
+  const {
+    hoaId, department, firstName, lastName, phone, email,
+  } = req.body;
   models.Staff.create({
-    hoaId: req.body.hoaId,
-    department: req.body.department,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    hoaId,
+    department,
+    firstName,
+    lastName,
     fullName: `${req.body.lastName}, ${req.body.firstName}`,
-    phone: req.body.phone,
-    email: req.body.email,
+    phone,
+    email,
   })
     .then(() => {
       res.send(201);
@@ -284,7 +313,12 @@ app.post('/api/addStaff', (req, res) => {
 
 // Get ALL Staff
 app.get('/api/getStaff', (req, res) => {
-  models.Staff.findAll()
+  const { hoaId } = req.body;
+  models.Staff.findAll({
+    where: {
+      hoaId,
+    }
+  })
     .then((staff) => {
       res.send(staff);
     })
@@ -299,11 +333,14 @@ app.get('/api/getStaff', (req, res) => {
 
 // Add a Work Ticket
 app.post('/api/addTicket', (req, res) => {
+  const {
+    hoaId, title, description, assignedTo,
+  } = req.body;
   models.WorkTickets.create({
-    hoaId: req.body.hoaId,
-    title: req.body.title,
-    description: req.body.description,
-    assignedTo: req.body.assignedTo,
+    hoaId,
+    title,
+    description,
+    assignedTo,
   })
     .then(() => {
       res.send(201);
@@ -315,8 +352,10 @@ app.post('/api/addTicket', (req, res) => {
 
 // Get Open Tickets
 app.get('/api/getOpenTickets', (req, res) => {
+  const { hoaId } = req.body;
   models.WorkTickets.findAll({
     isOpen: 1,
+    hoaId,
   })
     .then((openTickets) => {
       res.send(openTickets);
@@ -328,7 +367,12 @@ app.get('/api/getOpenTickets', (req, res) => {
 
 // Get All Tickets
 app.get('/api/getAllTickets', (req, res) => {
-  models.WorkTickets.findAll()
+  const { hoaId } = req.body;
+  models.WorkTickets.findAll({
+    where: {
+      hoaId,
+    },
+  })
     .then((allTickets) => {
       res.send(allTickets);
     })
@@ -361,17 +405,20 @@ app.post('/api/closeWorkTicket', (req, res) => {
 
 // Add a Board Member
 app.post('/api/addBoardMember', (req, res) => {
+  const {
+    hoaId, position, id,
+  } = req.body;
   models.BoardMembers.create({
-    accountId: req.body.id,
-    hoaId: req.body.hoaId,
-    position: req.body.position,
+    accountId: id,
+    hoaId,
+    position,
   })
     .then(() => {
       models.Homeowners.update({
         isBoardMember: 1,
       }, {
         where: {
-          id: req.body.id,
+          id,
         },
       });
     })
@@ -386,17 +433,18 @@ app.post('/api/addBoardMember', (req, res) => {
 
 // Delete a Board Member
 app.post('/api/deleteBoardMember', (req, res) => {
+  const { accountId, id } = req.body;
   models.Homeowners.update({
     isBoardMember: 0,
   }, {
     where: {
-      id: req.body.accountId,
+      id: accountId,
     },
   })
     .then(() => {
       models.BoardMembers.destroy({
         where: {
-          id: req.body.id,
+          id,
         },
       });
     })
