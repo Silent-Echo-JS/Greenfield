@@ -28,6 +28,7 @@ const filterTickets = ticket => {
 };
 
 const Maintenence = props => {
+  console.log('Maintenance props', props);
   const { workTickets, staff } = props;
   return (
     <Container>
@@ -56,7 +57,7 @@ const Maintenence = props => {
                 <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>
                   <td className="td-sm">{ticket.title}</td>
-                  <td className="td-sm">{staffMember[0].fullName}</td>
+                  {/* <td className="td-sm">{staffMember[0].fullName}</td> */}
                   <td className="td-sm">{filterTickets(ticket)}</td>
                   <td className="td-sm">
                     <Button size="sm" color="primary" className="float-right">

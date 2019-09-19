@@ -54,7 +54,7 @@ class App extends React.Component {
         Axios.get(`/checkForUser/${firebaseId}`)
           .then((res) => {
             // if (res.data.registered) {
-            // console.log("========data", res);
+            console.log("========data", res);
             this.setState({
               hoaInfo: res.data.hoaInfoFromDb,
               hoaId: res.data.hoaInfoFromDb.id,
@@ -100,8 +100,8 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('propssssssssssss', this.props);
-    const { staff, homeowners, workTickets } = this.state;
+    console.log('App state', this.state);
+    const { staff, homeowners, workTickets, hoaId, hoaInfo } = this.state;
     const token = localStorage.getItem("uid");
     return (
       <BrowserRouter>
@@ -131,6 +131,8 @@ class App extends React.Component {
                 token ? (
                   <Maintenence
                     {...props}
+                    hoaId={hoaId}
+                    hoaInfo={hoaInfo}
                     workTickets={workTickets}
                     staff={staff}
                   />
