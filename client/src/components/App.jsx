@@ -29,6 +29,7 @@ class App extends React.Component {
       homeowners: [],
       workTickets: []
     };
+    this.getAllWorkTickets = this.getAllWorkTickets.bind(this);
   }
 
   componentDidMount() {
@@ -97,6 +98,7 @@ class App extends React.Component {
                     {...props}
                     workTickets={workTickets}
                     staff={staff}
+                    getAllWorkTickets={this.getAllWorkTickets}
                   />
                 ) : (
                   <Redirect to="/login" />
