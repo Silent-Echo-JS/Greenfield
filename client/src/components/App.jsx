@@ -7,13 +7,13 @@ import Login from "./Auth/Login.jsx";
 import About from "./HomePages/About.jsx";
 import Deposit from "./Deposit.jsx";
 import Expense from "./Expense.jsx";
-import Tenants from "./Tenants.jsx";
+import HomeOwners from "./HomeOwners.jsx";
 import Board from "./Board.jsx";
 import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
 import CalendarPage from "./CalendarPage.jsx";
-import firebase from "../../../client/src/components/Auth/firebase.js";
+import firebase from "./Auth/firebase.js";
 
 function onAuthRequired({ history }) {
   history.push("/login");
@@ -23,11 +23,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      hoaInfo: {},
       staff: [],
       departments: [],
       homeowners: [],
       workTickets: []
     };
+    this.getHoaInfo = this.getHoaInfo.bind(this);
+    this.getAllStaff = this.getAllStaff.bind(this);
+    this.getAllMembers = this.getAllMembers.bind(this);
+    this.getAllWorkTickets = this.getAllWorkTickets.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +40,33 @@ class App extends React.Component {
     this.getAllMembers();
     this.getAllWorkTickets();
   }
+
+  getHoaInfo() {
+    firebase.loginWithGoogle()
+      .then((data) => {
+        // console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1', data);
+        // data also has idToken and sessionToken properties
+        const firebaseId = data.user.uid;
+        // console.log('--------------------------fireBasedID', firebaseId);
+        localStorage.setItem('uid', firebaseId)
+        Axios.get(`/checkForUser/${firebaseId}`)
+          .then((res) => {
+            // if (res.data.registered) {
+            // console.log("========data", res);
+            this.setState({
+              hoaInfo: res.data.hoaInfoFromDb,
+            });
+            // console.log(this.state);
+            // this.context.history.push('/');
+          // }
+          // this.context.history.push('/InputInfo');
+        // })
+      })
+      .catch((err) => {
+        console.error("=======error", err);
+      });
+  }
+      )};
 
   getAllStaff() {
     return Axios.get("/api/getStaff").then(response =>
@@ -61,6 +93,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('propssssssssssss', this.props);
     const { staff, homeowners, workTickets } = this.state;
     const token = localStorage.getItem('uid');
     return (
@@ -68,7 +101,7 @@ class App extends React.Component {
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
 
         <Switch>
-          <Route path="/login" component={Login} />
+          <Route path="/login" render={props => <Login {...props} getHoaInfo={this.getHoaInfo} />} />
           <Route path="/InputInfo" component={InputInfo} />
           <Navbar>
             <Route
@@ -81,7 +114,7 @@ class App extends React.Component {
             <Route path="/about" component={About} />
             <Route path="/Deposit" component={Deposit} />
             <Route path="/Expense" component={Expense} />
-            <Route path="/Tenants" component={Tenants} />
+            <Route path="/HomeOwners" component={HomeOwners} />
             <Route path="/Board" staff={staff} component={Board} />
             <Route path="/Settings" component={Settings} />
             <Route path="/Calendar" component={CalendarPage} />
