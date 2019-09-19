@@ -147,7 +147,7 @@ class Expense extends React.Component {
         <div className="fieldDiv">
           <center><h2>New Expense</h2></center>
 
-    <div class='subDiv'>
+    <div clasName='subDiv'>
           <h4>Select Account:</h4><br />
           <select id="account" value={account} onChange={this.handleChange}>
             {accounts.data.map(accountOption => {

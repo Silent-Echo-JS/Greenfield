@@ -78,7 +78,7 @@ class Tenants extends React.Component {
         <div className="fieldDiv">
           <center><h2>Add Tenant</h2><br />
           
-          <div class='subDiv'>
+          <div className='subDiv'>
           <h4>First Name:</h4><br />
           <input id="firstName" type="text" onChange={this.handleChange} value={firstName} />
           <br /><br />
@@ -111,7 +111,7 @@ class Tenants extends React.Component {
           <br /><br />
           </div>
 
-          <div class='subDiv'>
+          <div className='subDiv'>
           <h4>Unit:</h4><br />
           <input id="unit" type="text" onChange={this.handleChange} value={unit} />
           <br /><br />
@@ -141,7 +141,7 @@ class Tenants extends React.Component {
         <center>
             <h2>Tenants</h2><br /><br />
             <table>
-              <tr class='head'>
+              <tr className='head'>
                 <td>First Name</td>
                 <td>Last Name</td>
                 <td>I.C.E Name</td>

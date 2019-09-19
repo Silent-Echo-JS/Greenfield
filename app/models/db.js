@@ -535,3 +535,4 @@ module.exports.Staff = Staff;
 module.exports.WorkTickets = WorkTickets;
 module.exports.RevenueYTD = RevenueYTD;
 module.exports.ExpenseYTD = ExpenseYTD;
+module.exports.Sequelize = Sequelize;

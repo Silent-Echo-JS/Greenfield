@@ -75,6 +75,7 @@ app.post('/saveHoaInfo', (req, res) => {
         VALUES ('${name}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
       return models.sequelize.query(sqlQuery, {
         model: models.Hoa,
+        type: models.Sequelize.QueryTypes.INSERT,
       })
         .then(() => res.send({ infoWasSaved: true }))
         .catch((err) => {
