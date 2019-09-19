@@ -15,15 +15,15 @@ class DBMaintenenceTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoaId: "",
       title: "",
       description: "",
       assignedTo: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  //small
   handleSubmit(event) {
     event.preventDefault();
 
