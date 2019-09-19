@@ -13,8 +13,8 @@ class Popup extends React.Component {
         <div className="innerPopup">
           <h1>{this.props.title}</h1>
           <div>{this.props.text}</div>
-          <button class="popButton" onClick={this.props.confirmPopup}>OK</button>
-          <button class="popButton" onClick={this.props.closePopup}>Cancel</button>
+          <button className="popButton" onClick={this.props.confirmPopup}>OK</button>
+          <button className="popButton" onClick={this.props.closePopup}>Cancel</button>
         </div>
       </div>
     )

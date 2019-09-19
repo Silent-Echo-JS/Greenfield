@@ -16,52 +16,56 @@ class NavBar extends React.Component {
   render() {
     const firebaseId = localStorage.getItem("uid");
     return (
-      <Row className="mt-4">
-        <Col sm={{ size: 10, offset: 1 }}>
-          <Nav tabs>
-            <NavItem>
-              <NavLink tag={Link} to="/">
-                <i class="fas fa-home mr-2"></i>
-                Dashboard
+      <div>
+        <Row className="mt-4">
+          <Col sm={{ size: 10, offset: 1 }}>
+            <Nav tabs>
+              <NavItem>
+                <NavLink tag={Link} to="/">
+                  <i class="fas fa-home mr-2"></i>
+                  Dashboard
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#">
-                <i class="fas fa-file-invoice-dollar mr-2"></i>Financials
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/Expense">
+                  <i className="fas fa-file-invoice-dollar mr-2"></i>Financials
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/Maintenance">
-                <i class="fas fa-wrench mr-2"></i>Work Tickets
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/Maintenance">
+                  <i class="fas fa-wrench mr-2"></i>Work Tickets
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#">
-                <i class="far fa-calendar-alt mr-2"></i>Calendar
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/Calendar">
+                  <i className="far fa-calendar-alt mr-2"></i>Calendar
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#">
-                <i class="fas fa-users mr-2"></i>Members
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/Tenants">
+                  <i className="fas fa-users mr-2"></i>Members
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#">
-                <i class="fas fa-users-cog mr-2"></i>Board
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/Board">
+                  <i className="fas fa-users-cog mr-2"></i>Board
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="#"
-                firebaseId={firebaseId}
-                onClick={this.logoutUser}
-              >
-                <i class="fas fa-users-cog mr-2"></i>Logout
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="#"
+                  firebaseId={firebaseId}
+                  onClick={this.logoutUser}
+                >
+                  <i class="fas fa-users-cog mr-2"></i>Logout
               </NavLink>
-            </NavItem>
-          </Nav>
-        </Col>
-      </Row>
+              </NavItem>
+            </Nav>
+          </Col>
+        </Row>
+        {/* render all of the children routes on the navbar */}
+        {this.props.children}
+      </div>
     );
   }
 }

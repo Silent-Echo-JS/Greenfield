@@ -34,13 +34,13 @@ const edit = (method) => {
 const ListDeposit = ({ method }) => {
   return (
     <li>
-      <div class='listCell'>
-        <div class='listItem'>
+      <div className='listCell'>
+        <div className='listItem'>
           <button onClick={() => edit(method)}>Edit Deposit</button><br /><br />
           <button onClick={() => moreInfo(method)}>More Info</button>
         </div>
 
-        <div class='listItem'>
+        <div className='listItem'>
           <h4>Account:</h4> <p>{method.account}</p><br />
           <h4>Category:</h4> <p>{method.category}</p><br />
           <h4>Amount:</h4> <p>${method.amount}</p><br />
