@@ -35,13 +35,16 @@ app.get('/checkForUser/:firebaseId', (req, res) => {
     {
       model: models.Hoa,
     },
-  ).then((hoaInfoFromDb) => {
+  ).then((hoaInfoFromDatabase) => {
     // hoaInfoFromDb is an array of the user's info from the database
-    console.log('yyyyyyyyyyy', hoaInfoFromDb);
+    console.log('yyyyyyyyyyy', hoaInfoFromDatabase);
+    const hoaInfoFromDb = hoaInfoFromDatabase[0].dataValues;
+    // console.log(hoaInfoFromDb);
     res.send({
       // send back an object with regisetered equal to true or false:
       /* registered will be false if an empty array is returned (this means this is the first time
          the user signed-in so the firebaseId wasn't saved in the db yet) */
+      hoaInfoFromDb,
       registered: !!hoaInfoFromDb.length,
     });
   })
