@@ -10,7 +10,7 @@ const CalendarConfig = {
   calendars: [
     {
       name: 'demo', // whatever you want to name it
-      url: 'exampleURL@group.calendar.google.com' // your calendar URL
+      url: 'https://calendar.google.com/calendar/' // your calendar URL
     }
   ],
   dailyRecurrence: 700,
@@ -18,7 +18,7 @@ const CalendarConfig = {
   monthlyRecurrence: 20,
 };
 
-class CalendarPage extends Component {
+class CalendarPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,11 +27,13 @@ class CalendarPage extends Component {
   }
   
   render() {
+    return (
   <div>
       <Calendar
         events={this.state.events}
         config={CalendarConfig} />
     </div>
+    )
   }
 }
 
