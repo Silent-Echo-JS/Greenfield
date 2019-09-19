@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import Axios from "axios";
 import Navbar from "./HeaderComponent/Navbar.jsx";
 import Dashboard from "./DashboardComponents/Dashboard.jsx";
@@ -12,6 +12,7 @@ import Board from "./Board.jsx";
 import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
+import CalendarPage from "./CalendarPage.jsx";
 import firebase from "../../../client/src/components/Auth/firebase.js";
 
 function onAuthRequired({ history }) {
@@ -61,6 +62,7 @@ class App extends React.Component {
 
   render() {
     const { staff, homeowners, workTickets } = this.state;
+    const token = localStorage.getItem('uid');
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -82,11 +84,10 @@ class App extends React.Component {
             <Route path="/Tenants" component={Tenants} />
             <Route path="/Board" staff={staff} component={Board} />
             <Route path="/Settings" component={Settings} />
+            <Route path="/Calendar" component={CalendarPage} />
             <Route
               path="/Maintenance"
-              render={props => (
-                <Maintenence {...props} workTickets={workTickets} staff={staff} />
-              )}
+              render={props => token ? <Maintenence {...props} workTickets={workTickets} staff={staff} /> : <Redirect to='/login' />}
             />
           </Navbar>
         </Switch>
