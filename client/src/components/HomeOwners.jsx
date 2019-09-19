@@ -2,64 +2,65 @@ import React from 'react';
 import axios from 'axios';
 
 import Option from './Option.jsx';
-import ListTenants from './ListTenants.jsx';
+import ListHomeOwners from './ListHomeOwners.jsx';
 
-class Tenants extends React.Component {
+class HomeOwners extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
      firstName: null,
      lastName: null,
-     created: new Date(),
+     address: null,
+     city: null,
+     state: null,
+     zipcode: null,
+     monthlyDues: null,
      email: null,
      phone: null,
-     altPhone: null,
-     emContactName: null,
-     emContactNumber: null,
-     notes: null,
-     ownership: null,
-     unit: null,
-     address: null,
-     monthly: null,
-     date: null,
-    tenants: { data: ['null'] }
+
+    //  notes: null,
+    //  ownership: null,
+    //  unit: null,
+    //  monthly: null,
+    //  date: null,
+    homeOwners: { data: ['null'] }
       };
 
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
-    this.submitTenant = this.submitTenant.bind(this);
-    this.getTenants = this.getTenants.bind(this);
+    this.submitHomeOwner = this.submitHomeOwner.bind(this);
+    this.getHomeOwners = this.getHomeOwners.bind(this);
   }
 
   componentDidMount(){
-    this.getTenants();
+    this.getHomeOwners();
   }
 
-  getTenants() {
-    axios.get('/getTenants')
-      .then((tenants) => {
-        this.setState({ tenants: tenants });
+  getHomeOwners() {
+    axios.get('/api/getHomeowners')
+      .then((homeOwners) => {
+        this.setState({ homeOwners: homeOwners });
       })
       .catch((error) => {
-        console.log(error, 'getTenants');
+        console.log(error, 'getHomeOwners');
       });
   }
 
   /*TODO: ADD VERIFICATION.*/
   submit() {
-    window.alert('Added a new tenant.');
-    this.submitTenant(this.state);
+    window.alert('Added a new home owner.');
+    this.submitHomeOwner(this.state);
     this.componentDidMount();
   }
 
-  submitTenant(tenantSlip) {
-    axios.post('/newTenant', tenantSlip)
+  submitHomeOwner(homeownerSlip) {
+    axios.post('api/addHomeOwner', homeownerSlip)
       .then((res) => {
-        console.log('ADDED TENANT');
+        console.log('ADDED HOMEOWNER');
       })
       .catch((error) => {
-        console.log(error, 'SUBMIT TENANT');
+        console.log(error, 'SUBMIT HOMEOWNER');
       });
   }
 
@@ -69,14 +70,16 @@ class Tenants extends React.Component {
 
   render() {
 
-    const { firstName, lastName, email, phone, altPhone, emContactName, emContactNumber, notes, ownership, unit, address, monthly, date, tenants } = this.state;
+    console.log('PROPPPSSSSSSSSSSSSSSSSSSSSSSSS', this.props);
+
+    const { firstName, lastName, email, phone, notes, ownership, unit, address, monthlyDues, date, homeOwners } = this.state;
     
     return (
       <center>
-        <div className='subHead'><h1>Tenants</h1></div>
+        <div className='subHead'><h1>Home Owners</h1></div>
 
         <div className="fieldDiv">
-          <center><h2>Add Tenant</h2><br />
+          <center><h2>Add Home Owner</h2><br />
           
           <div className='subDiv'>
           <h4>First Name:</h4><br />
@@ -87,10 +90,6 @@ class Tenants extends React.Component {
           <input id="lastName" type="text" onChange={this.handleChange} value={lastName} />
           <br /><br />
 
-          <h4>Date:</h4><br />
-          <input id="date" type="date" onChange={this.handleChange} value={date} />
-          <br /><br />
-
           <h4>Email:</h4><br />
           <input id="email" type="text" onChange={this.handleChange} value={email} />
           <br /><br />
@@ -99,6 +98,19 @@ class Tenants extends React.Component {
           <input id="phone" type="text" onChange={this.handleChange} value={phone} />
           <br /><br />
 
+          <h4>Address:</h4><br />
+          <input id="address" type="text" onChange={this.handleChange} value={address} />
+          <br /><br />
+
+          <h4>Monthly Dues:</h4><br />
+          <input id="monthlyDues" type="text" onChange={this.handleChange} value={monthlyDues} />
+          <br /><br />
+
+          {/* <h4>Date:</h4><br />
+          <input id="date" type="date" onChange={this.handleChange} value={date} />
+          <br /><br /> */}
+
+          {/* 
           <h4>Alt. Phone:</h4><br />
           <input id="altPhone" type="text" onChange={this.handleChange} value={altPhone} />
           <br /><br />
@@ -109,28 +121,23 @@ class Tenants extends React.Component {
           <h4>Phone:</h4>
           <input id="emContactNumber" type="text" onChange={this.handleChange} value={emContactNumber} />
           <br /><br />
-          </div>
-
-          <div className='subDiv'>
+          </div> */}
+          {/* <div className='subDiv'>
           <h4>Unit:</h4><br />
           <input id="unit" type="text" onChange={this.handleChange} value={unit} />
-          <br /><br />
+          <br /><br /> */}
 
-          <h4>Address:</h4><br />
-          <input id="address" type="text" onChange={this.handleChange} value={address} />
-          <br /><br />
-
-          <h4>Monthly:</h4><br />
+          {/* <h4>Monthly:</h4><br />
           <input id="monthly" type="text" onChange={this.handleChange} value={monthly} />
-          <br /><br />
+          <br /><br /> */}
 
-          <h4>Ownership:</h4> <p>(%)</p><br />
+          {/* <h4>Ownership:</h4> <p>(%)</p><br />
           <input id="ownership" type="text" onChange={this.handleChange} value={ownership} />
-          <br /><br />
-
+          <br /><br /> */}
+{/* 
           <h4>Notes:</h4><br />
           <textarea id="notes" onChange={this.handleChange} value={notes} />
-          <br /><br />
+          <br /><br /> */}
       </div>
       <br /><br />
           <button id="submit" type="submit" onClick={this.submit}>Submit</button>
@@ -139,21 +146,21 @@ class Tenants extends React.Component {
 
       <div className="fieldDiv">
         <center>
-            <h2>Tenants</h2><br /><br />
+            <h2>Home Owner</h2><br /><br />
             <table>
               <tr className='head'>
                 <td>First Name</td>
                 <td>Last Name</td>
-                <td>I.C.E Name</td>
+                {/* <td>I.C.E Name</td>
                 <td>I.C.E Number</td>
                 <td>Unit</td>
-                <td>More Info</td>
+                <td>More Info</td> */}
                 <td>Edit</td>
               </tr>
               
-                {tenants.data.map(indvTenant => {
-                  return <ListTenants method={indvTenant} id={indvTenant.id} />
-                })}
+              {/* {homeOwners.data.map(indvTenant => {
+                  return <ListHomeOwners method={indvTenant} id={indvTenant.id} />
+                })} */}
               
           </table>
         </center>
@@ -163,4 +170,4 @@ class Tenants extends React.Component {
   }
 }
 
-export default Tenants;
+export default HomeOwners;
