@@ -99,18 +99,28 @@ app.post('/api/addDeposit', (req, res) => {
     amountPaid: req.body.amountPaid,
     description: req.body.description,
   })
-    .then((deposit) => {
-      
+    .then(() => {
+      res.send(201);
     })
     .catch((error) => {
       console.error(error);
     });
 });
 
-// View All Deposits/Revenue
-app.get('/api/viewRevenues', (req, res) => {
-
-
+// get All Revenues (For now, this is just Dues.
+// However, this can be expanded to other revenue sources as well)
+app.get('/api/getRevenues', (req, res) => {
+  models.Revenues.findAll({
+    where: {
+      hoaId: req.body.hoaId,
+    },
+  })
+    .then((revenues) => {
+      res.send(revenues);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 
