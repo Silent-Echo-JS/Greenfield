@@ -120,7 +120,7 @@ const { tenants, position, positions, tenant, members } = this.state;
         <div className="fieldDiv">
           <center><h2>Add Board Member</h2><br />
           
-          <div class='subDiv'>
+          <div className='subDiv'>
               <h4>Select Tenant for Board Member:</h4><br />
               <select id="tenant" value={tenant} onChange={this.handleChange}>
                 {tenants.data.map(tenantOption => {
