@@ -24,7 +24,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       hoaInfo: {},
-      hoaId: 0,
       staff: [],
       departments: [],
       homeowners: [],
@@ -101,7 +100,7 @@ class App extends React.Component {
 
   render() {
     console.log('App state', this.state);
-    const { staff, homeowners, workTickets, hoaId, hoaInfo } = this.state;
+    const { staff, homeowners, workTickets, hoaInfo } = this.state;
     const token = localStorage.getItem("uid");
     return (
       <BrowserRouter>
@@ -131,7 +130,6 @@ class App extends React.Component {
                 token ? (
                   <Maintenence
                     {...props}
-                    hoaId={hoaId}
                     hoaInfo={hoaInfo}
                     workTickets={workTickets}
                     staff={staff}

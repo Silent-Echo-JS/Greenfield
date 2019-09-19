@@ -231,7 +231,7 @@ app.delete('/api/removeHomeowner', (req, res) => {
     },
   })
     .then(() => {
-      res.send(204);
+      res.sendStatus(204);
     })
     .catch((error) => {
       console.error(error);
@@ -261,7 +261,7 @@ app.post('/api/updateHomeowner', (req, res) => {
     },
   })
     .then(() => {
-      res.send(204);
+      res.sendStatus(204);
     })
     .catch((error) => {
       console.error(error);
@@ -284,7 +284,7 @@ app.get('/api/getHomeowners', (req, res) => {
     });
 });
 
-// // Get a Homeowners current balance
+// Get a Homeowners current balance
 // app.post();
 
 //* ****************************
