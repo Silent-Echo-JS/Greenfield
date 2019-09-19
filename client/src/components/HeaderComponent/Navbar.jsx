@@ -27,7 +27,7 @@ class NavBar extends React.Component {
               </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">
+                <NavLink tag={Link} to="/Expense">
                   <i className="fas fa-file-invoice-dollar mr-2"></i>Financials
               </NavLink>
               </NavItem>
@@ -37,17 +37,17 @@ class NavBar extends React.Component {
               </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">
+                <NavLink tag={Link} to="/Calendar">
                   <i className="far fa-calendar-alt mr-2"></i>Calendar
               </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">
+                <NavLink tag={Link} to="/Tenants">
                   <i className="fas fa-users mr-2"></i>Members
               </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">
+                <NavLink tag={Link} to="/Board">
                   <i className="fas fa-users-cog mr-2"></i>Board
               </NavLink>
               </NavItem>
