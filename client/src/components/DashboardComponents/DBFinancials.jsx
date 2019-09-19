@@ -29,7 +29,7 @@ class DBFinancials extends Component {
           </Col>
           <Col>
             <Row>
-              <Col inline>
+              <Col>
                 <div className="align-middle">
                   <h6>Current Account Balance</h6>
                   <h5 className="display-4">$1,235.22</h5>
