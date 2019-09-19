@@ -10,17 +10,17 @@ const firebaseConfig = {
   messagingSenderId: '552030381121',
   appId: '1:552030381121:web:2b8a61d57513b43baa92c0',
 
-  clientId: "552030381121-5ci2at8jojv8h23cjcf4qa7038d49037.apps.googleusercontent.com",
+  // clientId: "552030381121-5ci2at8jojv8h23cjcf4qa7038d49037.apps.googleusercontent.com",
 
-  scopes: [
-    "email",
-    "profile",
-    "https://www.googleapis.com/auth/calendar",
-  ],
+  // scopes: [
+  //   "email",
+  //   "profile",
+  //   "https://www.googleapis.com/auth/calendar",
+  // ],
 
-  discoveryDocs: [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-  ],
+  // discoveryDocs: [
+  //   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+  // ],
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
