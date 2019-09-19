@@ -42,7 +42,7 @@ class NavBar extends React.Component {
               </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/Tenants">
+                <NavLink tag={Link} to="/HomeOwners">
                   <i className="fas fa-users mr-2"></i>Members
               </NavLink>
               </NavItem>
