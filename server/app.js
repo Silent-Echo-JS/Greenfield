@@ -63,7 +63,7 @@ app.post('/saveHoaInfo', (req, res) => {
   models.sequelize.query(sqlQuery1, {
     model: models.Hoa,
   })
-    .then(currentHoaInfo => {
+    .then((currentHoaInfo) => {
       console.log('uuyyyy', currentHoaInfo.length);
       // return the user's info retrieved fro mthe database
       if (currentHoaInfo.length) {
@@ -82,7 +82,6 @@ app.post('/saveHoaInfo', (req, res) => {
           console.error('ERROR: Info was not saved.', err);
           res.status(500).send({ infoWasSaved: false });
         });
-
     });
 });
 
@@ -229,7 +228,7 @@ app.delete('/api/removeHomeowner', (req, res) => {
     },
   })
     .then(() => {
-      res.send(204)
+      res.sendStatus(204);
     })
     .catch((error) => {
       console.error(error);
@@ -259,7 +258,7 @@ app.post('/api/updateHomeowner', (req, res) => {
     },
   })
     .then(() => {
-      res.send(204);
+      res.sendStatus(204);
     })
     .catch((error) => {
       console.error(error);
@@ -272,7 +271,7 @@ app.get('/api/getHomeowners', (req, res) => {
   models.Homeowners.findAll({
     where: {
       hoaId,
-    }
+    },
   })
     .then((homeowners) => {
       res.send(homeowners);
@@ -283,7 +282,7 @@ app.get('/api/getHomeowners', (req, res) => {
 });
 
 // Get a Homeowners current balance
-app.post()
+// app.post();
 
 //* ****************************
 // STAFF
@@ -317,7 +316,7 @@ app.get('/api/getStaff', (req, res) => {
   models.Staff.findAll({
     where: {
       hoaId,
-    }
+    },
   })
     .then((staff) => {
       res.send(staff);

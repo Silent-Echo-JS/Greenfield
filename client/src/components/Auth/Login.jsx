@@ -8,10 +8,9 @@ export default class Login extends Component {
   handleClick() {
     firebase.loginWithGoogle()
       .then((data) => {
-        console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1', data);
+        console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1', data.credential.accessToken);
         // data also has idToken and sessionToken properties
         const firebaseId = data.user.uid;
-        console.log('--------------------------fireBasedID', firebaseId);
         localStorage.setItem('uid', firebaseId)
         axios.get(`/checkForUser/${firebaseId}`)
           .then((res) => {
