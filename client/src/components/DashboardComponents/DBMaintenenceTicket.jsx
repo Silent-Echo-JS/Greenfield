@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StaffSelect from "./StaffSelect.jsx";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import {
   Col,
@@ -15,6 +16,7 @@ class DBMaintenenceTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      hoaId: 1,
       title: "",
       description: "",
       assignedTo: ""
@@ -27,13 +29,12 @@ class DBMaintenenceTicket extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const ticket = {
-      hoaId: this.state.hoaId,
+    Axios.post("/api/addTicket", {
+      hoaId: 1,
       title: this.state.title,
       description: this.state.description,
-      assignedTo: this.state.assignedTo
-    };
-    Axios.post("/api/addTicket", { ticket })
+      assignedTo: parseInt(this.state.assignedTo)
+    })
       .then(res => {
         console.log(res);
       })
@@ -93,16 +94,18 @@ class DBMaintenenceTicket extends Component {
         <hr />
         <FormGroup row>
           <div>
-            <button
+            <Button
               type="submit"
               size="sm"
               className="ml-3 float-left btn-custom"
             >
               Add this ticket
-            </button>
-            <Button size="sm" className="ml-3 float-right btn-custom">
-              See All Open Tickets
-            </Button>{" "}
+            </Button>
+            <Link to="/Maintenance">
+              <Button size="sm" className="ml-3 float-right btn-custom btn-sm">
+                See All Open Tickets
+              </Button>
+            </Link>
           </div>
         </FormGroup>
       </Form>
