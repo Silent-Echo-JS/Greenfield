@@ -213,7 +213,7 @@ const Expenses = sequelize.define('expenses', {
   },
 }, {
   freezeTableName: true,
-  timeStamps: false,
+  timeStamps: true,
 });
 
 // make an revenues table
@@ -259,7 +259,7 @@ const Revenues = sequelize.define('revenues', {
   },
 }, {
   freezeTableName: true,
-  timeStamps: false,
+  timeStamps: true,
 });
 
 
@@ -378,6 +378,10 @@ const RevenueYTD = sequelize.define('revenueYTD', {
     type: Sequelize.DECIMAL,
     allowNull: true,
   },
+  year: {
+    type: Sequelize.INTEGER(4),
+    allowNull: true,
+  },
   jan: {
     type: Sequelize.DECIMAL,
     allowNull: true,
@@ -426,6 +430,9 @@ const RevenueYTD = sequelize.define('revenueYTD', {
     type: Sequelize.DECIMAL,
     allowNull: true,
   },
+}, {
+  freezeTableName: true,
+  timeStamps: true,
 });
 
 // make a YTD expense table
@@ -448,6 +455,10 @@ const ExpenseYTD = sequelize.define('expenseYTD', {
     type: Sequelize.DECIMAL,
     allowNull: true,
   },
+  year: {
+    type: Sequelize.INTEGER(4),
+    allowNull: true,
+  },
   jan: {
     type: Sequelize.DECIMAL,
     allowNull: true,
@@ -496,6 +507,9 @@ const ExpenseYTD = sequelize.define('expenseYTD', {
     type: Sequelize.DECIMAL,
     allowNull: true,
   },
+}, {
+  freezeTableName: true,
+  timeStamps: true,
 });
 
 // sync all of the models

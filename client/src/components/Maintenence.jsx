@@ -36,19 +36,7 @@ const Maintenence = props => {
           <Col>
             <h1>Maintenance Tickets</h1>
           </Col>
-          <Col>
-            <Form>
-              <FormGroup inline row>
-                <Input
-                  type="search"
-                  name="search"
-                  id="searchTickets"
-                  placeholder="Search tickets"
-                  className="mr-3"
-                />
-              </FormGroup>
-            </Form>
-          </Col>
+          <Col className="float-right">Sort function here</Col>
         </Row>
         <Table hover bordered size="sm" md={{ size: 10, offset: 1 }}>
           <thead className="bg-green">
@@ -63,8 +51,9 @@ const Maintenence = props => {
           <tbody>
             {workTickets.map(ticket => {
               let staffMember = filterStaff(staff, ticket.assignedTo);
+              console.log(staffMember);
               return (
-                <tr>
+                <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>
                   <td className="td-sm">{ticket.title}</td>
                   <td className="td-sm">{staffMember[0].fullName}</td>
