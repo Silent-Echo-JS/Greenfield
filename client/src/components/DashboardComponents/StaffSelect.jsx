@@ -3,11 +3,18 @@ import { Input } from "reactstrap";
 
 const StaffSelect = props => {
   return (
-    <Input type="select" name="select" size="sm">
+    <Input
+      onChange={props.handleChange}
+      type="select"
+      name="assignedTo"
+      size="sm"
+    >
       <option selected>Assign this task to...</option>
       {props.staff &&
         props.staff.map(staffMember => (
-          <option>{staffMember.fullName}</option>
+          <option name="assignedTo" hoaId={staffMember.hoaId}>
+            {staffMember.fullName}
+          </option>
         ))}{" "}
     </Input>
   );
