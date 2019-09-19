@@ -131,14 +131,50 @@ app.get('/api/getRevenues', (req, res) => {
 
 // Add an Expense
 app.post('/api/addExpense', (req, res) => {
-
-
+  models.Expenses.create({
+    hoaId: req.body.hoaId,
+    date: models.sequelize.literal('CURRENT_TIMESTAMP'),
+    payType: req.body.payType,
+    amountPaidOut: req.body.amountPaidOut,
+    description: req.body.description,
+  })
+    .then(() => {
+      res.send(201);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
-// View Expenses
-app.get('/api/viewExpenses', (req, res) => {
+// get ALL Expenses
+app.get('/api/getExpenses', (req, res) => {
+  models.Expenses.findAll({
+    where: {
+      hoaId: req.body.hoaId,
+    },
+  })
+    .then((allExpenses) => {
+      res.send(allExpenses);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
 
-
+// get Expenses of a certain type
+app.get('/api/getTypeExpenses', (req, res) => {
+  models.Expenses.findAll({
+    where: {
+      hoaId: req.body.hoaId,
+      payType: req.body.payType,
+    },
+  })
+    .then((typeExpenses) => {
+      res.send(typeExpenses);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 
