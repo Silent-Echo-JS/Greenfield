@@ -346,7 +346,6 @@ app.put('/api/updateHomeowner/:id', (req, res) => {
 app.get('/api/getHomeowners/:hoaId', (req, res) => {
   const { hoaId } = req.params;
   // console.log('req bodyyy', req.params, 'reqqqq', req.param)
-
   models.Homeowners.findAll({
     where: {
       hoaId,

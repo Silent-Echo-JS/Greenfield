@@ -19,9 +19,9 @@ const filterTickets = ticket => {
 };
 
 const Maintenence = props => {
-  const { workTickets, staff, getAllWorkTickets, closeWorkTicket } = props;
+  const { workTickets, staff, getOpenWorkTickets, closeWorkTicket } = props;
   useEffect(() => {
-    getAllWorkTickets(workTickets);
+    getOpenWorkTickets(workTickets);
   }, []);
 
   return (

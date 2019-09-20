@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import moment from "moment";
 
-class WorkTicketModal extends React.Component {
+class MemberModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,11 +26,7 @@ class WorkTicketModal extends React.Component {
   }
 
   render() {
-    const { ticket, staff } = this.props;
-    const staffMember = this.filterStaff(staff, ticket.assignedTo);
-    const justDay = ticket.createdAt.slice(0, -14);
-    const m = moment(justDay, "YYYY-MM-DD");
-    const formattedDate = m.format("LL");
+    const { homeowner } = this.props;
 
     return (
       <div>
@@ -41,25 +37,14 @@ class WorkTicketModal extends React.Component {
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
+          size="lg"
         >
-          <ModalHeader toggle={this.toggle}>{ticket.title}</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{homeowner.fullName}</ModalHeader>
           <ModalBody>
-            {ticket.description}
+            {homeowner.address}
             <hr />
-            <p>
-              Assigned to: {staffMember.length && staffMember[0].fullName} <br />
-              Ticket Created: {formattedDate}
-            </p>
           </ModalBody>
           <ModalFooter>
-            <Button
-              color="danger"
-              onClick={() =>
-                this.props.closeWorkTicket(ticket).then(this.toggle)
-              }
-            >
-              Close ticket
-            </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
               Cancel
             </Button>
@@ -70,4 +55,8 @@ class WorkTicketModal extends React.Component {
   }
 }
 
-export default WorkTicketModal;
+export default MemberModal;
+
+<Button size="sm" className="btn-custom">
+  See details
+</Button>;
