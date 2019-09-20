@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import moment from "moment";
 
 class WorkTicketModal extends React.Component {
   constructor(props) {
@@ -26,7 +27,10 @@ class WorkTicketModal extends React.Component {
 
   render() {
     const { ticket, staff } = this.props;
-    let staffMember = this.filterStaff(staff, ticket.assignedTo);
+    const staffMember = this.filterStaff(staff, ticket.assignedTo);
+    const justDay = ticket.createdAt.slice(0, -14);
+    const m = moment(justDay, "YYYY-MM-DD");
+    const formattedDate = m.format("LL");
 
     return (
       <div>
@@ -44,7 +48,7 @@ class WorkTicketModal extends React.Component {
             <hr />
             <p>
               Assigned to: {staffMember[0].fullName} <br />
-              Ticket Created: {ticket.createdAt}
+              Ticket Created: {formattedDate}
             </p>
           </ModalBody>
           <ModalFooter>
