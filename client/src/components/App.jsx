@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 import Navbar from "./HeaderComponent/Navbar.jsx";
 import Dashboard from "./DashboardComponents/Dashboard.jsx";
 import Login from "./Auth/Login.jsx";
@@ -23,12 +24,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoaId: 0,
+      hoaId: 1,
       staff: [],
       departments: [],
       homeowners: [],
       workTickets: []
     };
+    this.getAllWorkTickets = this.getAllWorkTickets.bind(this);
+    this.closeWorkTicket = this.closeWorkTicket.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +42,9 @@ class App extends React.Component {
 
   // Sets state.staff to an array of all current staff members
   getAllStaff() {
-    return Axios.get("/api/getStaff").then(response =>
+    return Axios.post("/api/getStaff", {
+      hoaId: this.state.hoaId
+    }).then(response =>
       this.setState({
         staff: response.data
       })
@@ -57,11 +62,26 @@ class App extends React.Component {
 
   // Sets state.workTickets to an array of all open work tickets
   getAllWorkTickets() {
-    return Axios.get("/api/getOpenTickets").then(tickets =>
+    return Axios.post("/api/getOpenTickets", {
+      hoaId: 1
+    }).then(tickets =>
       this.setState({
         workTickets: tickets.data
       })
     );
+  }
+
+  closeWorkTicket(ticket) {
+    return Axios.post("/api/closeWorkTicket", {
+      id: ticket.id
+    })
+      .then(response => {
+        Swal.fire(`Your ticket has been closed`);
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   render() {
@@ -97,6 +117,8 @@ class App extends React.Component {
                     {...props}
                     workTickets={workTickets}
                     staff={staff}
+                    getAllWorkTickets={this.getAllWorkTickets}
+                    closeWorkTicket={this.closeWorkTicket}
                   />
                 ) : (
                   <Redirect to="/login" />

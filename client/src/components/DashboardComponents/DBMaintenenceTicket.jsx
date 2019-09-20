@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import StaffSelect from "./StaffSelect.jsx";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 import {
   Col,
   Button,
@@ -27,20 +28,29 @@ class DBMaintenenceTicket extends Component {
   }
   //small
   handleSubmit(event) {
+    const { title, description, hoaId, assignedTo } = this.state;
     event.preventDefault();
-
-    Axios.post("/api/addTicket", {
-      hoaId: 1,
-      title: this.state.title,
-      description: this.state.description,
-      assignedTo: parseInt(this.state.assignedTo)
-    })
-      .then(res => {
-        console.log(res);
+    if (
+      this.state.title.length === 0 ||
+      this.state.description.length === 0 ||
+      this.state.assignedTo.length === 0
+    ) {
+      Swal.fire("All fields are required");
+    } else {
+      Axios.post("/api/addTicket", {
+        hoaId: 1,
+        title: this.state.title,
+        description: this.state.description,
+        assignedTo: parseInt(this.state.assignedTo)
       })
-      .catch(err => {
-        console.error(err);
-      });
+        .then(res => {
+          Swal.fire("Your ticket has been created");
+          console.log(res);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }
 
   handleChange(event) {
