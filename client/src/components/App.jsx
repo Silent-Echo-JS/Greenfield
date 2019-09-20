@@ -14,6 +14,7 @@ import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
 import CalendarPage from "./CalendarPage.jsx";
+import MemberList from "./Members.jsx";
 import firebase from "../../../client/src/components/Auth/firebase.js";
 
 function onAuthRequired({ history }) {
@@ -107,7 +108,12 @@ class App extends React.Component {
             <Route path="/about" component={About} />
             <Route path="/Deposit" component={Deposit} />
             <Route path="/Expense" component={Expense} />
-            <Route path="/Tenants" component={Tenants} />
+            <Route
+              path="/members"
+              render={props => (
+                <MemberList {...props} homeowners={homeowners} />
+              )}
+            />
             <Route path="/Board" staff={staff} component={Board} />
             <Route path="/Settings" component={Settings} />
             <Route path="/Calendar" component={CalendarPage} />
