@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
     // if it doesn't exist (meaning the user is not logged in), redirect to the login page
     if (!localStorage.getItem("uid")) {
       return this.props.history.push("/login");
-    }
+    }  
   }
 
   render() {
