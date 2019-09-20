@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import firebase from './firebase';
 
 export default class Login extends Component {
@@ -10,6 +10,9 @@ export default class Login extends Component {
 
   handleClick() {
     this.props.getHoaInfo();
+      // .then(() => {
+      //   this.props.history.push('/');
+      // })
       // .then((res) => {
       //   console.log("========data", res);
       //   if (res.data.registered) {

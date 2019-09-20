@@ -214,6 +214,7 @@ app.post('/api/addHomeOwner', (req, res) => {
     phone,
   })
     .then(() => {
+      console.log('ajklkajslkfjkdf');
       res.send(201);
     })
     .catch((error) => {
