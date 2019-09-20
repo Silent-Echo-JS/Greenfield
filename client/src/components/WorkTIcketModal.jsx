@@ -43,7 +43,7 @@ class WorkTicketModal extends React.Component {
             {ticket.description}
             <hr />
             <p>
-              Assigned to: {staffMember[0].fullName} <br />
+              Assigned to: {staffMember.length && staffMember[0].fullName} <br />
               Ticket Created: {ticket.createdAt}
             </p>
           </ModalBody>
