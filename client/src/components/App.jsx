@@ -24,55 +24,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoaId: 1,
-      hoaInfo: {},
+      hoaId: localStorage.getItem('hoaId'),
+      hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
       staff: [],
       departments: [],
       homeowners: [],
       workTickets: []
     };
-    // this.getHoaInfo = this.getHoaInfo.bind(this);
-    // this.getAllStaff = this.getAllStaff.bind(this);
-    // this.getAllMembers = this.getAllMembers.bind(this);
+    this.getAllStaff = this.getAllStaff.bind(this);
+    this.getAllMembers = this.getAllMembers.bind(this);
     this.getAllWorkTickets = this.getAllWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
   }
 
   componentDidMount() {
-    // this.getAllStaff();
-    // this.getAllMembers();
+    this.getAllStaff();
+    this.getAllMembers();
     this.getAllWorkTickets();
   }
-
-  // Sets state.hoaInfo to the logged-in user's HoaInfo from the database and state.hoaId to their id in the database
-  getHoaInfo() {
-    firebase.loginWithGoogle()
-      .then((data) => {
-        // console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1', data);
-        // data also has idToken and sessionToken properties
-        const firebaseId = data.user.uid;
-        // console.log('--------------------------fireBasedID', firebaseId);
-        localStorage.setItem('uid', firebaseId)
-        Axios.get(`/checkForUser/${firebaseId}`)
-          .then((res) => {
-            // if (res.data.registered) {
-            console.log("========data", res);
-            this.setState({
-              hoaInfo: res.data.hoaInfoFromDb,
-              hoaId: res.data.hoaInfoFromDb.id,
-            });
-            // console.log(this.state);
-            // this.context.history.push('/');
-            // }
-            // this.context.history.push('/InputInfo');
-            // })
-          })
-          .catch((err) => {
-            console.error("=======error", err);
-          });
-      }
-      )
-  };
 
   // Sets state.staff to an array of all current staff members
   getAllStaff() {
@@ -87,9 +56,8 @@ class App extends React.Component {
 
   // Sets state.homeowners to an array of all current members of the HOA
   getAllMembers() {
-    return Axios.post("/api/getHomeowners", {
-      hoaId: this.state.hoaId
-    }).then(homeowners =>
+    const {hoaId} = this.state;
+    return Axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
       this.setState({
         homeowners: homeowners.data
       })
@@ -122,14 +90,15 @@ class App extends React.Component {
 
   render() {
     console.log('App state', this.state);
-    const { staff, homeowners, workTickets, hoaInfo } = this.state;
+    const { staff, homeowners, workTickets, hoaInfo, hoaId } = this.state;
     const token = localStorage.getItem("uid");
+    console.log('tokkkkkkkkkk', token)
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
 
         <Switch>
-          <Route path="/login" render={props => <Login {...props} getHoaInfo={this.getHoaInfo} />} />
+          <Route path="/login" render={props => <Login {...props} />} />
           <Route path="/InputInfo" component={InputInfo} />
           <Navbar>
             <Route
@@ -152,6 +121,7 @@ class App extends React.Component {
                 token ? (
                   <Maintenence
                     {...props}
+                    hoaId={hoaId}
                     hoaInfo={hoaInfo}
                     workTickets={workTickets}
                     staff={staff}
