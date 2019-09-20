@@ -30,14 +30,14 @@ class App extends React.Component {
       homeowners: [],
       workTickets: []
     };
-    this.getAllWorkTickets = this.getAllWorkTickets.bind(this);
+    this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
   }
 
   componentDidMount() {
     this.getAllStaff();
     this.getAllMembers();
-    this.getAllWorkTickets();
+    this.getOpenWorkTickets();
   }
 
   // Sets state.staff to an array of all current staff members
@@ -63,7 +63,7 @@ class App extends React.Component {
   }
 
   // Sets state.workTickets to an array of all open work tickets
-  getAllWorkTickets() {
+  getOpenWorkTickets() {
     return Axios.post("/api/getOpenTickets", {
       hoaId: 1
     }).then(tickets =>
@@ -119,7 +119,7 @@ class App extends React.Component {
                     {...props}
                     workTickets={workTickets}
                     staff={staff}
-                    getAllWorkTickets={this.getAllWorkTickets}
+                    getOpenWorkTickets={this.getOpenWorkTickets}
                     closeWorkTicket={this.closeWorkTicket}
                   />
                 ) : (
