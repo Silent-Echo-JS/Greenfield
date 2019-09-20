@@ -53,6 +53,7 @@
     "react-router": "5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-hash-link": "^1.2.2",
+    "react-scripts": "^3.1.2",
     "react_google_calendar": "^2.2.4444",
     "reactstrap": "^8.0.1",
     "sequelize": "^5.18.4",
