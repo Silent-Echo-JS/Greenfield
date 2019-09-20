@@ -19,7 +19,7 @@ const filterTickets = ticket => {
 };
 
 const Maintenence = props => {
-  const { workTickets, staff, getAllWorkTickets } = props;
+  const { workTickets, staff, getAllWorkTickets, closeWorkTicket } = props;
   useEffect(() => {
     getAllWorkTickets(workTickets);
   }, []);
@@ -46,7 +46,6 @@ const Maintenence = props => {
           <tbody>
             {workTickets.map(ticket => {
               let staffMember = filterStaff(staff, ticket.assignedTo);
-              console.log(staffMember);
               return (
                 <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>
@@ -54,7 +53,11 @@ const Maintenence = props => {
                   <td className="td-sm">{staffMember[0].fullName}</td>
                   <td className="td-sm">{filterTickets(ticket)}</td>
                   <td className="td-sm">
-                    <WorkTicketModal staff={staff} ticket={ticket} />
+                    <WorkTicketModal
+                      closeWorkTicket={closeWorkTicket}
+                      staff={staff}
+                      ticket={ticket}
+                    />
                   </td>
                 </tr>
               );
