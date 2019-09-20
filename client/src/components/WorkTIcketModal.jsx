@@ -48,7 +48,12 @@ class WorkTicketModal extends React.Component {
             </p>
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" onClick={this.toggle}>
+            <Button
+              color="danger"
+              onClick={() =>
+                this.props.closeWorkTicket(ticket).then(this.toggle)
+              }
+            >
               Close ticket
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
