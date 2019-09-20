@@ -6,11 +6,11 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 const { YOUR_GOOGLE_API_KEY } = process.env
 
 const CalendarConfig = {
-  api_key: YOUR_GOOGLE_API_KEY,
+  api_key: 'AIzaSyCc7TZ8lRqSWM6FA7xxCtlOV4gyGzhYASM',
   calendars: [
     {
       name: 'demo', // whatever you want to name it
-      url: 'https://calendar.google.com/calendar/' // your calendar URL
+      url: '79ptp90b8asivdmhlp4ifl0fas@group.calendar.google.com' // your calendar URL
     }
   ],
   dailyRecurrence: 700,
@@ -25,7 +25,8 @@ class CalendarPage extends React.Component {
       events: []
     }
   }
-  
+
+
   render() {
     return (
   <div>
