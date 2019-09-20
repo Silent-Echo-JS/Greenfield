@@ -1,45 +1,46 @@
-import React from 'react';
+import React from "react";
 
-import Calendar from 'react_google_calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+import Calendar from "react_google_calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Container, Col, Row } from "reactstrap";
 
-const { YOUR_GOOGLE_API_KEY } = process.env
+const { YOUR_GOOGLE_API_KEY } = process.env;
 
 const CalendarConfig = {
-  api_key: 'AIzaSyCc7TZ8lRqSWM6FA7xxCtlOV4gyGzhYASM',
+  api_key: "AIzaSyCc7TZ8lRqSWM6FA7xxCtlOV4gyGzhYASM",
   calendars: [
     {
-      name: 'demo', // whatever you want to name it
-      url: '79ptp90b8asivdmhlp4ifl0fas@group.calendar.google.com' // your calendar URL
+      name: "demo", // whatever you want to name it
+      url: "79ptp90b8asivdmhlp4ifl0fas@group.calendar.google.com" // your calendar URL
     }
   ],
   dailyRecurrence: 700,
   weeklyRecurrence: 500,
-  monthlyRecurrence: 20,
+  monthlyRecurrence: 20
 };
 
 class CalendarPage extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       events: []
-    }
+    };
   }
-
 
   render() {
     return (
-  <div>
-      <Calendar
-        events={this.state.events}
-        config={CalendarConfig} />
-    </div>
-    )
+      <Container>
+        <Row className="mt-5">
+          <Col>
+            <Calendar events={this.state.events} config={CalendarConfig} />
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 }
 
 export default CalendarPage;
-
 
 // import React from 'react';
 
