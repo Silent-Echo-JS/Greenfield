@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 
 const express = require('express');
@@ -37,16 +38,22 @@ app.get('/checkForUser/:firebaseId', (req, res) => {
     },
   ).then((hoaInfoFromDatabase) => {
     // hoaInfoFromDb is an array of the user's info from the database
-    console.log('yyyyyyyyyyy', hoaInfoFromDatabase);
-    const hoaInfoFromDb = hoaInfoFromDatabase[0].dataValues;
+    // console.log('yyyyyyyyyyy', hoaInfoFromDatabase);
+    const hoaInfoFromDb = hoaInfoFromDatabase[0];
+    let response = {
+      registered: false,
+    };
+    if (hoaInfoFromDb) {
+      response = {
+        registered: !!hoaInfoFromDatabase.length,
+        hoaInfoFromDb: hoaInfoFromDb.dataValues,
+      };
+    }
+    // send back an object with regisetered equal to true or false:
+    /* registered will be false if an empty array is returned (this means this is the first time
+     the user signed-in so the firebaseId wasn't saved in the db yet) */
+    res.send(response);
     // console.log(hoaInfoFromDb);
-    res.send({
-      // send back an object with regisetered equal to true or false:
-      /* registered will be false if an empty array is returned (this means this is the first time
-         the user signed-in so the firebaseId wasn't saved in the db yet) */
-      hoaInfoFromDb,
-      registered: !!hoaInfoFromDb.length,
-    });
   })
     .catch((err) => {
       console.error(err, 'ERROR: CANNOT SELECT ACCOUNTS.');
@@ -74,7 +81,7 @@ app.post('/saveHoaInfo', (req, res) => {
     model: models.Hoa,
   })
     .then((currentHoaInfo) => {
-      console.log('uuyyyy', currentHoaInfo.length);
+      console.log('uuyyyyyyyyy', currentHoaInfo);
       // return the user's info retrieved fro mthe database
       if (currentHoaInfo.length) {
         return res.send(currentHoaInfo[0]);
@@ -87,9 +94,18 @@ app.post('/saveHoaInfo', (req, res) => {
         model: models.Hoa,
         type: models.Sequelize.QueryTypes.INSERT,
       })
-        .then(() => res.send({
-          infoWasSaved: true,
-        }))
+        .then((aaa) => {
+          const sqlGetQuery = `SELECT * FROM hoa WHERE ID = (SELECT MAX(ID) FROM hoa WHERE firebaseId = '${firebaseId}')`;
+          return models.sequelize.query(sqlGetQuery, {
+            model: models.Hoa,
+            // type: models.Sequelize.QueryTypes.INSERT,
+          }).then((resp) => {
+            res.send({
+              infoWasSaved: true,
+              hoaInfoFromDb: resp[0].dataValues,
+            });
+          }).catch((err) => res.send(err));
+        })
         .catch((err) => {
           console.error('ERROR: Info was not saved.', err);
           res.status(500).send({
@@ -245,8 +261,14 @@ app.post('/api/addHomeOwner', (req, res) => {
     phone,
   })
     .then(() => {
-      console.log('ajklkajslkfjkdf');
-      res.send(201);
+      const sqlGetQuery = `SELECT * FROM homeowners WHERE ID = (SELECT MAX(ID) FROM homeowners WHERE email = '${email}')`;
+      return models.sequelize.query(sqlGetQuery, {
+        model: models.Homeowners,
+      }).then((response) => {
+        res.send({
+          ...response[0].dataValues,
+        });
+      }).catch((err) => res.send(err));
     })
     .catch((error) => {
       console.error(error);
@@ -254,27 +276,27 @@ app.post('/api/addHomeOwner', (req, res) => {
 });
 
 // Delete a Homeowner
-
-app.delete('/api/removeHomeowner', (req, res) => {
+app.delete('/api/removeHomeowner/:id', (req, res) => {
   const {
     id,
-  } = req.body;
+  } = req.params;
   models.Homeowners.destroy({
     where: {
       id,
     },
   })
     .then(() => {
-      res.sendStatus(204);
+      res.send({ deleted: true });
     })
     .catch((error) => {
       console.error(error);
+      res.status(500).send(error);
     });
 });
 
 // Update a Homeowner
-
-app.post('/api/updateHomeowner', (req, res) => {
+app.put('/api/updateHomeowner/:id', (req, res) => {
+  const { id } = req.params;
   const {
     firstName,
     lastName,
@@ -285,7 +307,6 @@ app.post('/api/updateHomeowner', (req, res) => {
     monthlyDues,
     email,
     phone,
-    id,
   } = req.body;
   models.Homeowners.update({
     firstName,
@@ -303,19 +324,29 @@ app.post('/api/updateHomeowner', (req, res) => {
       id,
     },
   })
-    .then(() => {
-      res.sendStatus(204);
+    .then((response) => {
+      console.log('reeeeeee', response);
+      const sqlGetQuery = `SELECT * FROM homeowners WHERE ID = (SELECT id FROM homeowners WHERE id = '${id}')`;
+      return models.sequelize.query(sqlGetQuery, {
+        model: models.Hoa,
+      }).then((resp) => {
+        res.send({
+          infoWasUpdated: true,
+          homeOwner: resp[0].dataValues,
+        });
+      });
     })
     .catch((error) => {
       console.error(error);
     });
 });
 
+
 // Get ALL HomeOwners
-app.post('/api/getHomeowners', (req, res) => {
-  const {
-    hoaId,
-  } = req.body;
+app.get('/api/getHomeowners/:hoaId', (req, res) => {
+  const { hoaId } = req.params;
+  // console.log('req bodyyy', req.params, 'reqqqq', req.param)
+
   models.Homeowners.findAll({
     where: {
       hoaId,
