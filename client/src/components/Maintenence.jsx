@@ -1,15 +1,6 @@
-import React from "react";
-import {
-  Container,
-  Col,
-  Row,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Table
-} from "reactstrap";
+import React, { useEffect } from "react";
+import { Container, Col, Row, Button, Table } from "reactstrap";
+import WorkTicketModal from "./WorkTIcketModal.jsx";
 
 const filterStaff = (staff, assignedTo) => {
   return staff.filter(staffMember => {
@@ -28,8 +19,11 @@ const filterTickets = ticket => {
 };
 
 const Maintenence = props => {
-  console.log('Maintenance props', props);
-  const { workTickets, staff } = props;
+  const { workTickets, staff, getAllWorkTickets, closeWorkTicket } = props;
+  useEffect(() => {
+    getAllWorkTickets(workTickets);
+  }, []);
+
   return (
     <Container>
       <div className="mt-4 mb-2">
@@ -37,7 +31,7 @@ const Maintenence = props => {
           <Col>
             <h1>Maintenance Tickets</h1>
           </Col>
-          <Col className="float-right">Sort function here</Col>
+          <Col>Sort function here</Col>
         </Row>
         <Table hover bordered size="sm" md={{ size: 10, offset: 1 }}>
           <thead className="bg-green">
@@ -52,7 +46,6 @@ const Maintenence = props => {
           <tbody>
             {workTickets.map(ticket => {
               let staffMember = filterStaff(staff, ticket.assignedTo);
-              console.log(staffMember);
               return (
                 <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>
@@ -60,9 +53,11 @@ const Maintenence = props => {
                   {/* <td className="td-sm">{staffMember[0].fullName}</td> */}
                   <td className="td-sm">{filterTickets(ticket)}</td>
                   <td className="td-sm">
-                    <Button size="sm" color="primary" className="float-right">
-                      See Details
-                    </Button>
+                    <WorkTicketModal
+                      closeWorkTicket={closeWorkTicket}
+                      staff={staff}
+                      ticket={ticket}
+                    />
                   </td>
                 </tr>
               );

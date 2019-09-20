@@ -56,7 +56,14 @@ app.get('/checkForUser/:firebaseId', (req, res) => {
 // this endpoint is hit when a new user sumbits the HoaInfo form (see handleSubmit in InputInfo.jsx)
 app.post('/saveHoaInfo', (req, res) => {
   const {
-    name, address, city, state, zipcode, phone, email, firebaseId,
+    name,
+    address,
+    city,
+    state,
+    zipcode,
+    phone,
+    email,
+    firebaseId,
   } = req.body;
 
   console.log('req bodyuyyy', req.body);
@@ -80,10 +87,14 @@ app.post('/saveHoaInfo', (req, res) => {
         model: models.Hoa,
         type: models.Sequelize.QueryTypes.INSERT,
       })
-        .then(() => res.send({ infoWasSaved: true }))
+        .then(() => res.send({
+          infoWasSaved: true,
+        }))
         .catch((err) => {
           console.error('ERROR: Info was not saved.', err);
-          res.status(500).send({ infoWasSaved: false });
+          res.status(500).send({
+            infoWasSaved: false,
+          });
         });
     });
 });
@@ -96,7 +107,10 @@ app.post('/saveHoaInfo', (req, res) => {
 // Add a Deposit
 app.post('/api/addDeposit', (req, res) => {
   const {
-    hoaId, accountId, amountPaid, description,
+    hoaId,
+    accountId,
+    amountPaid,
+    description,
   } = req.body;
   models.Revenues.create({
     hoaId,
@@ -116,7 +130,9 @@ app.post('/api/addDeposit', (req, res) => {
 // get All Revenues (For now, this is just Dues.
 // However, this can be expanded to other revenue sources as well)
 app.get('/api/getRevenues', (req, res) => {
-  const { hoaId } = req.body;
+  const {
+    hoaId,
+  } = req.body;
   models.Revenues.findAll({
     where: {
       hoaId,
@@ -138,7 +154,10 @@ app.get('/api/getRevenues', (req, res) => {
 // Add an Expense
 app.post('/api/addExpense', (req, res) => {
   const {
-    hoaId, payType, amountPaidOut, description,
+    hoaId,
+    payType,
+    amountPaidOut,
+    description,
   } = req.body;
   models.Expenses.create({
     hoaId,
@@ -157,7 +176,9 @@ app.post('/api/addExpense', (req, res) => {
 
 // get ALL Expenses
 app.get('/api/getExpenses', (req, res) => {
-  const { hoaId } = req.body;
+  const {
+    hoaId,
+  } = req.body;
   models.Expenses.findAll({
     where: {
       hoaId,
@@ -174,7 +195,8 @@ app.get('/api/getExpenses', (req, res) => {
 // get Expenses of a certain type
 app.get('/api/getTypeExpenses', (req, res) => {
   const {
-    hoaId, payType,
+    hoaId,
+    payType,
   } = req.body;
   models.Expenses.findAll({
     where: {
@@ -198,7 +220,16 @@ app.get('/api/getTypeExpenses', (req, res) => {
 // Add a Homeowner
 app.post('/api/addHomeOwner', (req, res) => {
   const {
-    hoaId, firstName, lastName, address, city, state, zipcode, monthlyDues, email, phone,
+    hoaId,
+    firstName,
+    lastName,
+    address,
+    city,
+    state,
+    zipcode,
+    monthlyDues,
+    email,
+    phone,
   } = req.body;
   models.Homeowners.create({
     hoaId,
@@ -225,7 +256,9 @@ app.post('/api/addHomeOwner', (req, res) => {
 // Delete a Homeowner
 
 app.delete('/api/removeHomeowner', (req, res) => {
-  const { id } = req.body;
+  const {
+    id,
+  } = req.body;
   models.Homeowners.destroy({
     where: {
       id,
@@ -243,7 +276,16 @@ app.delete('/api/removeHomeowner', (req, res) => {
 
 app.post('/api/updateHomeowner', (req, res) => {
   const {
-    firstName, lastName, address, city, state, zipcode, monthlyDues, email, phone, id,
+    firstName,
+    lastName,
+    address,
+    city,
+    state,
+    zipcode,
+    monthlyDues,
+    email,
+    phone,
+    id,
   } = req.body;
   models.Homeowners.update({
     firstName,
@@ -271,7 +313,9 @@ app.post('/api/updateHomeowner', (req, res) => {
 
 // Get ALL HomeOwners
 app.get('/api/getHomeowners', (req, res) => {
-  const { hoaId } = req.body;
+  const {
+    hoaId,
+  } = req.body;
   models.Homeowners.findAll({
     where: {
       hoaId,
@@ -295,7 +339,12 @@ app.get('/api/getHomeowners', (req, res) => {
 // Add a Staff Person
 app.post('/api/addStaff', (req, res) => {
   const {
-    hoaId, department, firstName, lastName, phone, email,
+    hoaId,
+    department,
+    firstName,
+    lastName,
+    phone,
+    email,
   } = req.body;
   models.Staff.create({
     hoaId,
@@ -315,8 +364,10 @@ app.post('/api/addStaff', (req, res) => {
 });
 
 // Get ALL Staff
-app.get('/api/getStaff', (req, res) => {
-  const { hoaId } = req.body;
+app.post('/api/getStaff', (req, res) => {
+  const {
+    hoaId,
+  } = req.body;
   models.Staff.findAll({
     where: {
       hoaId,
@@ -337,7 +388,10 @@ app.get('/api/getStaff', (req, res) => {
 // Add a Work Ticket
 app.post('/api/addTicket', (req, res) => {
   const {
-    hoaId, title, description, assignedTo,
+    hoaId,
+    title,
+    description,
+    assignedTo,
   } = req.body;
   models.WorkTickets.create({
     hoaId,
@@ -354,11 +408,15 @@ app.post('/api/addTicket', (req, res) => {
 });
 
 // Get Open Tickets
-app.get('/api/getOpenTickets', (req, res) => {
-  const { hoaId } = req.body;
-  models.WorkTickets.findAll({
-    isOpen: 1,
+app.post('/api/getOpenTickets', (req, res) => {
+  const {
     hoaId,
+  } = req.body;
+  models.WorkTickets.findAll({
+    where: {
+      isOpen: 1,
+      hoaId,
+    },
   })
     .then((openTickets) => {
       res.send(openTickets);
@@ -370,7 +428,9 @@ app.get('/api/getOpenTickets', (req, res) => {
 
 // Get All Tickets
 app.get('/api/getAllTickets', (req, res) => {
-  const { hoaId } = req.body;
+  const {
+    hoaId,
+  } = req.body;
   models.WorkTickets.findAll({
     where: {
       hoaId,
@@ -409,7 +469,9 @@ app.post('/api/closeWorkTicket', (req, res) => {
 // Add a Board Member
 app.post('/api/addBoardMember', (req, res) => {
   const {
-    hoaId, position, id,
+    hoaId,
+    position,
+    id,
   } = req.body;
   models.BoardMembers.create({
     accountId: id,
@@ -436,7 +498,10 @@ app.post('/api/addBoardMember', (req, res) => {
 
 // Delete a Board Member
 app.post('/api/deleteBoardMember', (req, res) => {
-  const { accountId, id } = req.body;
+  const {
+    accountId,
+    id,
+  } = req.body;
   models.Homeowners.update({
     isBoardMember: 0,
   }, {

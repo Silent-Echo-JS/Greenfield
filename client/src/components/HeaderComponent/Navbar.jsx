@@ -22,34 +22,34 @@ class NavBar extends React.Component {
             <Nav tabs>
               <NavItem>
                 <NavLink tag={Link} to="/">
-                  <i class="fas fa-home mr-2"></i>
+                  <i className="fas fa-home mr-2"></i>
                   Dashboard
-              </NavLink>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/Expense">
                   <i className="fas fa-file-invoice-dollar mr-2"></i>Financials
-              </NavLink>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/Maintenance">
-                  <i class="fas fa-wrench mr-2"></i>Work Tickets
-              </NavLink>
+                  <i className="fas fa-wrench mr-2"></i>Work Tickets
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/Calendar">
                   <i className="far fa-calendar-alt mr-2"></i>Calendar
-              </NavLink>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/HomeOwners">
                   <i className="fas fa-users mr-2"></i>Members
-              </NavLink>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/Board">
                   <i className="fas fa-users-cog mr-2"></i>Board
-              </NavLink>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
@@ -57,8 +57,8 @@ class NavBar extends React.Component {
                   firebaseId={firebaseId}
                   onClick={this.logoutUser}
                 >
-                  <i class="fas fa-users-cog mr-2"></i>Logout
-              </NavLink>
+                  <i className="fas fa-sign-out-alt mr-2"></i>Logout
+                </NavLink>
               </NavItem>
             </Nav>
           </Col>
