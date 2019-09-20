@@ -312,7 +312,7 @@ app.post('/api/updateHomeowner', (req, res) => {
 });
 
 // Get ALL HomeOwners
-app.get('/api/getHomeowners', (req, res) => {
+app.post('/api/getHomeowners', (req, res) => {
   const {
     hoaId,
   } = req.body;

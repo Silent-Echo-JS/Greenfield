@@ -87,7 +87,9 @@ class App extends React.Component {
 
   // Sets state.homeowners to an array of all current members of the HOA
   getAllMembers() {
-    return Axios.get("/api/getHomeowners").then(homeowners =>
+    return Axios.post("/api/getHomeowners", {
+      hoaId: this.state.hoaId
+    }).then(homeowners =>
       this.setState({
         homeowners: homeowners.data
       })
