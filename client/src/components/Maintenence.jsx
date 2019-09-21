@@ -21,7 +21,7 @@ const filterTickets = ticket => {
 const Maintenence = props => {
   const { workTickets, staff, getOpenWorkTickets, closeWorkTicket } = props;
   useEffect(() => {
-    getOpenWorkTickets(workTickets);
+    getOpenWorkTickets();
   }, []);
 
   return (
@@ -45,6 +45,7 @@ const Maintenence = props => {
           <tbody>
             {workTickets.map(ticket => {
               let staffMember = filterStaff(staff, ticket.assignedTo);
+              console.log(staffMember);
               return (
                 <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>

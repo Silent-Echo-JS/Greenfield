@@ -62,8 +62,9 @@ class App extends React.Component {
 
   // Sets state.workTickets to an array of all open work tickets
   getOpenWorkTickets() {
+    console.log('getOpenWorkTickets', this.state.hoaId);
     return Axios.post("/api/getOpenTickets", {
-      hoaId: 1
+      hoaId: this.state.hoaId
     }).then(tickets =>
       this.setState({
         workTickets: tickets.data
@@ -201,7 +202,6 @@ class App extends React.Component {
   render() {
     const {
       staff,
-      homeowners,
       workTickets,
       hoaInfo,
       hoaId,
@@ -221,7 +221,7 @@ class App extends React.Component {
               path="/"
               exact
               render={props => (
-                <Dashboard {...props} staff={staff} getAllStaff={getAllStaff} />
+                <Dashboard {...props} hoaId={hoaId} staff={staff} getAllStaff={getAllStaff} />
               )}
             />
             <Route path="/about" component={About} />
