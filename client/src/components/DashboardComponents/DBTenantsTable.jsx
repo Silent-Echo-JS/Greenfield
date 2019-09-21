@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const DBTenantsTable = props => {
   return (
-    <div className="p-4 dashboard-card mb-4">
+    <div className="p-4 dashboard-card mb-4 ">
       <Row>
         <Col>
           <h5>HOA Members</h5>

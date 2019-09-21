@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Button } from "reactstrap";
+import DBChart from "./DBChart.jsx";
 
 class DBFinancials extends Component {
   constructor(props) {
@@ -8,10 +9,7 @@ class DBFinancials extends Component {
   }
   render() {
     return (
-      <div
-        className="dashboard-card mb-4 p-4 mt-4"
-        Style="height:400px width: 100%"
-      >
+      <div className="dashboard-card mb-4 p-4 mt-4">
         <Row>
           <Col>
             <h5>Financials at a glance </h5>
@@ -25,7 +23,7 @@ class DBFinancials extends Component {
         <hr />
         <Row className="pl-2">
           <Col className="border-right border-dark" md={{ size: 4 }}>
-            Graph here
+            <DBChart />
           </Col>
           <Col>
             <Row>
@@ -38,10 +36,10 @@ class DBFinancials extends Component {
               <hr />
               <Col>
                 <div className="align-middle">
-                  <Button className="btn-custom" size="sm" block>
+                  <Button className="btn-success mt-1" block>
                     Record a deposit
                   </Button>
-                  <Button className="btn-custom" size="sm" block>
+                  <Button className="btn-danger" block>
                     Record an expense
                   </Button>
                 </div>
