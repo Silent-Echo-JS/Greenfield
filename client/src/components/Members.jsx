@@ -20,7 +20,7 @@ class MemberList extends React.Component {
     this.addMember = this.addMember.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
+    // this.toggleModal = this.toggleModal.bind(this);
     this.updateMember = this.updateMember.bind(this);
     this.handleEditMemberInput = this.handleEditMemberInput.bind(this);
     this.popUpAddModal = this.popUpAddModal.bind(this);
@@ -31,7 +31,7 @@ class MemberList extends React.Component {
     axios
       .get(`/api/getHomeowners/${hoaId}`)
       .then(homeOwnersRes => {
-        console.log("hooooooooo", homeOwnersRes);
+        console.log("homeOwners retrieved from database for MemberList component", homeOwnersRes);
         this.setState({ homeOwners: homeOwnersRes.data });
       })
       .catch(error => {

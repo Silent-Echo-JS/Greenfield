@@ -19,7 +19,6 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log("homeowners", this.state.homeowners);
     // check localStorage for firebase id
     // if it doesn't exist (meaning the user is not logged in), redirect to the login page
     if (!localStorage.getItem("uid")) {
@@ -35,7 +34,8 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { staff } = this.props;
+    // console.log("Dashboard props", this.props);
+    const { staff, hoaId } = this.props;
     const { homeowners } = this.state;
     return (
       <Container>
@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
             <DBFinancials />
           </Col>
           <Col md={{ size: 6 }}>
-            <DBMaintenenceTicket staff={staff} />
+            <DBMaintenenceTicket staff={staff} hoaId={hoaId} />
           </Col>
           <Col>
             <DBCalendar />
@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
         </Row>
         <Row>
           <Col md={{ size: 8 }} sm={{ size: 12 }}>
-            <DBTenantsTable homeowners={homeowners} />
+            <DBTenantsTable homeowners={homeowners} hoaId={hoaId} />
           </Col>
           <Col md={{ size: 4 }} sm={{ size: 12 }}>
             <DBBoardTable />
