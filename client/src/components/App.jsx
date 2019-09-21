@@ -6,14 +6,13 @@ import Navbar from "./HeaderComponent/Navbar.jsx";
 import Dashboard from "./DashboardComponents/Dashboard.jsx";
 import Login from "./Auth/Login.jsx";
 import About from "./HomePages/About.jsx";
-import Deposit from "./Deposit.jsx";
-import Expense from "./Expense.jsx";
 import MemberList from "./Members.jsx";
 import Board from "./Board.jsx";
 import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
 import CalendarPage from "./CalendarPage.jsx";
+import Financials from "./Financials.jsx";
 
 function onAuthRequired({ history }) {
   history.push("/login");
@@ -102,8 +101,10 @@ class App extends React.Component {
               )}
             />
             <Route path="/about" component={About} />
-            <Route path="/deposit" component={Deposit} />
-            <Route path="/expense" component={Expense} />
+            <Route
+              path="/financials"
+              render={props => <Financials {...props} />}
+            />
             <Route
               path="/members"
               render={props =>
