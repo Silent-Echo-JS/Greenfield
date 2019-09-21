@@ -28,6 +28,7 @@ class App extends React.Component {
       departments: [],
       homeowners: [],
       workTickets: [],
+      board: [],
       allRevenues: {
         totalTD: 0
       },
@@ -38,6 +39,7 @@ class App extends React.Component {
     this.getAllStaff = this.getAllStaff.bind(this);
     this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
+    this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +49,7 @@ class App extends React.Component {
     this.getAllExpenses();
     this.getAllRevenuesByYear(moment().year());
     this.getAllExpensesByYear(moment().year());
+    this.getAllBoardMembers();
   }
 
   // Sets state.staff to an array of all current staff members
@@ -56,6 +59,16 @@ class App extends React.Component {
     }).then(response =>
       this.setState({
         staff: response.data
+      })
+    );
+  }
+
+  getAllBoardMembers() {
+    return Axios.post("/api/getBoardMembers", {
+      hoaId: this.state.hoaId
+    }).then(response =>
+      this.setState({
+        board: response.data
       })
     );
   }
