@@ -40,7 +40,7 @@ class AddMemberModal extends React.Component {
           toggle={this.toggleModal}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggleModal}>Add HomeOwner</ModalHeader>
+          <ModalHeader toggle={toggleModal}>Add HomeOwner</ModalHeader>
           <ModalBody>
             {<form onSubmit={this.handleAddHomeOwner}>
               <center><h2>Add Home Owner</h2><br />

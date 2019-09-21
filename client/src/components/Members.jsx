@@ -20,7 +20,8 @@ class MemberList extends React.Component {
     this.addMember = this.addMember.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleEditModal = this.toggleEditModal.bind(this);
+    this.toggleAddModal = this.toggleAddModal.bind(this);
     this.popUpAddModal = this.popUpAddModal.bind(this);
   }
 
@@ -40,8 +41,12 @@ class MemberList extends React.Component {
     this.setState({ showEditModal: true, selectedHomeowner });
   }
 
-  toggleModal() { 
-    this.setState(prevState => ({ showEditModal: !prevState.showEditModal })) 
+  toggleAddModal() {
+    this.setState(prevState => ({ showAddModal: !prevState.showAddModal }));
+  }
+
+  toggleEditModal() { 
+    this.setState(prevState => ({ showEditModal: !prevState.showEditModal }));
   }
 
   addMember(homeOwner) {
@@ -81,18 +86,20 @@ class MemberList extends React.Component {
 
     return (
       <Container>
-        {selectedHomeowner && <EditMemberModal showModal={showEditModal} toggleModal={this.toggleModal} homeOwner={selectedHomeowner} />}
-        <AddMemberModal addMember={this.addMember} showModal={showAddModal} toggleModal={this.toggleModal} />
+        {selectedHomeowner && <EditMemberModal showModal={showEditModal} toggleModal={this.toggleEditModal} homeOwner={selectedHomeowner} />}
+        <AddMemberModal addMember={this.addMember} showModal={showAddModal} toggleModal={this.toggleAddModal} />
 
         <Row className="mt-4">
           <Col>
             <h1 className="mb-2">Home Owners</h1>
             <Button className="float-right mb-4 btn-custom" size="sm" color="success" onClick={this.popUpAddModal}>Add Home Owner</Button>
             <Table
+              responsive
               hover
               color="white"
               bordered
               size="sm"
+              sm={{ size: 12 }}
               md={{ size: 10, offset: 1 }}
             >
               <thead className="bg-green">

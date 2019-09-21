@@ -51,10 +51,10 @@ class Dashboard extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col md={{ size: 9 }}>
+          <Col md={{ size: 8 }} sm={{ size: 12 }}>
             <DBTenantsTable homeowners={homeowners} />
           </Col>
-          <Col md={{ size: 3 }}>
+          <Col md={{ size: 4 }} sm={{ size: 12 }}>
             <DBBoardTable />
           </Col>
         </Row>

@@ -31,9 +31,8 @@ const Maintenence = props => {
           <Col>
             <h1>Maintenance Tickets</h1>
           </Col>
-          <Col>Sort function here</Col>
         </Row>
-        <Table hover bordered size="sm" md={{ size: 10, offset: 1 }}>
+        <Table responsive hover bordered size="sm" md={{ size: 10, offset: 1 }}>
           <thead className="bg-green">
             <tr>
               <th className="th-sm">Issue ID</th>
