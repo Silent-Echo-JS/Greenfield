@@ -45,19 +45,19 @@ app.get('/checkForUser/:firebaseId', (req, res) => {
   // query the database for the user with the attached firebaseId
   const sqlQuery = `SELECT * FROM hoa WHERE firebaseId='${req.params.firebaseId}'`;
   models.sequelize.query(
-      sqlQuery, {
-        model: models.Hoa,
-      },
-    ).then((hoaInfoFromDb) => {
-      // hoaInfoFromDb is an array of the user's info from the database
-      console.log('yyyyyyyyyyy', hoaInfoFromDb);
-      res.send({
-        // send back an object with regisetered equal to true or false:
-        /* registered will be false if an empty array is returned (this means this is the first time
+    sqlQuery, {
+      model: models.Hoa,
+    },
+  ).then((hoaInfoFromDb) => {
+    // hoaInfoFromDb is an array of the user's info from the database
+    console.log('yyyyyyyyyyy', hoaInfoFromDb);
+    res.send({
+      // send back an object with regisetered equal to true or false:
+      /* registered will be false if an empty array is returned (this means this is the first time
              the user signed-in so the firebaseId wasn't saved in the db yet) */
-        registered: !!hoaInfoFromDb.length,
-      });
-    })
+      registered: !!hoaInfoFromDb.length,
+    });
+  })
     .catch((err) => {
       console.error(err, 'ERROR: CANNOT SELECT ACCOUNTS.');
     });
@@ -81,8 +81,8 @@ app.post('/saveHoaInfo', (req, res) => {
   // when the form is submitted, query the database for the user with the logged-in firebaseId
   const sqlQuery1 = `SELECT * FROM hoa WHERE firebaseId='${firebaseId}'`;
   models.sequelize.query(sqlQuery1, {
-      model: models.Hoa,
-    })
+    model: models.Hoa,
+  })
     .then((currentHoaInfo) => {
       console.log('uuyyyy', currentHoaInfo.length);
       // return the user's info retrieved fro mthe database
@@ -94,9 +94,9 @@ app.post('/saveHoaInfo', (req, res) => {
       const sqlQuery = `INSERT INTO hoa (name, address, city, state, zipcode, phone, email, firebaseId) 
         VALUES ('${name}', '${address}', '${city}', '${state}', '${zipcode}', '${phone}', '${email}', '${firebaseId}')`;
       return models.sequelize.query(sqlQuery, {
-          model: models.Hoa,
-          type: models.Sequelize.QueryTypes.INSERT,
-        })
+        model: models.Hoa,
+        type: models.Sequelize.QueryTypes.INSERT,
+      })
         .then(() => res.send({
           infoWasSaved: true,
         }))
@@ -123,12 +123,12 @@ app.post('/api/addDeposit', (req, res) => {
     description,
   } = req.body;
   models.Revenues.create({
-      hoaId,
-      accountId,
-      date: models.sequelize.literal('CURRENT_TIMESTAMP'),
-      amountPaid,
-      description,
-    })
+    hoaId,
+    accountId,
+    date: models.sequelize.literal('CURRENT_TIMESTAMP'),
+    amountPaid,
+    description,
+  })
     .then(() => {
       res.send(201);
     })
@@ -139,15 +139,15 @@ app.post('/api/addDeposit', (req, res) => {
 
 // get All Revenues (For now, this is just Dues.
 // However, this can be expanded to other revenue sources as well)
-app.get('/api/getRevenues', (req, res) => {
+app.post('/api/getRevenues', (req, res) => {
   const {
     hoaId,
   } = req.body;
   models.Revenues.findAll({
-      where: {
-        hoaId,
-      },
-    })
+    where: {
+      hoaId,
+    },
+  })
     .then((revenues) => {
       res.send(revenues);
     })
@@ -170,12 +170,12 @@ app.post('/api/addExpense', (req, res) => {
     description,
   } = req.body;
   models.Expenses.create({
-      hoaId,
-      date: models.sequelize.literal('CURRENT_TIMESTAMP'),
-      payType,
-      amountPaidOut,
-      description,
-    })
+    hoaId,
+    date: models.sequelize.literal('CURRENT_TIMESTAMP'),
+    payType,
+    amountPaidOut,
+    description,
+  })
     .then(() => {
       res.send(201);
     })
@@ -185,15 +185,15 @@ app.post('/api/addExpense', (req, res) => {
 });
 
 // get ALL Expenses
-app.get('/api/getExpenses', (req, res) => {
+app.post('/api/getExpenses', (req, res) => {
   const {
     hoaId,
   } = req.body;
   models.Expenses.findAll({
-      where: {
-        hoaId,
-      },
-    })
+    where: {
+      hoaId,
+    },
+  })
     .then((allExpenses) => {
       res.send(allExpenses);
     })
@@ -203,17 +203,17 @@ app.get('/api/getExpenses', (req, res) => {
 });
 
 // get Expenses of a certain type
-app.get('/api/getTypeExpenses', (req, res) => {
+app.post('/api/getTypeExpenses', (req, res) => {
   const {
     hoaId,
     payType,
   } = req.body;
   models.Expenses.findAll({
-      where: {
-        hoaId,
-        payType,
-      },
-    })
+    where: {
+      hoaId,
+      payType,
+    },
+  })
     .then((typeExpenses) => {
       res.send(typeExpenses);
     })
@@ -242,18 +242,18 @@ app.post('/api/addHomeOwner', (req, res) => {
     phone,
   } = req.body;
   models.Homeowners.create({
-      hoaId,
-      firstName,
-      lastName,
-      fullName: `${req.body.lastName}, ${req.body.firstName}`,
-      address,
-      city,
-      state,
-      zipcode,
-      monthlyDues,
-      email,
-      phone,
-    })
+    hoaId,
+    firstName,
+    lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    address,
+    city,
+    state,
+    zipcode,
+    monthlyDues,
+    email,
+    phone,
+  })
     .then(() => {
       res.send(201);
     })
@@ -269,10 +269,10 @@ app.delete('/api/removeHomeowner', (req, res) => {
     id,
   } = req.body;
   models.Homeowners.destroy({
-      where: {
-        id,
-      },
-    })
+    where: {
+      id,
+    },
+  })
     .then(() => {
       res.sendStatus(204);
     })
@@ -297,21 +297,21 @@ app.post('/api/updateHomeowner', (req, res) => {
     id,
   } = req.body;
   models.Homeowners.update({
-      firstName,
-      lastName,
-      fullName: `${req.body.lastName}, ${req.body.firstName}`,
-      address,
-      city,
-      state,
-      zipcode,
-      monthlyDues,
-      email,
-      phone,
-    }, {
-      where: {
-        id,
-      },
-    })
+    firstName,
+    lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    address,
+    city,
+    state,
+    zipcode,
+    monthlyDues,
+    email,
+    phone,
+  }, {
+    where: {
+      id,
+    },
+  })
     .then(() => {
       res.sendStatus(204);
     })
@@ -326,10 +326,10 @@ app.post('/api/getHomeowners', (req, res) => {
     hoaId,
   } = req.body;
   models.Homeowners.findAll({
-      where: {
-        hoaId,
-      },
-    })
+    where: {
+      hoaId,
+    },
+  })
     .then((homeowners) => {
       res.send(homeowners);
     })
@@ -389,14 +389,14 @@ app.post('/api/addStaff', (req, res) => {
     email,
   } = req.body;
   models.Staff.create({
-      hoaId,
-      department,
-      firstName,
-      lastName,
-      fullName: `${req.body.lastName}, ${req.body.firstName}`,
-      phone,
-      email,
-    })
+    hoaId,
+    department,
+    firstName,
+    lastName,
+    fullName: `${req.body.lastName}, ${req.body.firstName}`,
+    phone,
+    email,
+  })
     .then(() => {
       res.send(201);
     })
@@ -411,10 +411,10 @@ app.post('/api/getStaff', (req, res) => {
     hoaId,
   } = req.body;
   models.Staff.findAll({
-      where: {
-        hoaId,
-      },
-    })
+    where: {
+      hoaId,
+    },
+  })
     .then((staff) => {
       res.send(staff);
     })
@@ -436,11 +436,11 @@ app.post('/api/addTicket', (req, res) => {
     assignedTo,
   } = req.body;
   models.WorkTickets.create({
-      hoaId,
-      title,
-      description,
-      assignedTo,
-    })
+    hoaId,
+    title,
+    description,
+    assignedTo,
+  })
     .then(() => {
       res.send(201);
     })
@@ -455,11 +455,11 @@ app.post('/api/getOpenTickets', (req, res) => {
     hoaId,
   } = req.body;
   models.WorkTickets.findAll({
-      where: {
-        isOpen: 1,
-        hoaId,
-      },
-    })
+    where: {
+      isOpen: 1,
+      hoaId,
+    },
+  })
     .then((openTickets) => {
       console.log(openTickets);
       res.send(openTickets);
@@ -475,10 +475,10 @@ app.get('/api/getAllTickets', (req, res) => {
     hoaId,
   } = req.body;
   models.WorkTickets.findAll({
-      where: {
-        hoaId,
-      },
-    })
+    where: {
+      hoaId,
+    },
+  })
     .then((allTickets) => {
       res.send(allTickets);
     })
@@ -490,13 +490,13 @@ app.get('/api/getAllTickets', (req, res) => {
 // Close a Work Ticket
 app.post('/api/closeWorkTicket', (req, res) => {
   models.WorkTickets.update({
-      isOpen: 0,
-      dateCompleted: models.sequelize.literal('CURRENT_TIMESTAMP'),
-    }, {
-      where: {
-        id: req.body.id,
-      },
-    })
+    isOpen: 0,
+    dateCompleted: models.sequelize.literal('CURRENT_TIMESTAMP'),
+  }, {
+    where: {
+      id: req.body.id,
+    },
+  })
     .then(() => {
       res.send(204);
     })
@@ -517,10 +517,10 @@ app.post('/api/addBoardMember', (req, res) => {
     id,
   } = req.body;
   models.BoardMembers.create({
-      accountId: id,
-      hoaId,
-      position,
-    })
+    accountId: id,
+    hoaId,
+    position,
+  })
     .then(() => {
       models.Homeowners.update({
         isBoardMember: 1,
@@ -546,12 +546,12 @@ app.post('/api/deleteBoardMember', (req, res) => {
     id,
   } = req.body;
   models.Homeowners.update({
-      isBoardMember: 0,
-    }, {
-      where: {
-        id: accountId,
-      },
-    })
+    isBoardMember: 0,
+  }, {
+    where: {
+      id: accountId,
+    },
+  })
     .then(() => {
       models.BoardMembers.destroy({
         where: {
