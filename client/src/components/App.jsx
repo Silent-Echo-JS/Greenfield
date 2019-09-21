@@ -76,7 +76,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { staff, homeowners, workTickets, hoaInfo, hoaId } = this.state;
+    const { staff, homeowners, workTickets, hoaInfo, hoaId, getAllStaff } = this.state;
     const token = localStorage.getItem("uid");
     return (
       <BrowserRouter>
@@ -86,7 +86,7 @@ class App extends React.Component {
           <Route path="/login" render={props => <Login {...props} />} />
           <Route path="/InputInfo" component={InputInfo} />
           <Navbar> 
-          <Route path="/" exact render={props => (<Dashboard {...props} staff={staff} />)}/>
+          <Route path="/" exact render={props => (<Dashboard {...props} staff={staff} getAllStaff={getAllStaff} />)}/>
           <Route path="/about" component={About} />
           <Route path="/deposit" component={Deposit} />
           <Route path="/expense" component={Expense} />
