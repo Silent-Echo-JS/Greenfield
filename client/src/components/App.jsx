@@ -14,6 +14,7 @@ import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
 import CalendarPage from "./CalendarPage.jsx";
+import MemberList from "./Members.jsx";
 import firebase from "../../../client/src/components/Auth/firebase.js";
 
 function onAuthRequired({ history }) {
@@ -30,14 +31,14 @@ class App extends React.Component {
       homeowners: [],
       workTickets: []
     };
-    this.getAllWorkTickets = this.getAllWorkTickets.bind(this);
+    this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
   }
 
   componentDidMount() {
     this.getAllStaff();
     this.getAllMembers();
-    this.getAllWorkTickets();
+    this.getOpenWorkTickets();
   }
 
   // Sets state.staff to an array of all current staff members
@@ -53,7 +54,9 @@ class App extends React.Component {
 
   // Sets state.homeowners to an array of all current members of the HOA
   getAllMembers() {
-    return Axios.get("/api/getHomeowners").then(homeowners =>
+    return Axios.post("/api/getHomeowners", {
+      hoaId: this.state.hoaId
+    }).then(homeowners =>
       this.setState({
         homeowners: homeowners.data
       })
@@ -61,7 +64,7 @@ class App extends React.Component {
   }
 
   // Sets state.workTickets to an array of all open work tickets
-  getAllWorkTickets() {
+  getOpenWorkTickets() {
     return Axios.post("/api/getOpenTickets", {
       hoaId: 1
     }).then(tickets =>
@@ -105,7 +108,12 @@ class App extends React.Component {
             <Route path="/about" component={About} />
             <Route path="/Deposit" component={Deposit} />
             <Route path="/Expense" component={Expense} />
-            <Route path="/Tenants" component={Tenants} />
+            <Route
+              path="/members"
+              render={props => (
+                <MemberList {...props} homeowners={homeowners} />
+              )}
+            />
             <Route path="/Board" staff={staff} component={Board} />
             <Route path="/Settings" component={Settings} />
             <Route path="/Calendar" component={CalendarPage} />
@@ -117,7 +125,7 @@ class App extends React.Component {
                     {...props}
                     workTickets={workTickets}
                     staff={staff}
-                    getAllWorkTickets={this.getAllWorkTickets}
+                    getOpenWorkTickets={this.getOpenWorkTickets}
                     closeWorkTicket={this.closeWorkTicket}
                   />
                 ) : (
