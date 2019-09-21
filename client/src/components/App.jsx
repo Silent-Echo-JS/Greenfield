@@ -85,9 +85,8 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" render={props => <Login {...props} />} />
           <Route path="/InputInfo" component={InputInfo} />
-          <Navbar>
-          <Route path="/" exact render={props => token ? (<Dashboard {...props} staff={staff} />) :
-            (<Redirect to="/login" />)} />
+          <Navbar> 
+          <Route path="/" exact render={props => (<Dashboard {...props} staff={staff} />)}/>
           <Route path="/about" component={About} />
           <Route path="/deposit" component={Deposit} />
           <Route path="/expense" component={Expense} />
