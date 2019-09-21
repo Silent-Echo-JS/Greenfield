@@ -30,7 +30,7 @@ class MemberList extends React.Component {
     axios
       .get(`/api/getHomeowners/${hoaId}`)
       .then(homeOwnersRes => {
-        console.log("hooooooooo", homeOwnersRes);
+        console.log("Homeowner", homeOwnersRes);
         this.setState({ homeOwners: homeOwnersRes.data });
       })
       .catch(error => {
@@ -51,7 +51,6 @@ class MemberList extends React.Component {
   }
 
   addMember(homeOwner) {
-    // console.log('yoooo', homeOwner);
     axios
       .post("/api/addHomeOwner", homeOwner)
       .then(res => {
@@ -114,7 +113,7 @@ class MemberList extends React.Component {
 
         <Row className="mt-4">
           <Col>
-            <h1 className="mb-2">Home Owners</h1>
+            <h1 className="mb-2">Homeowners</h1>
             <Button
               className="float-right mb-4 btn-custom"
               size="sm"
