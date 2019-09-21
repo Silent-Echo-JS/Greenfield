@@ -9,7 +9,6 @@ import Login from "./Auth/Login.jsx";
 import About from "./HomePages/About.jsx";
 import MemberList from "./Members.jsx";
 import Board from "./Board.jsx";
-import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
 import CalendarPage from "./CalendarPage.jsx";
