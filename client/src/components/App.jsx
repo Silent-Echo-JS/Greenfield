@@ -78,6 +78,7 @@ class App extends React.Component {
   render() {
     const { staff, homeowners, workTickets, hoaInfo, hoaId, getAllStaff } = this.state;
     const token = localStorage.getItem("uid");
+    console.log('APP STATE BEARS', hoaId);
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
