@@ -14,7 +14,8 @@ class Dashboard extends React.Component {
     super();
     this.state = {
       hoaId: localStorage.getItem("hoaId"),
-      homeowners: []
+      homeowners: [],
+      boardMembers: []
     };
   }
 
@@ -33,6 +34,8 @@ class Dashboard extends React.Component {
       })
     );
   }
+
+  getAllBoardMembers() {}
 
   render() {
     const { staff } = this.props;
