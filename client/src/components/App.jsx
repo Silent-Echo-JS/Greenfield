@@ -240,7 +240,7 @@ class App extends React.Component {
               }
             />
             <Route path="/board" staff={staff} component={Board} />
-            <Route path="/settings" component={Settings} />
+            {/* <Route path="/settings" component={Settings} /> */}
             <Route
               path="/calendar"
               render={props =>
