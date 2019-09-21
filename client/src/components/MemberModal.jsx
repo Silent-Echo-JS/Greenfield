@@ -45,7 +45,6 @@ class MemberModal extends React.Component {
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
-          size="lg"
         >
           <ModalHeader toggle={this.toggle}>{homeowner.fullName}</ModalHeader>
           <ModalBody>

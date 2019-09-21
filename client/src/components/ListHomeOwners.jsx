@@ -10,7 +10,7 @@ const edit = (method) => {
   window.alert('Feature not yet available.')
 }
 
-const ListTenants = ({ method }) => {
+const ListHomeOwners = ({ method }) => {
   console.log(method, 'method');
   return (
     <tr>
@@ -25,4 +25,4 @@ const ListTenants = ({ method }) => {
   );
 }
 
-export default ListTenants;
+export default ListHomeOwners;
