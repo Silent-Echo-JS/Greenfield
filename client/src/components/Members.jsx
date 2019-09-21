@@ -1,15 +1,15 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import { Table, Button, Row, Col, Container } from "reactstrap";
-import EditMemberModal from './EditMemberModal.jsx';
-import AddMemberModal from './AddMemberModal.jsx';
+import EditMemberModal from "./EditMemberModal.jsx";
+import AddMemberModal from "./AddMemberModal.jsx";
 
 class MemberList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      hoaId: localStorage.getItem('hoaId'),
+      hoaId: localStorage.getItem("hoaId"),
       selectedHomeowner: null,
       homeOwners: [],
       showEditModal: false,
@@ -28,13 +28,14 @@ class MemberList extends React.Component {
 
   componentDidMount() {
     const { hoaId } = this.state;
-    axios.get(`/api/getHomeowners/${hoaId}`)
-      .then((homeOwnersRes) => {
-        console.log('hooooooooo', homeOwnersRes)
+    axios
+      .get(`/api/getHomeowners/${hoaId}`)
+      .then(homeOwnersRes => {
+        console.log("hooooooooo", homeOwnersRes);
         this.setState({ homeOwners: homeOwnersRes.data });
       })
-      .catch((error) => {
-        console.log(error, 'getHomeOwners');
+      .catch(error => {
+        console.log(error, "getHomeOwners");
       });
   }
 
@@ -42,19 +43,31 @@ class MemberList extends React.Component {
     this.setState({ showEditModal: true, selectedHomeowner });
   }
 
-  toggleModal() {
-    this.setState(prevState => ({ showEditModal: !prevState.showEditModal }))
+  // toggleModal() {
+  //   this.setState(prevState => ({ showEditModal: !prevState.showEditModal }));
+  // }
+
+  toggleAddModal() {
+    this.setState(prevState => ({ showAddModal: !prevState.showAddModal }));
+  }
+
+  toggleEditModal() {
+    this.setState(prevState => ({ showEditModal: !prevState.showEditModal }));
   }
 
   addMember(homeOwner) {
     // console.log('yoooo', homeOwner);
-    axios.post('/api/addHomeOwner', homeOwner)
-      .then((res) => {
-        console.log('ADDED HOMEOWNER', res);
-        this.setState(prevState => ({ homeOwners: prevState.homeOwners.concat(res.data), showAddModal: false }));
+    axios
+      .post("/api/addHomeOwner", homeOwner)
+      .then(res => {
+        console.log("ADDED HOMEOWNER", res);
+        this.setState(prevState => ({
+          homeOwners: prevState.homeOwners.concat(res.data),
+          showAddModal: false
+        }));
       })
-      .catch((error) => {
-        console.log('HOMEOWNER WAS NOT ADDED', error);
+      .catch(error => {
+        console.log("HOMEOWNER WAS NOT ADDED", error);
       });
   }
 
@@ -64,14 +77,17 @@ class MemberList extends React.Component {
 
   handleDelete(id) {
     const { homeOwners } = this.state;
-    axios.delete(`/api/removeHomeowner/${id}`)
+    axios
+      .delete(`/api/removeHomeowner/${id}`)
       .then(res => {
-        console.log('The homeowner was sent to the void.', res.data);
+        console.log("The homeowner was sent to the void.", res.data);
         if (res.data.deleted) {
-          this.setState({ homeOwners: homeOwners.filter(homeowner => homeowner.id !== id) })
+          this.setState({
+            homeOwners: homeOwners.filter(homeowner => homeowner.id !== id)
+          });
         }
       })
-      .catch(err => console.error('The Homeowner was not removed.', err));
+      .catch(err => console.error("The Homeowner was not removed.", err));
   }
 
   updateMember(event) {
@@ -99,7 +115,12 @@ class MemberList extends React.Component {
   }
 
   render() {
-    const { showAddModal, showEditModal, homeOwners, selectedHomeowner } = this.state;
+    const {
+      showAddModal,
+      showEditModal,
+      homeOwners,
+      selectedHomeowner
+    } = this.state;
 
     return (
       <Container>
@@ -109,7 +130,14 @@ class MemberList extends React.Component {
         <Row className="mt-4">
           <Col>
             <h1 className="mb-2">Home Owners</h1>
-            <Button className="float-right mb-4 btn-custom" size="sm" color="success" onClick={this.popUpAddModal}>Add Home Owner</Button>
+            <Button
+              className="float-right mb-4 btn-custom"
+              size="sm"
+              color="success"
+              onClick={this.popUpAddModal}
+            >
+              Add Home Owner
+            </Button>
             <Table
               hover
               color="white"
@@ -138,7 +166,9 @@ class MemberList extends React.Component {
 
                       <td className="td-sm table-text">{homeowner.phone}</td>
                       <td className="td-sm table-text">{homeowner.email}</td>
-                      <td className="td-sm table-text">{homeowner.monthlyDues}</td>
+                      <td className="td-sm table-text">
+                        {homeowner.monthlyDues}
+                      </td>
                       {/* <td className="td-sm table-text">{homeowner.isBoardMember ? 'Yes' : 'No'}</td> */}
                       <td><button onClick={() => this.handleEdit(homeowner)}>Edit</button></td>
                       <td><button onClick={() => this.handleDelete(homeowner.id)}>Delete</button></td>

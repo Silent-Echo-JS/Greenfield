@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import axios from 'axios';
+import axios from "axios";
 
 import DBFinancials from "./DBFinancials.jsx";
 import DBMaintenenceTicket from "./DBMaintenenceTicket.jsx";
@@ -13,13 +13,13 @@ class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = {
-      hoaId: localStorage.getItem('hoaId'),
+      hoaId: localStorage.getItem("hoaId"),
       homeowners: []
-    }
+    };
   }
 
   componentDidMount() {
-    console.log('yooooooo', this.props.homeowners)
+    console.log("homeowners", this.state.homeowners);
     // check localStorage for firebase id
     // if it doesn't exist (meaning the user is not logged in), redirect to the login page
     if (!localStorage.getItem("uid")) {
@@ -31,12 +31,12 @@ class Dashboard extends React.Component {
       this.setState({
         homeowners: homeowners.data
       })
-    );    
+    );
   }
 
   render() {
     const { staff } = this.props;
-    const { homeowners} = this.state
+    const { homeowners } = this.state;
     return (
       <Container>
         <Row>
