@@ -159,7 +159,7 @@ app.post('/api/addDeposit', (req, res) => {
 
 // get All Revenues (For now, this is just Dues.
 // However, this can be expanded to other revenue sources as well)
-app.get('/api/getRevenues', (req, res) => {
+app.post('/api/getRevenues', (req, res) => {
   const {
     hoaId,
   } = req.body;
@@ -205,7 +205,7 @@ app.post('/api/addExpense', (req, res) => {
 });
 
 // get ALL Expenses
-app.get('/api/getExpenses', (req, res) => {
+app.post('/api/getExpenses', (req, res) => {
   const {
     hoaId,
   } = req.body;
@@ -223,7 +223,7 @@ app.get('/api/getExpenses', (req, res) => {
 });
 
 // get Expenses of a certain type
-app.get('/api/getTypeExpenses', (req, res) => {
+app.post('/api/getTypeExpenses', (req, res) => {
   const {
     hoaId,
     payType,
