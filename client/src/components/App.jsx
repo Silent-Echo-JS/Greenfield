@@ -8,7 +8,6 @@ import Login from "./Auth/Login.jsx";
 import About from "./HomePages/About.jsx";
 import MemberList from "./Members.jsx";
 import Board from "./Board.jsx";
-import Settings from "./Settings.jsx";
 import InputInfo from "./Auth/InputInfo.jsx";
 import Maintenence from "./Maintenence.jsx";
 import CalendarPage from "./CalendarPage.jsx";
@@ -116,7 +115,6 @@ class App extends React.Component {
               }
             />
             <Route path="/board" staff={staff} component={Board} />
-            <Route path="/settings" component={Settings} />
             <Route
               path="/calendar"
               render={props =>
