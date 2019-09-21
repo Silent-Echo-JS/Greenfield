@@ -5,4 +5,3 @@ config.json
 client/src/components/Auth/firebase.js
 .env
 credentials.json
-client/src/components/HomeOwnersModal.jsx
