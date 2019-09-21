@@ -105,23 +105,12 @@ class MemberList extends React.Component {
             homeOwner={selectedHomeowner}
           />
         )}
-        <AddMemberModal
-          addMember={this.addMember}
-          showModal={showAddModal}
-          toggleModal={this.toggleAddModal}
-        />
 
         <Row className="mt-4">
           <Col>
-            <h1 className="mb-2">Homeowners</h1>
-            <Button
-              className="float-right mb-4 btn-custom"
-              size="sm"
-              color="success"
-              onClick={this.popUpAddModal}
-            >
-              Add Home Owner
-            </Button>
+            <h1 className="mb-2 inline">Homeowners</h1>
+            <AddMemberModal className="inline" />
+            <hr />
             <Table
               responsive
               hover
