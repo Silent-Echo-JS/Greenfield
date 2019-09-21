@@ -35,7 +35,11 @@ export default class Profile extends Component {
     axios.post(`/saveHoaInfo`, { ...this.state.userInfo, firebaseId: localStorage.getItem('uid') })
       .then((res) => {
         console.log('SHOW YOURSELF HOA FORM SUBMIT DATA', res.data);
+        console.log(res.data);
+        console.log(res.data.infoWasSaved);
         if (res.data.infoWasSaved) {
+          localStorage.setItem('hoaInfo', JSON.stringify(res.data.hoaInfoFromDb));
+          localStorage.setItem('hoaId', res.data.hoaInfoFromDb.id);
           this.props.history.push('/');
         } else {
           alert('Unable to save HOA info');

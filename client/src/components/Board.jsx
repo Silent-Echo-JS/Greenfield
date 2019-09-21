@@ -1,159 +1,77 @@
-import React from 'react';
-import axios from 'axios';
-
-import Option from './Option.jsx';
-import ListBoard from './ListBoard.jsx';
+import React from "react";
+import axios from "axios";
+import { Container, Col, Row, Table } from "reactstrap";
 
 class Board extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      tenants: { data: [' '] },
+      members: [],
       tenant: null,
-      positions: { data: [' '] },
+      positions: [],
       position: null,
-      members: { data: [' ']}
-      };
+      members: { data: [" "] }
+    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.submit = this.submit.bind(this);
-    this.getTenants = this.getTenants.bind(this);
-    this.getPositions = this.getPositions.bind(this);
-    this.addPosition = this.addPosition.bind(this);
-    this.submitMember = this.submitMember.bind(this);
-    this.getMembers = this.getMembers.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(){
-    this.getTenants();
-    this.getPositions();
-    this.getMembers();
-  }
+  // componentDidMount() {
+  //   this.getTenants();
+  //   this.getPositions();
+  //   this.getMembers();
+  // }
 
   /*TODO: ADD VERIFICATION.*/
-  submit() {
-    this.submitMember(this.state);
-    window.alert('Added a new board member.');
-    this.componentDidMount();
-  }
 
-  submitMember(memberSlip) {
-    console.log(memberSlip, 'MEMBERSLIP');
-
-    axios.post('/newMember', memberSlip)
-      .then((res) => {
-        console.log('ADDED MEMBER');
-      })
-      .catch((error) => {
-        console.log(error, 'ADDED MEMBER');
-      });
-  }
-
-  getTenants() {
-    axios.get('/getTenants')
-      .then((tenants) => {
-        this.setState({ tenants: tenants });
-        this.setState({ tenant: tenants.data[0].firstName + ' ' + tenants.data[0].lastName });
-      })
-      .catch((error) => {
-        console.log(error, 'getTenants');
-      });
-  }
-
-  getMembers() {
-    axios.get('/getMembers')
-      .then((members) => {
-        this.setState({ members: members });
-      })
-      .catch((error) => {
-        console.log(error, 'getTenants');
-      });
-  }
-
-  getPositions() {
-    axios.get('/getPositions')
-      .then((positions) => {
-        this.setState({ positions: positions });
-        return positions;
-      })
-      .then((positions) => {
-        this.setState({ position: positions.data[0].name });
-      })
-      .catch((error) => {
-        console.log(error, 'getPositions');
-      });
-  }
-
-  addPosition() {
-    const positionName = window.prompt('Type new position name:');
-    this.createPosition({ 
-      positionName: positionName,
-      type: 'position'
-   });
-    window.alert('Created a new position.');
-    this.setState({ position: positionName });
-    this.componentDidMount();
-  }
-
-  createPosition(newPosition){
-    axios.post('/newPosition', newPosition)
-      .then((res) => {
-        console.log('CREATED NEW POSITION.');
-      })
-      .catch((error) => {
-        console.log(error, '[deposit/createPosition()]');
-      });
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-    this.componentDidMount();
-  }
+  // handleChange(event) {
+  //   this.setState({ [event.target.id]: event.target.value });
+  //   this.componentDidMount();
+  // }
 
   render() {
-const { tenants, position, positions, tenant, members } = this.state;
     return (
-      <center>
-        <div className='subHead'><h1>Board</h1></div>
-
-        <div className="fieldDiv">
-          <center><h2>Add Board Member</h2><br />
-          
-          <div className='subDiv'>
-              <h4>Select Tenant for Board Member:</h4><br />
-              <select id="tenant" value={tenant} onChange={this.handleChange}>
-                {tenants.data.map(tenantOption => {
-                  return <Option optionName={tenantOption.firstName + ` ` + tenantOption.lastName} id={tenantOption.id} />
-                })}
-              </select>
-              <br /><br />
-
-              <h4>Select Position:</h4><br />
-              <select id="position" value={position} onChange={this.handleChange}>
-                {positions.data.map(positionOption => {
-                  return <Option optionName={positionOption.name} id={positionOption.id} />
-                })}
-              </select><br />
-              <button id="addPosition" type="submit" onClick={this.addPosition}>Add New Position</button>
-              <br /><br />
-
-          <button id="submit" type="submit" onClick={this.submit}>Submit</button>
-          </div>
-          </center>
-      </div>
-
-        <div className="fieldDiv">
-          <center>
-            <h2>Board Members</h2>
-            <ul>
-              {members.data.map(member => {
-                return <ListBoard method={member} id={member.id} />
-              })}
-            </ul>
-          </center>
-        </div>
-      </center>
+      <Container className="mt-4">
+        <h1>Board</h1>
+        <Row>
+          <Col>
+            <Table
+              responsive
+              hover
+              color="white"
+              bordered
+              size="sm"
+              sm={{ size: 12 }}
+              md={{ size: 10, offset: 1 }}
+            >
+              <thead className="bg-green">
+                <tr>
+                  <th className="th-sm th-text">Position</th>
+                  <th className="th-sm th-text">Name</th>
+                  <th className="th-sm th-text">Address</th>
+                  <th className="th-sm th-text">Primary Phone</th>
+                  <th className="th-sm th-text">Email</th>
+                  {/* <th className="th-sm th-text">Board Member</th> */}
+                  <th className="th-sm th-text">Edit</th>
+                  <th className="th-sm th-text">Delete</th>
+                </tr>
+              </thead>
+              <tr>
+                <td className="td-sm td-text">Position</td>
+                <td className="td-sm td-text">Name</td>
+                <td className="td-sm td-text">Address</td>
+                <td className="td-sm td-text">Primary Phone</td>
+                <td className="td-sm td-text">Email</td>
+                {/* <td className="td-sm td-text">Board Member</td> */}
+                <td className="td-sm td-text">Edit</td>
+                <td className="td-sm td-text">Delete</td>
+              </tr>
+              <tbody></tbody>
+            </Table>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
