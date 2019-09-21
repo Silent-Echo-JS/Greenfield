@@ -4,9 +4,12 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 const models = require('../app/models/db.js');
 
+
 const app = express();
+
 
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -21,6 +24,17 @@ app.use(session({
 // serve static files
 app.use(express.static(`${__dirname}/../client/dist`));
 
+//* ****************************
+//  Helper Helpers
+//* ****************************
+moment().format();
+
+function howManyMonths(createdAt) {
+  const start = createdAt;
+  const end = moment().format('YYYY-MM-DD');
+  const monthsSince = moment(new Date(end)).diff(new Date(start), 'months', true);
+  return Math.round(monthsSince);
+}
 
 //* ****************************
 // HOA
@@ -283,7 +297,40 @@ app.get('/api/getHomeowners', (req, res) => {
 });
 
 // Get a Homeowners current balance
-app.post()
+app.post('/api/memberBalance', (req, res) => {
+  const {
+    hoaId, id, createdAt, monthlyDues,
+  } = req.body;
+  const finances = {};
+  const totalOwedOverLifetime = howManyMonths(createdAt) * monthlyDues;
+  finances.totalOwedOverLifetime = totalOwedOverLifetime;
+
+  models.Revenues.findAll({
+    where: {
+      hoaId,
+      accountId: id,
+    },
+  })
+    .then((paymentObjects) => {
+      const paymentArray = paymentObjects.map((paymentObject) => Number(paymentObject.amountPaid));
+      const totalPaidOverLifetime = paymentArray.reduce((a, b) => a + b, 0);
+      finances.totalPaidOverLifetime = totalPaidOverLifetime;
+    })
+    .then(() => {
+      const balance = finances.totalOwedOverLifetime - finances.totalPaidOverLifetime;
+      return models.Homeowners.update({
+        balanceDue: balance,
+      }, {
+        where: {
+          hoaId,
+          id,
+        },
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
 
 //* ****************************
 // STAFF
@@ -354,10 +401,13 @@ app.post('/api/addTicket', (req, res) => {
 app.get('/api/getOpenTickets', (req, res) => {
   const { hoaId } = req.body;
   models.WorkTickets.findAll({
-    isOpen: 1,
-    hoaId,
+    where: {
+      isOpen: 1,
+      hoaId,
+    },
   })
     .then((openTickets) => {
+      console.log(openTickets);
       res.send(openTickets);
     })
     .catch((error) => {
