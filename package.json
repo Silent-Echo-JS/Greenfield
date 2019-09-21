@@ -17,7 +17,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "webpack": "^4.39.1",
+    "grunt": "^1.0.4",
+    "webpack": "^4.40.2",
     "webpack-cli": "3.3.6"
   },
   "dependencies": {
@@ -52,9 +53,12 @@
     "react-router": "5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-hash-link": "^1.2.2",
+    "react-scripts": "^3.1.2",
     "react_google_calendar": "^2.2.4444",
     "reactstrap": "^8.0.1",
     "sequelize": "^5.18.4",
+    "sweetalert2": "^8.17.6",
+    "style-loader": "^1.0.0",
     "webpack-dev-server": "^3.8.0"
   }
 }

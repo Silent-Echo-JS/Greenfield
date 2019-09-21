@@ -12,7 +12,7 @@ const StaffSelect = props => {
       <option selected>Assign this task to...</option>
       {props.staff &&
         props.staff.map(staffMember => (
-          <option name="assignedTo" value={staffMember.id}>
+          <option key={staffMember.id} name="assignedTo" value={staffMember.id}>
             {staffMember.fullName}
           </option>
         ))}{" "}

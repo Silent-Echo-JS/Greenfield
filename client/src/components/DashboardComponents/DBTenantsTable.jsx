@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Button, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const DBTenantsTable = props => {
   return (
@@ -9,7 +10,12 @@ const DBTenantsTable = props => {
           <h5>HOA Members</h5>
         </Col>
         <Col>
-          <Button className="float-right mb-4 btn-custom" size="sm">
+          <Button
+            tag={Link}
+            to="/members"
+            className="float-right mb-4 btn-custom"
+            size="sm"
+          >
             Edit members
           </Button>
         </Col>

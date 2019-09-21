@@ -1,47 +1,53 @@
-// import React from 'react';
+import React from "react";
 
-// import Calendar from 'react_google_calendar';
-// // import 'react-big-calendar/lib/css/react-big-calendar.css'
+import Calendar from "react_google_calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Container, Col, Row } from "reactstrap";
 
-// const CalendarConfig = {
-//   api_key: YOUR_GOOGLE_API_KEY,
-//   calendars: [
-//     {
-//       name: 'demo', // whatever you want to name it
-//       url: 'exampleURL@group.calendar.google.com' // your calendar URL
-//     }
-//   ],
-//   dailyRecurrence: 700,
-//   weeklyRecurrence: 500,
-//   monthlyRecurrence: 20,
-// };
+const { YOUR_GOOGLE_API_KEY } = process.env;
 
-// class CalendarPage extends Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       events: []
-//     }
-//   }
-  
-//   render() {
-//   <div>
-//       <Calendar
-//         events={this.state.events}
-//         config={calendar_configuration} />
-//     </div>
-//   }
-// }
+const CalendarConfig = {
+  api_key: "AIzaSyCc7TZ8lRqSWM6FA7xxCtlOV4gyGzhYASM",
+  calendars: [
+    {
+      name: "demo", // whatever you want to name it
+      url: "79ptp90b8asivdmhlp4ifl0fas@group.calendar.google.com" // your calendar URL
+    }
+  ],
+  dailyRecurrence: 700,
+  weeklyRecurrence: 500,
+  monthlyRecurrence: 20
+};
 
-// export default CalendarPage;
+class CalendarPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: []
+    };
+  }
 
-
-import React from 'react';
-
-const CalendarPage = () => {
-  return (
-    <div>Coming Soon</div>
-  );
+  render() {
+    return (
+      <Container>
+        <Row className="mt-5">
+          <Col>
+            <Calendar events={this.state.events} config={CalendarConfig} />
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default CalendarPage;
+
+// import React from 'react';
+
+// const CalendarPage = () => {
+//   return (
+//     <div>Coming Soon</div>
+//   );
+// }
+
+// export default CalendarPage;
