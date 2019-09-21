@@ -45,8 +45,8 @@ class App extends React.Component {
     this.getOpenWorkTickets();
     this.getAllRevenues();
     this.getAllExpenses();
-    this.getAllRevenuesByYear(moment().year());
-    this.getAllExpensesByYear(moment().year());
+    // this.getAllRevenuesByYear(moment().year());
+    // this.getAllExpensesByYear(moment().year());
   }
 
   // Sets state.staff to an array of all current staff members
@@ -239,8 +239,17 @@ class App extends React.Component {
                 )
               }
             />
-            <Route path="/board" staff={staff} component={Board} />
-            {/* <Route path="/settings" component={Settings} /> */}
+            {/* <Route path="/board" staff={staff} component={Board} /> */}
+            <Route
+              path="/board"
+              render={props =>
+                token ? (
+                  <Board {...props} hoaId={hoaId} hoaInfo={hoaInfo} staff={staff} />
+                ) : (
+                    <Redirect to="/login" />
+                  )
+              }
+            />
             <Route
               path="/calendar"
               render={props =>
