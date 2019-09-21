@@ -186,15 +186,6 @@ const Expenses = sequelize.define('expenses', {
       key: 'id',
     },
   },
-  accountId: {
-    type: Sequelize.INTEGER(11),
-    allowNull: true,
-    foreignKey: true,
-    references: {
-      model: Homeowners,
-      key: 'id',
-    },
-  },
   date: {
     type: Sequelize.DATE,
     allowNull: true,
@@ -203,7 +194,7 @@ const Expenses = sequelize.define('expenses', {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  amount: {
+  amountPaidOut: {
     type: Sequelize.DECIMAL,
     allowNull: false,
   },

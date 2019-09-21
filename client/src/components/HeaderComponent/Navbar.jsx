@@ -27,7 +27,7 @@ class NavBar extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/Expense">
+                <NavLink tag={Link} to="/financials">
                   <i className="fas fa-file-invoice-dollar mr-2"></i>Financials
                 </NavLink>
               </NavItem>
