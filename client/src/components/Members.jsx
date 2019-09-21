@@ -9,10 +9,12 @@ const MemberList = props => {
         <Col>
           <h1 className="mb-2">HOA Members</h1>
           <Table
+            responsive
             hover
             color="white"
             bordered
             size="sm"
+            sm={{ size: 12 }}
             md={{ size: 10, offset: 1 }}
           >
             <thead className="bg-green">
