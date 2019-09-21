@@ -123,17 +123,17 @@ const { tenants, position, positions, tenant, members } = this.state;
           <div className='subDiv'>
               <h4>Select Tenant for Board Member:</h4><br />
               <select id="tenant" value={tenant} onChange={this.handleChange}>
-                {tenants.data.map(tenantOption => {
+                {/* {tenants.data.map(tenantOption => {
                   return <Option optionName={tenantOption.firstName + ` ` + tenantOption.lastName} id={tenantOption.id} />
-                })}
+                })} */}
               </select>
               <br /><br />
 
               <h4>Select Position:</h4><br />
               <select id="position" value={position} onChange={this.handleChange}>
-                {positions.data.map(positionOption => {
+                {/* {positions.data.map(positionOption => {
                   return <Option optionName={positionOption.name} id={positionOption.id} />
-                })}
+                })} */}
               </select><br />
               <button id="addPosition" type="submit" onClick={this.addPosition}>Add New Position</button>
               <br /><br />
@@ -147,9 +147,9 @@ const { tenants, position, positions, tenant, members } = this.state;
           <center>
             <h2>Board Members</h2>
             <ul>
-              {members.data.map(member => {
+              {/* {members.data.map(member => {
                 return <ListBoard method={member} id={member.id} />
-              })}
+              })} */}
             </ul>
           </center>
         </div>
