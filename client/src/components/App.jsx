@@ -23,8 +23,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoaId: localStorage.getItem('hoaId'),
-      hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
+      hoaId: localStorage.getItem("hoaId"),
+      // hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
       staff: [],
       departments: [],
       homeowners: [],
@@ -76,9 +76,16 @@ class App extends React.Component {
   }
 
   render() {
-    const { staff, homeowners, workTickets, hoaInfo, hoaId, getAllStaff } = this.state;
+    const {
+      staff,
+      homeowners,
+      workTickets,
+      hoaInfo,
+      hoaId,
+      getAllStaff
+    } = this.state;
     const token = localStorage.getItem("uid");
-    console.log('APP STATE BEARS', hoaId);
+    console.log("APP STATE BEARS", hoaId);
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -86,20 +93,57 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" render={props => <Login {...props} />} />
           <Route path="/InputInfo" component={InputInfo} />
-          <Navbar> 
-          <Route path="/" exact render={props => (<Dashboard {...props} staff={staff} getAllStaff={getAllStaff} />)}/>
-          <Route path="/about" component={About} />
-          <Route path="/deposit" component={Deposit} />
-          <Route path="/expense" component={Expense} />
-          <Route path="/members" render={props => token ? (<MemberList {...props} hoaId={hoaId} hoaInfo={hoaInfo} />) :
-            (<Redirect to="/login" />)} />
-          <Route path="/board" staff={staff} component={Board} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/calendar" render={props => token ? (<CalendarPage {...props} hoaId={hoaId} hoaInfo={hoaInfo} />) :
-            (<Redirect to="/login" />)} />
-          <Route path="/maintenance" render={props => token ? (<Maintenence {...props} hoaId={hoaId} hoaInfo={hoaInfo} workTickets={workTickets}
-            staff={staff} getOpenWorkTickets={this.getOpenWorkTickets} closeWorkTicket={this.closeWorkTicket} />) :
-            (<Redirect to="/login" />)} />
+          <Navbar>
+            <Route
+              path="/"
+              exact
+              render={props => (
+                <Dashboard {...props} staff={staff} getAllStaff={getAllStaff} />
+              )}
+            />
+            <Route path="/about" component={About} />
+            <Route path="/deposit" component={Deposit} />
+            <Route path="/expense" component={Expense} />
+            <Route
+              path="/members"
+              render={props =>
+                token ? (
+                  <MemberList {...props} hoaId={hoaId} hoaInfo={hoaInfo} />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route path="/board" staff={staff} component={Board} />
+            <Route path="/settings" component={Settings} />
+            <Route
+              path="/calendar"
+              render={props =>
+                token ? (
+                  <CalendarPage {...props} hoaId={hoaId} hoaInfo={hoaInfo} />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/maintenance"
+              render={props =>
+                token ? (
+                  <Maintenence
+                    {...props}
+                    hoaId={hoaId}
+                    hoaInfo={hoaInfo}
+                    workTickets={workTickets}
+                    staff={staff}
+                    getOpenWorkTickets={this.getOpenWorkTickets}
+                    closeWorkTicket={this.closeWorkTicket}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
           </Navbar>
         </Switch>
       </BrowserRouter>
