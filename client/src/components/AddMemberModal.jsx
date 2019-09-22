@@ -15,7 +15,6 @@ class AddMemberModal extends React.Component {
       monthlyDues: '',
       email: '',
       phone: '',
-      showModal: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
