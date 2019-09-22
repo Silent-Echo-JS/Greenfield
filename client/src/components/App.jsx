@@ -26,7 +26,6 @@ class App extends React.Component {
       // hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
       staff: [],
       departments: [],
-      homeowners: [],
       workTickets: [],
       board: [],
       allRevenues: {
@@ -223,7 +222,6 @@ class App extends React.Component {
         this.setState({
           allExpenses: allExpensesCopy
         });
-        console.log(this.state.allExpenses);
       })
       .catch(error => {
         console.log("Problem With Get Expenses By Year", error);
@@ -237,10 +235,12 @@ class App extends React.Component {
       workTickets,
       hoaInfo,
       hoaId,
-      getAllStaff
+      allRevenues,
+      allExpenses
     } = this.state;
     const token = localStorage.getItem("uid");
-    console.log("APP STATE BEARS", hoaId);
+
+    // console.log("APP STATE BEARS", hoaId);
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -253,13 +253,24 @@ class App extends React.Component {
               path="/"
               exact
               render={props => (
-                <Dashboard {...props} staff={staff} getAllStaff={getAllStaff} />
+                <Dashboard
+                  {...props}
+                  staff={staff}
+                  allRevenues={allRevenues}
+                  allExpenses={allExpenses}
+                />
               )}
             />
             <Route path="/about" component={About} />
             <Route
               path="/financials"
-              render={props => <Financials {...props} />}
+              render={props => (
+                <Financials
+                  {...props}
+                  allRevenues={allRevenues}
+                  allExpenses={allExpenses}
+                />
+              )}
             />
             <Route
               path="/members"
