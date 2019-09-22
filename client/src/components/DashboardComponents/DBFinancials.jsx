@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Button } from "reactstrap";
 import DBChart from "./DBChart.jsx";
+import Link from "react-router-dom";
 
 class DBFinancials extends Component {
   constructor(props) {
@@ -15,7 +16,12 @@ class DBFinancials extends Component {
             <h5>Financials at a glance </h5>
           </Col>
           <Col>
-            <Button className="float-right btn-custom" size="sm">
+            <Button
+              tag={Link}
+              to="/financials"
+              className="float-right btn-custom"
+              size="sm"
+            >
               See all Financials
             </Button>
           </Col>

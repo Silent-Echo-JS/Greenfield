@@ -1,12 +1,16 @@
 import React from "react";
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const DBBoardTable = () => {
   return (
     <div className="dashboard-card p-4 mb-4" Style="height:400px width: 100%">
       <h5>HOA Board</h5>
       <hr />
-      <h6> <b>Daddy</b></h6>
+      <h6>
+        {" "}
+        <b>Daddy</b>
+      </h6>
       <p>Samantha De La Fuente</p>
       <h6>President</h6>
       <p>Dan Murphy</p>
@@ -18,7 +22,9 @@ const DBBoardTable = () => {
       <p>Geoffrey Ian Ward</p>
       <hr />
       <hr />
-      <Button size="sm">Edit Board</Button>
+      <Button tag={Link} to="/board" size="sm" className="btn-custom">
+        Edit Board
+      </Button>
     </div>
   );
 };
