@@ -8,7 +8,15 @@ class DBFinancials extends Component {
     super(props);
     this.state = {};
   }
+
+  thousandsSeparators(num) {
+    const num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num_parts.join(".");
+  }
+
   render() {
+    const { allExpenses, allRevenues } = this.props;
     return (
       <div className="dashboard-card mb-4 p-4 mt-4">
         <Row>
@@ -36,7 +44,12 @@ class DBFinancials extends Component {
               <Col>
                 <div className="align-middle">
                   <h6>Current Account Balance</h6>
-                  <h5 className="display-4">$1,235.22</h5>
+                  <h5 className="display-4">
+                    $
+                    {this.thousandsSeparators(
+                      allRevenues.totalTD - allExpenses.totalTD
+                    )}
+                  </h5>
                 </div>
               </Col>
               <hr />
@@ -54,14 +67,18 @@ class DBFinancials extends Component {
             <hr />
             <Row>
               <Col>
-                Expenses
+                Yearly expenses to date
                 <br />
-                <h5 className="display-4 text-danger">-$235.22</h5>
+                <h5 className="display-4 text-danger">
+                  ${this.thousandsSeparators(allExpenses.totalTD)}
+                </h5>
               </Col>
               <Col>
-                Deposits
+                Yearly revenue to date
                 <br />
-                <h5 className="display-4 text-success">+$865.44</h5>
+                <h5 className="display-4 text-success">
+                  ${this.thousandsSeparators(allRevenues.totalTD)}
+                </h5>
               </Col>
             </Row>
           </Col>
