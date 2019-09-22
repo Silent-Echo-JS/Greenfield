@@ -25,6 +25,7 @@ class App extends React.Component {
       hoaId: localStorage.getItem("hoaId"),
       // hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
       staff: [],
+      boardMembers: [],
       departments: [],
       workTickets: [],
       board: [],
@@ -36,6 +37,7 @@ class App extends React.Component {
       }
     };
     this.getAllStaff = this.getAllStaff.bind(this);
+    this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
     this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
     this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
@@ -43,6 +45,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getAllStaff();
+    this.getAllBoardMembers();
     this.getOpenWorkTickets();
     this.getAllRevenues();
     this.getAllExpenses();
@@ -50,6 +53,7 @@ class App extends React.Component {
     this.getAllExpensesByYear(moment().year());
     this.getAllBoardMembers();
   }
+
 
   // Sets state.staff to an array of all current staff members
   getAllStaff() {
@@ -62,6 +66,7 @@ class App extends React.Component {
     );
   }
 
+  // Sets state.boardMembers to an array of all current board members
   getAllBoardMembers() {
     return Axios.post("/api/getBoardMembers", {
       hoaId: this.state.hoaId
@@ -74,8 +79,9 @@ class App extends React.Component {
 
   // Sets state.workTickets to an array of all open work tickets
   getOpenWorkTickets() {
+    console.log('getOpenWorkTickets', this.state.hoaId);
     return Axios.post("/api/getOpenTickets", {
-      hoaId: 1
+      hoaId: this.state.hoaId
     }).then(tickets =>
       this.setState({
         workTickets: tickets.data
@@ -231,16 +237,18 @@ class App extends React.Component {
   render() {
     const {
       staff,
-      homeowners,
+      boardMembers,
       workTickets,
       hoaInfo,
       hoaId,
       allRevenues,
       allExpenses
+      getAllStaff,
     } = this.state;
     const token = localStorage.getItem("uid");
 
     // console.log("APP STATE BEARS", hoaId);
+        
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -253,12 +261,7 @@ class App extends React.Component {
               path="/"
               exact
               render={props => (
-                <Dashboard
-                  {...props}
-                  staff={staff}
-                  allRevenues={allRevenues}
-                  allExpenses={allExpenses}
-                />
+                <Dashboard {...props} hoaId={hoaId} staff={staff} boardMembers={boardMembers} getAllStaff={getAllStaff} getAllBoardMembers={this.getAllBoardMembers} />
               )}
             />
             <Route path="/about" component={About} />
@@ -282,8 +285,17 @@ class App extends React.Component {
                 )
               }
             />
-            <Route path="/board" staff={staff} component={Board} />
-            {/* <Route path="/settings" component={Settings} /> */}
+            {/* <Route path="/board" staff={staff} component={Board} /> */}
+            <Route
+              path="/board"
+              render={props =>
+                token ? (
+                  <Board {...props} hoaId={hoaId} hoaInfo={hoaInfo} staff={staff} boardMembers={boardMembers} getAllBoardMembers={this.getAllBoardMembers} />
+                ) : (
+                    <Redirect to="/login" />
+                  )
+              }
+            />
             <Route
               path="/calendar"
               render={props =>

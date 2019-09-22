@@ -371,6 +371,13 @@ app.get('/api/getHomeowners/:hoaId', (req, res) => {
       },
     })
     .then((homeowners) => {
+      console.log(homeowners);
+      homeowners.forEach((homeowner) => {
+        homeowner.fullName = `${homeowner.lastName}, ${homeowner.firstName}`;
+        console.log(homeowner.fullName);
+        console.log(homeowner);
+        return homeowner;
+      });
       res.send(homeowners);
     })
     .catch((error) => {
@@ -560,21 +567,21 @@ app.post('/api/addBoardMember', (req, res) => {
     id,
   } = req.body;
   models.BoardMembers.create({
-      accountId: id,
-      hoaId,
-      position,
-    })
-    .then(() => {
-      models.Homeowners.update({
+    accountId: id,
+    hoaId,
+    position,
+  })
+    .then((boardMember) => {
+      return models.Homeowners.update({
         isBoardMember: 1,
       }, {
         where: {
           id,
         },
-      });
+      }).then(() => boardMember);
     })
-    .then(() => {
-      res.send(204);
+    .then((boardMember) => {
+      res.status(204).send(boardMember);
     })
     .catch((error) => {
       console.error(error);
@@ -583,31 +590,40 @@ app.post('/api/addBoardMember', (req, res) => {
 
 
 // Delete a Board Member
-app.post('/api/deleteBoardMember', (req, res) => {
+app.delete('/api/deleteBoardMember/:boardId/:homeOwnerId', (req, res) => {
   const {
-    accountId,
-    id,
-  } = req.body;
-  models.Homeowners.update({
+    boardId,
+    homeOwnerId,
+  } = req.params;
+  models.BoardMembers.destroy({
+    where: {
+      id: boardId,
+    },
+  }).then(() => {
+    return models.Homeowners.update({
       isBoardMember: 0,
     }, {
       where: {
-        id: accountId,
+        id: homeOwnerId,
       },
-    })
-    .then(() => {
-      models.BoardMembers.destroy({
-        where: {
-          id,
-        },
-      });
-    })
-    .then(() => {
-      res.send(204);
-    })
-    .catch((error) => {
-      console.error(error);
+    }).then(() => res.send({isDeleted: true})).catch(err => res.send({isDeleted: false}));
+  });
+});
+
+// Get ALL BoardMembers
+app.get('/api/getBoardMembers/:hoaId', (req, res) => {
+  const { hoaId } = req.params;
+  models.BoardMembers.findAll({
+    where: {
+      hoaId,
+    }
+  }).then(bms => {
+    const bmsPromise = bms.map(async bm => {
+      bm.dataValues.homeOwner = (await models.Homeowners.findOne({ accountId: bm.dataValues.id })).dataValues;
+      return bm.dataValues;
     });
+    Promise.all(bmsPromise).then(bms => res.send(bms));
+  }).catch(err => res.send(err));
 });
 
 // Get ALL BoardMembers

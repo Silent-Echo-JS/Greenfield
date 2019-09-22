@@ -16,18 +16,18 @@ class AddMemberModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
-      hoaId: localStorage.getItem("hoaId"),
-      firstName: "",
-      lastName: "",
-      address: "",
-      city: "",
-      state: "",
-      zipcode: "",
-      monthlyDues: "",
-      email: "",
-      phone: ""
-    };
+      hoaId: localStorage.getItem('hoaId'),
+      firstName: '',
+      lastName: '',
+      address: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      monthlyDues: '',
+      email: '',
+      phone: '',
+      showModal: false,
+    }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAddHomeOwner = this.handleAddHomeOwner.bind(this);
@@ -50,26 +50,20 @@ class AddMemberModal extends React.Component {
   }
 
   render() {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      address,
-      monthlyDues
-    } = this.state;
-    const { showModal, toggleModal, addMember } = this.props;
+    const { firstName, lastName, email, phone, address, monthlyDues } = this.state;
+    const { showModal, toggleModal } = this.props;
+
     return (
       <div>
         <Button className="btn-custom" size="sm" onClick={this.toggle}>
           Add Member
         </Button>
         <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
+          isOpen={showModal}
+          toggle={() => toggleModal('showAddModal')}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Add Homeowner</ModalHeader>
+          <ModalHeader toggle={() => toggleModal('showAddModal')}>Add HomeOwner</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.handleAddHomeOwner}>
               <FormGroup row className="mt-2">
@@ -140,20 +134,9 @@ class AddMemberModal extends React.Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Col>
-              <Button type="submit" color="primary">
-                Add HomeOwner
-              </Button>{" "}
-            </Col>
-            <Col>
-              <Button
-                color="secondary"
-                className="float-right"
-                onClick={this.toggle}
-              >
-                Cancel
-              </Button>
-            </Col>
+            <Button color="primary" className="float-right" onClick={() => toggleModal('showAddModal')}>
+              Cancel
+            </Button>
           </ModalFooter>
         </Modal>
       </div>
