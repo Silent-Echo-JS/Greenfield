@@ -49,7 +49,9 @@ const Maintenence = props => {
                 <tr key={staffMember.id}>
                   <td scope="row">{ticket.id}</td>
                   <td className="td-sm">{ticket.title}</td>
-                  {/* <td className="td-sm">{staffMember[0].fullName}</td> */}
+                  <td className="td-sm">
+                    {staffMember.length && staffMember[0].fullName}
+                  </td>
                   <td className="td-sm">{filterTickets(ticket)}</td>
                   <td className="td-sm">
                     <WorkTicketModal
