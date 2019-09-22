@@ -38,13 +38,13 @@ class Dashboard extends React.Component {
   getAllBoardMembers() {}
 
   render() {
-    const { staff } = this.props;
+    const { staff, allRevenues, allExpenses } = this.props;
     const { homeowners } = this.state;
     return (
       <Container>
         <Row>
           <Col md={{ size: 12 }}>
-            <DBFinancials />
+            <DBFinancials allRevenues={allRevenues} allExpenses={allExpenses} />
           </Col>
           <Col md={{ size: 6 }}>
             <DBMaintenenceTicket staff={staff} />
