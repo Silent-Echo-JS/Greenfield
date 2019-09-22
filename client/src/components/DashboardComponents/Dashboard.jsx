@@ -15,8 +15,8 @@ class Dashboard extends React.Component {
     this.state = {
       hoaId: localStorage.getItem("hoaId"),
       homeowners: [],
-      boardMembers: []
     };
+    this.getAllMembers = this.getAllMembers.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +25,16 @@ class Dashboard extends React.Component {
     if (!localStorage.getItem("uid")) {
       return this.props.history.push("/login");
     }
+    this.getAllMembers();
+    // const { hoaId } = this.state;
+    // axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
+    //   this.setState({
+    //     homeowners: homeowners.data || {}
+    //   })
+    // );
+  }
 
+  getAllMembers() {
     const { hoaId } = this.state;
     axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
       this.setState({
@@ -34,12 +43,11 @@ class Dashboard extends React.Component {
     );
   }
 
-  // getAllBoardMembers() {}
 
   render() {
-    // console.log("Dashboard props", this.props);
+    console.log("Dashboard State", this.state);
     const { staff, hoaId } = this.props;
-    const { homeowners } = this.state;
+    const { homeowners, boardMembers } = this.state;
     return (
       <Container>
         <Row>
@@ -58,7 +66,7 @@ class Dashboard extends React.Component {
             <DBTenantsTable homeowners={homeowners || {}} hoaId={hoaId} />
           </Col>
           <Col md={{ size: 4 }} sm={{ size: 12 }}>
-            <DBBoardTable />
+            <DBBoardTable boardMembers={boardMembers} />
           </Col>
         </Row>
       </Container>
