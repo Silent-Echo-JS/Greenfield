@@ -45,8 +45,8 @@ class App extends React.Component {
     this.getOpenWorkTickets();
     this.getAllRevenues();
     this.getAllExpenses();
-    // this.getAllRevenuesByYear(moment().year());
-    // this.getAllExpensesByYear(moment().year());
+    this.getAllRevenuesByYear(moment().year());
+    this.getAllExpensesByYear(moment().year());
   }
 
   // Sets state.staff to an array of all current staff members
