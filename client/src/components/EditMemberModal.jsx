@@ -12,10 +12,10 @@ class EditMemberModal extends React.Component {
       <div>
         <Modal
           isOpen={showModal}
-          toggle={this.toggleModal}
+          toggle={() => toggleModal('showEditModal')}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggleModal}>Edit HomeOwner</ModalHeader>
+          <ModalHeader toggle={() => toggleModal('showEditModal')}>Edit HomeOwner</ModalHeader>
           <ModalBody>
             {firstName && <form onSubmit={updateMember}>
               <center><h2>Add Home Owner</h2><br />
@@ -53,7 +53,7 @@ class EditMemberModal extends React.Component {
             </form>}
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={toggleModal}>
+            <Button color="secondary" onClick={() => toggleModal('showEditModal')}>
               Cancel
             </Button>
           </ModalFooter>

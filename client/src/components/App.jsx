@@ -25,8 +25,8 @@ class App extends React.Component {
       hoaId: localStorage.getItem("hoaId"),
       // hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
       staff: [],
+      boardMembers: [],
       departments: [],
-      homeowners: [],
       workTickets: [],
       allRevenues: {
         totalTD: 0,
@@ -36,18 +36,21 @@ class App extends React.Component {
       }
     };
     this.getAllStaff = this.getAllStaff.bind(this);
+    this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
     this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
   }
 
   componentDidMount() {
     this.getAllStaff();
+    this.getAllBoardMembers();
     this.getOpenWorkTickets();
     this.getAllRevenues();
     this.getAllExpenses();
     this.getAllRevenuesByYear(moment().year());
     this.getAllExpensesByYear(moment().year());
   }
+
 
   // Sets state.staff to an array of all current staff members
   getAllStaff() {
@@ -56,6 +59,16 @@ class App extends React.Component {
     }).then(response =>
       this.setState({
         staff: response.data
+      })
+    );
+  }
+
+  // Sets state.boardMembers to an array of all current board members
+  getAllBoardMembers() {
+    const { hoaId } = this.state;
+    return Axios.get(`/api/getBoardMembers/${hoaId}`).then(boardMembers =>
+      this.setState({
+        boardMembers: boardMembers.data || {}
       })
     );
   }
@@ -202,13 +215,14 @@ class App extends React.Component {
   render() {
     const {
       staff,
+      boardMembers,
       workTickets,
       hoaInfo,
       hoaId,
-      getAllStaff
+      getAllStaff,
     } = this.state;
     const token = localStorage.getItem("uid");
-    console.log("APP STATE BEARS", hoaId);
+    console.log("App state HoaID: ", hoaId);
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -221,7 +235,7 @@ class App extends React.Component {
               path="/"
               exact
               render={props => (
-                <Dashboard {...props} hoaId={hoaId} staff={staff} getAllStaff={getAllStaff} />
+                <Dashboard {...props} hoaId={hoaId} staff={staff} boardMembers={boardMembers} getAllStaff={getAllStaff} getAllBoardMembers={this.getAllBoardMembers} />
               )}
             />
             <Route path="/about" component={About} />
@@ -239,8 +253,17 @@ class App extends React.Component {
                 )
               }
             />
-            <Route path="/board" staff={staff} component={Board} />
-            {/* <Route path="/settings" component={Settings} /> */}
+            {/* <Route path="/board" staff={staff} component={Board} /> */}
+            <Route
+              path="/board"
+              render={props =>
+                token ? (
+                  <Board {...props} hoaId={hoaId} hoaInfo={hoaInfo} staff={staff} boardMembers={boardMembers} getAllBoardMembers={this.getAllBoardMembers} />
+                ) : (
+                    <Redirect to="/login" />
+                  )
+              }
+            />
             <Route
               path="/calendar"
               render={props =>

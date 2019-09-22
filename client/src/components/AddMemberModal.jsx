@@ -15,6 +15,7 @@ class AddMemberModal extends React.Component {
       monthlyDues: '',
       email: '',
       phone: '',
+      showModal: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,15 +33,15 @@ class AddMemberModal extends React.Component {
 
   render() {
     const { firstName, lastName, email, phone, address, monthlyDues } = this.state;
-    const { showModal, toggleModal, addMember } = this.props;
+    const { showModal, toggleModal } = this.props;
     return (
       <div>
         <Modal
           isOpen={showModal}
-          toggle={this.toggleModal}
+          toggle={() => toggleModal('showAddModal')}
           className={this.props.className}
         >
-          <ModalHeader toggle={toggleModal}>Add HomeOwner</ModalHeader>
+          <ModalHeader toggle={() => toggleModal('showAddModal')}>Add HomeOwner</ModalHeader>
           <ModalBody>
             {<form onSubmit={this.handleAddHomeOwner}>
               <center><h2>Add Home Owner</h2><br />
@@ -78,7 +79,7 @@ class AddMemberModal extends React.Component {
             </form>}
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={toggleModal}>
+            <Button color="secondary" onClick={() => toggleModal('showAddModal')}>
               Cancel
             </Button>
           </ModalFooter>
