@@ -12,15 +12,14 @@ class MemberList extends React.Component {
       hoaId: localStorage.getItem("hoaId"),
       selectedHomeowner: null,
       homeOwners: [],
-      showEditModal: false,
-      showAddModal: false
+      showModal: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.addMember = this.addMember.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    // this.toggleModal = this.toggleModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
     this.updateMember = this.updateMember.bind(this);
     this.handleEditMemberInput = this.handleEditMemberInput.bind(this);
     this.popUpAddModal = this.popUpAddModal.bind(this);
@@ -43,16 +42,8 @@ class MemberList extends React.Component {
     this.setState({ showEditModal: true, selectedHomeowner });
   }
 
-  // toggleModal() {
-  //   this.setState(prevState => ({ showEditModal: !prevState.showEditModal }));
-  // }
-
-  toggleAddModal() {
-    this.setState(prevState => ({ showAddModal: !prevState.showAddModal }));
-  }
-
-  toggleEditModal() {
-    this.setState(prevState => ({ showEditModal: !prevState.showEditModal }));
+  toggleModal(state) {
+    this.setState(prevState => ({ [state]: !prevState[state] }));
   }
 
   addMember(homeOwner) {
