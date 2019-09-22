@@ -68,7 +68,7 @@ class App extends React.Component {
     const { hoaId } = this.state;
     return Axios.get(`/api/getBoardMembers/${hoaId}`).then(boardMembers =>
       this.setState({
-        boardMembers: boardMembers.data || {}
+        boardMembers: boardMembers.data || []
       })
     );
   }
