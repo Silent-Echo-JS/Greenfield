@@ -83,7 +83,7 @@ module.exports = ({
                 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
                 .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
                 .tg .tg-ts09{background-color:#cccccc;border-color:#cccccc;text-align:left;vertical-align:top}
-                .tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+                .tg .tg-1wig{font-weight:bold;text-align:center;vertical-align:top}
                 .tg .tg-k1gt{font-weight:bold;font-size:13px;background-color:#efefef;text-align:left;vertical-align:top}
                 .tg .tg-4n5g{background-color:#cccccc;text-align:left;vertical-align:top}
                 .tg .tg-yla0{font-weight:bold;text-align:left;vertical-align:middle}
@@ -193,8 +193,8 @@ module.exports = ({
                         </tr>
                         <tr>
                             <td class="tg-b3sw">EXPENSE</td>
-                            <td class="tg-b3sw">2019</td>
-                            <td class="tg-b3sw">2018</td>
+                            <td class="tg-1wig">2019</td>
+                            <td class="tg-1wig">2018</td>
                         </tr>
                         <tr>
                             <td class="tg-k1gt">JAN</td>

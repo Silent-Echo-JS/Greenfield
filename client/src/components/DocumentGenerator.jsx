@@ -248,68 +248,68 @@ class DocumentGenerator extends React.Component {
                     </tr>
                     <tr>
                         <td class="tg-k1gt">JAN</td>
-                                <td class="tg-0lax">${}</td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['0']}</td>
+                                <td class="tg-0lax">${lastYearRev['0']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">FEB</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['1']}</td>
+                                <td class="tg-0lax">${lastYearRev['1']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">MAR</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['2']}</td>
+                                <td class="tg-0lax">${lastYearRev['2']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">APR</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['3']}</td>
+                                <td class="tg-0lax">${lastYearRev['3']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">MAY</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['4']}</td>
+                                <td class="tg-0lax">${lastYearRev['4']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">JUN</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['5']}</td>
+                                <td class="tg-0lax">${lastYearRev['5']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">JUL</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['6']}</td>
+                                <td class="tg-0lax">${lastYearRev['6']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">AUG</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['7']}</td>
+                                <td class="tg-0lax">${lastYearRev['7']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">SEP</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['8']}</td>
+                                <td class="tg-0lax">${lastYearRev['8']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">OCT</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['9']}</td>
+                                <td class="tg-0lax">${lastYearRev['9']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">NOV</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['10']}</td>
+                                <td class="tg-0lax">${lastYearRev['10']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">DEC</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev['11']}</td>
+                                <td class="tg-0lax">${lastYearRev['11']}</td>
                     </tr>
                     <tr>
                         <td class="tg-b3sw">TOTAL YTD</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev.totalTD}</td>
+                                <td class="tg-0lax">${lastYearRev.totalTD}</td>
                     </tr>
                     <tr>
                         <td class="tg-4n5g"></td>
@@ -318,73 +318,73 @@ class DocumentGenerator extends React.Component {
                     </tr>
                     <tr>
                         <td class="tg-b3sw">EXPENSE</td>
-                                <td class="tg-b3sw">${moment().year()}</td>
-                                <td class="tg-b3sw">${moment().subtract(1, 'years').year()}</td>
+                                <td class="tg-1wig">${moment().year()}</td>
+                                <td class="tg-1wig">${moment().subtract(1, 'years').year()}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">JAN</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['0']}</td>
+                                <td class="tg-0lax">${lastYearExp['0']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">FEB</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['1']}</td>
+                                <td class="tg-0lax">${lastYearExp['1']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">MAR</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['2']}</td>
+                                <td class="tg-0lax">${lastYearExp['2']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">APR</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['3']}</td>
+                                <td class="tg-0lax">${lastYearExp['3']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">MAY</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['4']}</td>
+                                <td class="tg-0lax">${lastYearExp['4']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">JUN</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['5']}</td>
+                                <td class="tg-0lax">${lastYearExp['5']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">JUL</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['6']}</td>
+                                <td class="tg-0lax">${lastYearExp['6']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">AUG</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['7']}</td>
+                                <td class="tg-0lax">${lastYearExp['7']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">SEP</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['8']}</td>
+                                <td class="tg-0lax">${lastYearExp['8']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">OCT</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['9']}</td>
+                                <td class="tg-0lax">${lastYearExp['9']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">NOV</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['10']}</td>
+                                <td class="tg-0lax">${lastYearExp['10']}</td>
                     </tr>
                     <tr>
                         <td class="tg-k1gt">DEC</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp['11']}</td>
+                                <td class="tg-0lax">${lastYearExp['11']}</td>
                     </tr>
                     <tr>
                         <td class="tg-b3sw">TOTAL YTD</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearExp.totalTD}</td>
+                                <td class="tg-0lax">${lastYearExp.totalTD}</td>
                     </tr>
                     <tr>
                         <td class="tg-ts09"></td>
@@ -393,23 +393,23 @@ class DocumentGenerator extends React.Component {
                     </tr>
                     <tr>
                         <td class="tg-b3sw">TOTAL INCOME</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev.totalTD}</td>
+                                <td class="tg-0lax">${lastYearRev.totalTD}</td>
                     </tr>
                     <tr>
                         <td class="tg-b3sw">TOTAL EXPENSE</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">( ${thisYearExp.totalTD} )</td>
+                                <td class="tg-0lax">( ${lastYearExp.totalTD} )</td>
                     </tr>
                     <tr>
                         <td class="tg-b3sw">RETAINED EARNINGS</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${lastYearExp.totalTD - lastYearExp.totalTD}</td>
+                                <td class="tg-0lax">---</td>
                     </tr>
                     <tr>
                         <td class="tg-b3sw">TOTAL YTD</td>
-                                <td class="tg-0lax"></td>
-                                <td class="tg-0lax"></td>
+                                <td class="tg-0lax">${thisYearRev.totalTD - thisYearExp.totalTD + (lastYearRev.totalTD - lastYearExp.totalTD)}</td>
+                                <td class="tg-0lax">${lastYearRev.totalTD - lastYearExp.totalTD}</td>
                     </tr>
                 </table>
                 </table>
