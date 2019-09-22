@@ -29,12 +29,12 @@ class Dashboard extends React.Component {
     const { hoaId } = this.state;
     axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
       this.setState({
-        homeowners: homeowners.data
+        homeowners: homeowners.data || {}
       })
     );
   }
 
-  getAllBoardMembers() {}
+  // getAllBoardMembers() {}
 
   render() {
     // console.log("Dashboard props", this.props);
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
         </Row>
         <Row>
           <Col md={{ size: 8 }} sm={{ size: 12 }}>
-            <DBTenantsTable homeowners={homeowners} hoaId={hoaId} />
+            <DBTenantsTable homeowners={homeowners || {}} hoaId={hoaId} />
           </Col>
           <Col md={{ size: 4 }} sm={{ size: 12 }}>
             <DBBoardTable />

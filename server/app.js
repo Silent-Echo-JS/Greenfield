@@ -366,6 +366,13 @@ app.get('/api/getHomeowners/:hoaId', (req, res) => {
     },
   })
     .then((homeowners) => {
+      console.log(homeowners);
+      homeowners.forEach((homeowner) => {
+        homeowner.fullName = `${homeowner.lastName}, ${homeowner.firstName}`;
+        console.log(homeowner.fullName);
+        console.log(homeowner);
+        return homeowner;
+      });
       res.send(homeowners);
     })
     .catch((error) => {
