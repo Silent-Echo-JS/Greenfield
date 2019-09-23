@@ -4,6 +4,11 @@ import FinancialsByMonth from "./FinancialsByMonth.jsx";
 
 const Financials = props => {
   const { allRevenues, allExpenses } = props;
+  const thousandsSeparators = num => {
+    const num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num_parts.join(".");
+  };
 
   return (
     <Container className="mt-4">
@@ -15,17 +20,24 @@ const Financials = props => {
             <Col sm={{ size: 4 }}>
               {" "}
               <h6>Current Account Balance</h6>
-              <h5 className="display-4">$1,245.22</h5>
+              <h5 className="display-4">
+                $
+                {thousandsSeparators(allRevenues.totalTD - allExpenses.totalTD)}
+              </h5>
             </Col>
             <Col sm={{ size: 4 }}>
               {" "}
-              <h6>Expenses</h6>
-              <h5 className="display-4 text-danger">-$235.22</h5>
+              <h6>Expenses to date</h6>
+              <h5 className="display-4 text-danger">
+                ${thousandsSeparators(allExpenses.totalTD)}
+              </h5>
             </Col>
             <Col sm={{ size: 4 }}>
               {" "}
-              <h6>Deposits</h6>
-              <h5 className="display-4 text-success">$1,235.22</h5>
+              <h6>Deposits to date</h6>
+              <h5 className="display-4 text-success">
+                ${thousandsSeparators(allRevenues.totalTD)}
+              </h5>
             </Col>
           </Row>
           <hr />

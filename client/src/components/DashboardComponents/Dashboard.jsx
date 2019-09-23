@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
@@ -14,7 +13,7 @@ class Dashboard extends React.Component {
     super();
     this.state = {
       hoaId: localStorage.getItem("hoaId"),
-      homeowners: [],
+      homeowners: []
     };
     this.getAllMembers = this.getAllMembers.bind(this);
   }
@@ -26,35 +25,44 @@ class Dashboard extends React.Component {
       return this.props.history.push("/login");
     }
     this.getAllMembers();
-    // const { hoaId } = this.state;
-    // axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
-    //   this.setState({
-    //     homeowners: homeowners.data || {}
-    //   })
-    // );
   }
 
   getAllMembers() {
     const { hoaId } = this.state;
     axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
       this.setState({
-        homeowners: homeowners.data || {}
+        homeowners: homeowners.data || []
       })
     );
   }
 
-
   render() {
-    const { staff, allRevenues, allExpenses, hoaId } = this.props;
-    const { homeowners, boardMembers } = this.state;
+    const {
+      staff,
+      allRevenues,
+      allExpenses,
+      hoaId,
+      boardMembers,
+      getOpenWorkTickets,
+      makeDeposit
+    } = this.props;
+    const { homeowners } = this.state;
     return (
       <Container>
         <Row>
           <Col md={{ size: 12 }}>
-            <DBFinancials allRevenues={allRevenues} allExpenses={allExpenses} />
+            <DBFinancials
+              allRevenues={allRevenues}
+              allExpenses={allExpenses}
+              makeDeposit={makeDeposit}
+            />
           </Col>
           <Col md={{ size: 6 }}>
-            <DBMaintenenceTicket staff={staff} hoaId={hoaId} />
+            <DBMaintenenceTicket
+              getOpenWorkTickets={getOpenWorkTickets}
+              staff={staff}
+              hoaId={hoaId}
+            />
           </Col>
           <Col>
             <DBCalendar />

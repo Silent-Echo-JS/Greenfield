@@ -11,7 +11,7 @@ class DBChart extends Component {
         datasets: [
           {
             label: "Monthly financials ",
-            data: [343829, 229493, 199311, 120623],
+            data: [],
             backgroundColor: ["#5cb85c", "#d9534f"]
           }
         ]

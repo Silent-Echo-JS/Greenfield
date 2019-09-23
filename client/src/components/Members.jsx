@@ -12,7 +12,7 @@ class MemberList extends React.Component {
       hoaId: localStorage.getItem("hoaId"),
       selectedHomeowner: null,
       homeOwners: [],
-      showModal: false,
+      showModal: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -81,27 +81,36 @@ class MemberList extends React.Component {
   }
 
   updateMember(event) {
-    event.preventDefault()
+    event.preventDefault();
     const { selectedHomeowner, homeOwners } = this.state;
-    axios.put(`/api/updateHomeowner/${selectedHomeowner.id}`, selectedHomeowner)
+    axios
+      .put(`/api/updateHomeowner/${selectedHomeowner.id}`, selectedHomeowner)
       .then(res => {
         // console.log('UPDATE TIME', res);
         if (res.data.infoWasUpdated) {
-          const homeOwnerIndex = homeOwners.findIndex(homeowner => homeowner.id === selectedHomeowner.id);
+          const homeOwnerIndex = homeOwners.findIndex(
+            homeowner => homeowner.id === selectedHomeowner.id
+          );
           homeOwners.splice(homeOwnerIndex, 1, res.data.homeOwner);
-          this.setState({ homeOwners, showEditModal: false })
+          this.setState({ homeOwners, showEditModal: false });
         }
-      }).catch(err => console.log('The selected member was not updated', err));
+      })
+      .catch(err => console.log("The selected member was not updated", err));
   }
 
   handleEditMemberInput(event) {
     event.persist();
     const { selectedHomeowner } = this.state;
-    this.setState({ selectedHomeowner: { ...selectedHomeowner, [event.target.id]: event.target.value } });
+    this.setState({
+      selectedHomeowner: {
+        ...selectedHomeowner,
+        [event.target.id]: event.target.value
+      }
+    });
   }
 
   popUpAddModal() {
-    this.setState({ showAddModal: true })
+    this.setState({ showAddModal: true });
   }
 
   render() {
@@ -114,14 +123,32 @@ class MemberList extends React.Component {
 
     return (
       <Container>
-        {selectedHomeowner && <EditMemberModal handleMemberInput={this.handleEditMemberInput} showModal={showEditModal} toggleModal={this.toggleModal} homeOwner={selectedHomeowner} updateMember={this.updateMember} />}
-        <AddMemberModal addMember={this.addMember} showModal={showAddModal} toggleModal={this.toggleModal} />
+        {selectedHomeowner && (
+          <EditMemberModal
+            handleMemberInput={this.handleEditMemberInput}
+            showModal={showEditModal}
+            toggleModal={this.toggleModal}
+            homeOwner={selectedHomeowner}
+            updateMember={this.updateMember}
+          />
+        )}
+        <AddMemberModal
+          addMember={this.addMember}
+          showModal={showAddModal}
+          toggleModal={this.toggleModal}
+        />
 
         <Row className="mt-4">
           <Col>
-            <h1 className="mb-2 inline">Homeowners</h1>
-            <AddMemberModal className="inline" />
-            <hr />
+            <h1 className="mb-2">Homeowners</h1>
+            <Button
+              className="float-right mb-4 btn-custom"
+              size="sm"
+              color="success"
+              onClick={this.popUpAddModal}
+            >
+              Add Home Owner
+            </Button>
             <Table
               hover
               color="white"
@@ -136,7 +163,7 @@ class MemberList extends React.Component {
                   <th className="th-sm th-text">Primary Phone</th>
                   <th className="th-sm th-text">Email</th>
                   <th className="th-sm th-text">Monthly Dues</th>
-                  {/* <th className="th-sm th-text">Board Member</th> */}
+                  <th className="th-sm th-text">Board Member</th>
                   <th className="th-sm th-text">Edit</th>
                   <th className="th-sm th-text">Delete</th>
                 </tr>
@@ -153,9 +180,19 @@ class MemberList extends React.Component {
                       <td className="td-sm table-text">
                         {homeowner.monthlyDues}
                       </td>
-                      {/* <td className="td-sm table-text">{homeowner.isBoardMember ? 'Yes' : 'No'}</td> */}
-                      <td><button onClick={() => this.handleEdit(homeowner)}>Edit</button></td>
-                      <td><button onClick={() => this.handleDelete(homeowner.id)}>Delete</button></td>
+                      <td className="td-sm table-text">
+                        {homeowner.isBoardMember ? "Yes" : "No"}
+                      </td>
+                      <td>
+                        <button onClick={() => this.handleEdit(homeowner)}>
+                          Edit
+                        </button>
+                      </td>
+                      <td>
+                        <button onClick={() => this.handleDelete(homeowner.id)}>
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
