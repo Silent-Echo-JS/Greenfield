@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Table, Button, Row, Col, Container } from "reactstrap";
+import Swal from 'sweetalert2';
 import EditMemberModal from "./EditMemberModal.jsx";
 import AddMemberModal from "./AddMemberModal.jsx";
 
@@ -55,6 +56,7 @@ class MemberList extends React.Component {
           homeOwners: prevState.homeOwners.concat(res.data),
           showAddModal: false
         }));
+        return Swal.fire(`The home owner was added.`);
       })
       .catch(error => {
         console.log("HOMEOWNER WAS NOT ADDED", error);
@@ -75,6 +77,7 @@ class MemberList extends React.Component {
           this.setState({
             homeOwners: homeOwners.filter(homeowner => homeowner.id !== id)
           });
+          return Swal.fire(`The home owner is no longer welcome here.`);
         }
       })
       .catch(err => console.error("The Homeowner was not removed.", err));

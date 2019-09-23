@@ -305,7 +305,7 @@ class App extends React.Component {
                   hoaId={hoaId}
                   staff={staff}
                   boardMembers={boardMembers}
-                  getAllStaff={getAllStaff}
+                  getAllStaff={this.getAllStaff}
                   getAllBoardMembers={this.getAllBoardMembers}
                   getOpenWorkTickets={this.getOpenWorkTickets}
                   allRevenues={allRevenues}
