@@ -8,11 +8,11 @@ class DocumentGenerator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            address: '',
-            city: '',
-            state: '',
-            zipcode: '',
+            name: this.props.name,
+            address: this.props.address,
+            city: this.props.city,
+            state: this.props.state,
+            zipcode: this.props.zipcode,
             lastYearRev: {},
             lastYearExp: {},
             thisYearRev: {},
@@ -218,6 +218,7 @@ class DocumentGenerator extends React.Component {
                     .tg .tg-0lax{text - align:left;vertical-align:top}
                     .tg .tg-b3sw{font - weight:bold;background-color:#efefef;text-align:left;vertical-align:top}
                 </style>
+                <button onClick={this.createAndDownloadPdf}>DOWNLOAD PDF</button>
                 <div class="invoice-box">
                     <table cellpadding="0" cellspacing="0">
                         <tr class="top">
@@ -418,3 +419,6 @@ class DocumentGenerator extends React.Component {
         );
     };
 };
+
+
+export default DocumentGenerator;
