@@ -243,7 +243,7 @@ class App extends React.Component {
       hoaInfo,
       hoaId,
       allRevenues,
-      allExpenses
+      allExpenses,
       getAllStaff,
     } = this.state;
     const token = localStorage.getItem("uid");
