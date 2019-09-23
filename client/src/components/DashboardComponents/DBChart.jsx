@@ -19,6 +19,23 @@ class DBChart extends Component {
     };
   }
 
+  componentDidMount() {
+    const { allRevenues, allExpenses } = this.props;
+
+    this.setState({
+      chartData: {
+        labels: ["Revenue", "Expenses"],
+        datasets: [
+          {
+            label: "Monthly financials ",
+            data: [allRevenues, allExpenses],
+            backgroundColor: ["#5cb85c", "#d9534f"]
+          }
+        ]
+      }
+    });
+  }
+
   render() {
     return (
       // <div className="chart mb-2">
