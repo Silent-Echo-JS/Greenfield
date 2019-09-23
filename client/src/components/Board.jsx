@@ -7,30 +7,29 @@ class Board extends React.Component {
     super(props);
 
     this.state = {
-      members: [],
       tenant: null,
       positions: [],
       position: null,
-      members: { data: [" "] }
     };
-
-    // this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getTenants();
-  //   this.getPositions();
-  //   this.getMembers();
-  // }
-
-  /*TODO: ADD VERIFICATION.*/
-
-  // handleChange(event) {
-  //   this.setState({ [event.target.id]: event.target.value });
-  //   this.componentDidMount();
-  // }
+  handleDelete(selectedBoardMember) {
+    console.log(selectedBoardMember);
+    return axios
+      .delete(`api/deleteBoardMember/${selectedBoardMember.id}/${selectedBoardMember.homeOwner.id}`)
+      .then(res => {
+        console.log("The board member was fired.", res.data);
+        if (res.data.isDeleted) {
+          this.props.getAllBoardMembers();
+        }
+      })
+      .catch(err => console.error("The Homeowner was not removed.", err));
+  }
 
   render() {
+    console.log('BOARD PROPS', this.props);
+    const { boardMembers } = this.props;
     return (
       <Container className="mt-4">
         <h1>Board</h1>
@@ -57,17 +56,22 @@ class Board extends React.Component {
                   <th className="th-sm th-text">Delete</th>
                 </tr>
               </thead>
-              <tr>
-                <td className="td-sm td-text">Position</td>
-                <td className="td-sm td-text">Name</td>
-                <td className="td-sm td-text">Address</td>
-                <td className="td-sm td-text">Primary Phone</td>
-                <td className="td-sm td-text">Email</td>
-                {/* <td className="td-sm td-text">Board Member</td> */}
-                <td className="td-sm td-text">Edit</td>
-                <td className="td-sm td-text">Delete</td>
-              </tr>
-              <tbody></tbody>
+              <tbody>
+                {boardMembers.map(boardMember => {
+                  return (
+                    <tr key={boardMember.homeOwner.id}>
+                      <td className="td-sm td-text">{boardMember.position}</td>
+                      <td className="td-sm td-text">{boardMember.homeOwner.fullName}</td>
+                      <td className="td-sm td-text">{boardMember.homeOwner.address}</td>
+                      <td className="td-sm td-text">{boardMember.homeOwner.phone}</td>
+                      <td className="td-sm td-text">{boardMember.homeOwner.email}</td>
+                      {/* <td className="td-sm td-text">Board Member</td> */}
+                      <td className="td-sm td-text">Edit</td>
+                      <td><button onClick={() => this.handleDelete(boardMember)}>Delete</button></td>
+                    </tr>
+                  )
+                })}
+              </tbody>
             </Table>
           </Col>
         </Row>

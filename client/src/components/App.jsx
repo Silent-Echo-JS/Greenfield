@@ -25,6 +25,7 @@ class App extends React.Component {
       hoaId: localStorage.getItem("hoaId"),
       // hoaInfo: JSON.parse(localStorage.getItem('hoaInfo')) || {},
       staff: [],
+      boardMembers: [],
       departments: [],
       workTickets: [],
       board: [],
@@ -33,22 +34,31 @@ class App extends React.Component {
       },
       allExpenses: {
         totalTD: 0
-      }
+      },
+      expenseChartData: [],
+      revenueChartData: []
     };
     this.getAllStaff = this.getAllStaff.bind(this);
+    this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
     this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
     this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
+    this.makeDeposit = this.makeDeposit.bind(this);
   }
 
   componentDidMount() {
+    const { allExpenses } = this.state;
     this.getAllStaff();
+    this.getAllBoardMembers();
     this.getOpenWorkTickets();
     this.getAllRevenues();
     this.getAllExpenses();
     this.getAllRevenuesByYear(moment().year());
     this.getAllExpensesByYear(moment().year());
     this.getAllBoardMembers();
+    this.setState({
+      expenseChartData: this.getExpenseData(allExpenses)
+    });
   }
 
   // Sets state.staff to an array of all current staff members
@@ -62,20 +72,21 @@ class App extends React.Component {
     );
   }
 
+  // Sets state.boardMembers to an array of all current board members
   getAllBoardMembers() {
-    return Axios.post("/api/getBoardMembers", {
-      hoaId: this.state.hoaId
-    }).then(response =>
+    const { hoaId } = this.state;
+    return Axios.get(`/api/getBoardMembers/${hoaId}`).then(boardMembers =>
       this.setState({
-        board: response.data
+        boardMembers: boardMembers.data || {}
       })
     );
   }
 
   // Sets state.workTickets to an array of all open work tickets
   getOpenWorkTickets() {
+    console.log("getOpenWorkTickets", this.state.hoaId);
     return Axios.post("/api/getOpenTickets", {
-      hoaId: 1
+      hoaId: this.state.hoaId
     }).then(tickets =>
       this.setState({
         workTickets: tickets.data
@@ -228,19 +239,54 @@ class App extends React.Component {
       });
   }
 
+  //this gets the expense data we need for the yearly chart
+  getExpenseData(expenses) {
+    let expenseData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < expenseData.length; i++) {
+      for (let key in expenses) {
+        if (i === parseInt(key)) {
+          expenseData[i] = expenses[key];
+        }
+      }
+    }
+    return expenseData;
+    // this.setState({
+    //   expenseChartData: expenseData
+    // });
+  }
+
+  //this makes a deposit to HOA account
+  makeDeposit(accountId, amount, description) {
+    return Axios.post("/api/addDeposit", {
+      hoaId: this.state.hoaId,
+      accountId: accountId,
+      amountPaid: amount,
+      description: description
+    })
+      .then(response => {
+        Swal.fire(`Your Deposit has been made`);
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   render() {
     const {
       staff,
-      homeowners,
+      boardMembers,
       workTickets,
       hoaInfo,
       hoaId,
+      getAllStaff,
       allRevenues,
       allExpenses
     } = this.state;
     const token = localStorage.getItem("uid");
 
-    // console.log("APP STATE BEARS", hoaId);
+    // this.getExpenseData(allExpenses);
+    console.log("App state HoaID: ", hoaId);
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -255,9 +301,14 @@ class App extends React.Component {
               render={props => (
                 <Dashboard
                   {...props}
+                  hoaId={hoaId}
                   staff={staff}
+                  boardMembers={boardMembers}
+                  getAllStaff={getAllStaff}
+                  getAllBoardMembers={this.getAllBoardMembers}
                   allRevenues={allRevenues}
                   allExpenses={allExpenses}
+                  makeDeposit={this.makeDeposit}
                 />
               )}
             />
@@ -269,6 +320,7 @@ class App extends React.Component {
                   {...props}
                   allRevenues={allRevenues}
                   allExpenses={allExpenses}
+                  makeDeposit={this.makeDeposit}
                 />
               )}
             />
@@ -282,8 +334,24 @@ class App extends React.Component {
                 )
               }
             />
-            <Route path="/board" staff={staff} component={Board} />
-            {/* <Route path="/settings" component={Settings} /> */}
+            {/* <Route path="/board" staff={staff} component={Board} /> */}
+            <Route
+              path="/board"
+              render={props =>
+                token ? (
+                  <Board
+                    {...props}
+                    hoaId={hoaId}
+                    hoaInfo={hoaInfo}
+                    staff={staff}
+                    boardMembers={boardMembers}
+                    getAllBoardMembers={this.getAllBoardMembers}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
             <Route
               path="/calendar"
               render={props =>

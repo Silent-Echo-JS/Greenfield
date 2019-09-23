@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { Row, Col, Button } from "reactstrap";
 import DBChart from "./DBChart.jsx";
 import Link from "react-router-dom";
+import DepositModal from "../DepositModal.jsx";
 
 class DBFinancials extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.thousandsSeparators = this.thousandsSeparators.bind(this);
   }
 
   thousandsSeparators(num) {
@@ -15,8 +18,10 @@ class DBFinancials extends Component {
     return num_parts.join(".");
   }
 
+  handleClick() {}
+
   render() {
-    const { allExpenses, allRevenues } = this.props;
+    const { allExpenses, allRevenues, makeDeposit } = this.props;
     return (
       <div className="dashboard-card mb-4 p-4 mt-4">
         <Row>
@@ -37,7 +42,7 @@ class DBFinancials extends Component {
         <hr />
         <Row className="pl-2">
           <Col className="border-right border-dark" md={{ size: 4 }}>
-            <DBChart />
+            <DBChart allExpenses={allExpenses} allRevenues={allRevenues} />
           </Col>
           <Col>
             <Row>
@@ -55,9 +60,11 @@ class DBFinancials extends Component {
               <hr />
               <Col>
                 <div className="align-middle">
-                  <Button className="btn-success mt-1" block>
-                    Record a deposit
-                  </Button>
+                  <DepositModal
+                    allExpenses={allExpenses}
+                    allRevenues={allRevenues}
+                    makeDeposit={makeDeposit}
+                  />
                   <Button className="btn-danger" block>
                     Record an expense
                   </Button>

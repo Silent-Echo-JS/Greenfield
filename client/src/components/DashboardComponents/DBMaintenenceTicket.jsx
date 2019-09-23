@@ -17,7 +17,6 @@ class DBMaintenenceTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoaId: 1,
       title: "",
       description: "",
       assignedTo: ""
@@ -28,7 +27,9 @@ class DBMaintenenceTicket extends Component {
   }
   //small
   handleSubmit(event) {
-    const { title, description, hoaId, assignedTo } = this.state;
+    // console.log('DEMAINTENANCETICKETS props', this.props);
+    const { hoaId } = this.props;
+    const { title, description, assignedTo } = this.state;
     event.preventDefault();
     if (
       this.state.title.length === 0 ||
@@ -38,10 +39,10 @@ class DBMaintenenceTicket extends Component {
       Swal.fire("All fields are required");
     } else {
       Axios.post("/api/addTicket", {
-        hoaId: 1,
-        title: this.state.title,
-        description: this.state.description,
-        assignedTo: parseInt(this.state.assignedTo)
+        hoaId: hoaId,
+        title: title,
+        description: description,
+        assignedTo: parseInt(assignedTo)
       })
         .then(res => {
           Swal.fire("Your ticket has been created");
