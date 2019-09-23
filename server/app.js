@@ -589,10 +589,10 @@ app.post('/api/addBoardMember', (req, res) => {
     accountId,
   } = req.body;
   models.BoardMembers.create({
-    accountId,
-    hoaId,
-    position,
-  })
+      accountId,
+      hoaId,
+      position,
+    })
     .then((boardMember) => models.Homeowners.update({
       isBoardMember: 1,
     }, {
@@ -601,7 +601,9 @@ app.post('/api/addBoardMember', (req, res) => {
       },
     }).then(() => boardMember))
     .then((boardMember) => {
-      res.status(201).send({ isAdded: true });
+      res.status(201).send({
+        isAdded: true
+      });
     })
     .catch((error) => {
       console.error(error);
@@ -625,12 +627,18 @@ app.delete('/api/deleteBoardMember/:boardId/:homeOwnerId', (req, res) => {
     where: {
       id: homeOwnerId,
     },
-  }).then(() => res.send({ isDeleted: true })).catch((err) => res.send({ isDeleted: false })));
+  }).then(() => res.send({
+    isDeleted: true
+  })).catch((err) => res.send({
+    isDeleted: false
+  })));
 });
 
 // Get ALL BoardMembers
 app.get('/api/getBoardMembers/:hoaId', (req, res) => {
-  const { hoaId } = req.params;
+  const {
+    hoaId
+  } = req.params;
   models.BoardMembers.findAll({
     where: {
       hoaId,
@@ -638,7 +646,11 @@ app.get('/api/getBoardMembers/:hoaId', (req, res) => {
   }).then((boardmembers) => {
     const boardMembersDbData = boardmembers.map((boardmember) => boardmember.dataValues);
     const homeownersPromise = boardMembersDbData.map((boardmember) =>
-      models.Homeowners.findOne({ where: { id: boardmember.accountId } }));
+      models.Homeowners.findOne({
+        where: {
+          id: boardmember.accountId
+        }
+      }));
     Promise.all(homeownersPromise).then((homeowners) => {
       const homeownersDbData = homeowners.map((homeowner) => homeowner.dataValues);
       res.send(boardMembersDbData.map((boardmember, i) => {

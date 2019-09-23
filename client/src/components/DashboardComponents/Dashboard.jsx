@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
     super();
     this.state = {
       hoaId: localStorage.getItem("hoaId"),
-      homeowners: [],
+      homeowners: []
     };
     this.getAllMembers = this.getAllMembers.bind(this);
   }
@@ -36,18 +36,33 @@ class Dashboard extends React.Component {
     );
   }
 
-
   render() {
-    const { staff, allRevenues, allExpenses, hoaId, boardMembers, getOpenWorkTickets } = this.props;
+    const {
+      staff,
+      allRevenues,
+      allExpenses,
+      hoaId,
+      boardMembers,
+      getOpenWorkTickets,
+      makeDeposit
+    } = this.props;
     const { homeowners } = this.state;
     return (
       <Container>
         <Row>
           <Col md={{ size: 12 }}>
-            <DBFinancials allRevenues={allRevenues} allExpenses={allExpenses} />
+            <DBFinancials
+              allRevenues={allRevenues}
+              allExpenses={allExpenses}
+              makeDeposit={makeDeposit}
+            />
           </Col>
           <Col md={{ size: 6 }}>
-            <DBMaintenenceTicket getOpenWorkTickets={getOpenWorkTickets} staff={staff} hoaId={hoaId} />
+            <DBMaintenenceTicket
+              getOpenWorkTickets={getOpenWorkTickets}
+              staff={staff}
+              hoaId={hoaId}
+            />
           </Col>
           <Col>
             <DBCalendar />
