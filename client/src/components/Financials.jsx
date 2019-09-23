@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import FinancialsByMonth from "./FinancialsByMonth.jsx";
 
-const Financials = () => {
+const Financials = props => {
+  const { allRevenues, allExpenses } = props;
+
   return (
     <Container className="mt-4">
       <Row>
@@ -28,7 +30,10 @@ const Financials = () => {
           </Row>
           <hr />
           <Row>
-            <FinancialsByMonth />
+            <FinancialsByMonth
+              allRevenues={allRevenues}
+              allExpenses={allExpenses}
+            />
           </Row>
         </Col>
       </Row>

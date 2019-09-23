@@ -29,17 +29,19 @@ class App extends React.Component {
       boardMembers: [],
       departments: [],
       workTickets: [],
+      board: [],
       allRevenues: {
-        totalTD: 0,
+        totalTD: 0
       },
       allExpenses: {
-        totalTD: 0,
+        totalTD: 0
       }
     };
     this.getAllStaff = this.getAllStaff.bind(this);
     this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
     this.getOpenWorkTickets = this.getOpenWorkTickets.bind(this);
     this.closeWorkTicket = this.closeWorkTicket.bind(this);
+    this.getAllBoardMembers = this.getAllBoardMembers.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +52,7 @@ class App extends React.Component {
     this.getAllExpenses();
     this.getAllRevenuesByYear(moment().year());
     this.getAllExpensesByYear(moment().year());
+    this.getAllBoardMembers();
   }
 
 
@@ -66,10 +69,11 @@ class App extends React.Component {
 
   // Sets state.boardMembers to an array of all current board members
   getAllBoardMembers() {
-    const { hoaId } = this.state;
-    return Axios.get(`/api/getBoardMembers/${hoaId}`).then(boardMembers =>
+    return Axios.post("/api/getBoardMembers", {
+      hoaId: this.state.hoaId
+    }).then(response =>
       this.setState({
-        boardMembers: boardMembers.data || {}
+        board: response.data
       })
     );
   }
@@ -100,118 +104,136 @@ class App extends React.Component {
   }
 
   //get all revenues by hoaId
-  getAllRevenues(){
-    return Axios.post('/api/getRevenues', {
-      hoaId: this.state.hoaId,
+  getAllRevenues() {
+    return Axios.post("/api/getRevenues", {
+      hoaId: this.state.hoaId
     })
       .then(revenues => {
         const paymentObjects = revenues.data;
-        const paymentArray = paymentObjects.map((paymentObject) => Number(paymentObject.amountPaid));
+        const paymentArray = paymentObjects.map(paymentObject =>
+          Number(paymentObject.amountPaid)
+        );
         const totalTD = paymentArray.reduce((a, b) => a + b, 0);
-        let allRevenuesCopy = JSON.parse(JSON.stringify(this.state.allRevenues));
+        let allRevenuesCopy = JSON.parse(
+          JSON.stringify(this.state.allRevenues)
+        );
         allRevenuesCopy.totalTD = totalTD;
-          this.setState({
-            allRevenues: allRevenuesCopy,
-          }) 
+        this.setState({
+          allRevenues: allRevenuesCopy
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Storm's a brewin", error);
-      })
+      });
   }
 
   //get all revenues by year by hoaId
-  getAllRevenuesByYear(year){
+  getAllRevenuesByYear(year) {
     let yearly = {};
     return Axios.post("/api/getRevenues", {
-      hoaId: this.state.hoaId,
+      hoaId: this.state.hoaId
     })
       .then(deposits => {
         const depositsObjs = deposits.data;
-        return depositsObjs.filter((depositObj) => moment(depositObj.date, "YYYY-MM-DD").year() === year);
+        return depositsObjs.filter(
+          depositObj => moment(depositObj.date, "YYYY-MM-DD").year() === year
+        );
       })
-      .then((yearlyDeposits) => {
+      .then(yearlyDeposits => {
         const paymentObjects = yearlyDeposits;
-        const paymentArray = paymentObjects.map((paymentObject) => Number(paymentObject.amountPaid));
+        const paymentArray = paymentObjects.map(paymentObject =>
+          Number(paymentObject.amountPaid)
+        );
         const totalTD = paymentArray.reduce((a, b) => a + b, 0);
         yearly.totalTD = totalTD;
-        yearlyDeposits.forEach((deposit) => {
+        yearlyDeposits.forEach(deposit => {
           let month = moment(deposit.date, "YYYY-MM-DD").month();
-          if (yearly.hasOwnProperty(month)){
+          if (yearly.hasOwnProperty(month)) {
             yearly[month] += Number(deposit.amountPaid);
           } else {
             yearly[month] = Number(deposit.amountPaid);
           }
-        })
+        });
       })
       .then(yearlyDeposits => {
-        let allRevenuesCopy = JSON.parse(JSON.stringify(this.state.allRevenues));
+        let allRevenuesCopy = JSON.parse(
+          JSON.stringify(this.state.allRevenues)
+        );
         allRevenuesCopy[year] = yearly;
         this.setState({
-          allRevenues: allRevenuesCopy,
-        })
+          allRevenues: allRevenuesCopy
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log("Problem With Get Revenues By Year", error);
-      })
+      });
   }
 
   //get all expenses by hoaId
   getAllExpenses() {
-    return Axios.post('/api/getExpenses', {
-      hoaId: this.state.hoaId,
+    return Axios.post("/api/getExpenses", {
+      hoaId: this.state.hoaId
     })
       .then(expenses => {
         const expenseObjects = expenses.data;
-        const paymentArray = expenseObjects.map((expenseObject) => Number(expenseObject.amountPaidOut));
+        const paymentArray = expenseObjects.map(expenseObject =>
+          Number(expenseObject.amountPaidOut)
+        );
         const totalTD = paymentArray.reduce((a, b) => a + b, 0);
-        let allExpensesCopy = JSON.parse(JSON.stringify(this.state.allExpenses));
+        let allExpensesCopy = JSON.parse(
+          JSON.stringify(this.state.allExpenses)
+        );
         allExpensesCopy.totalTD = totalTD;
         this.setState({
-          allExpenses: allExpensesCopy,
-        })
+          allExpenses: allExpensesCopy
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Storm's a brewin", error);
-      })
-  };
+      });
+  }
 
   // get all Expenses by year by hoaId
-  getAllExpensesByYear(year){
+  getAllExpensesByYear(year) {
     let yearly = {};
     return Axios.post("/api/getExpenses", {
-      hoaId: this.state.hoaId,
+      hoaId: this.state.hoaId
     })
       .then(expenses => {
         const expenseObjs = expenses.data;
-        return expenseObjs.filter((expenseObj) => moment(expenseObj.date, "YYYY-MM-DD").year() === year);
+        return expenseObjs.filter(
+          expenseObj => moment(expenseObj.date, "YYYY-MM-DD").year() === year
+        );
       })
-      .then((yearlyExpenses) => {
+      .then(yearlyExpenses => {
         const paymentObjects = yearlyExpenses;
-        const paymentArray = paymentObjects.map((paymentObject) => Number(paymentObject.amountPaidOut));
+        const paymentArray = paymentObjects.map(paymentObject =>
+          Number(paymentObject.amountPaidOut)
+        );
         const totalTD = paymentArray.reduce((a, b) => a + b, 0);
         yearly.totalTD = totalTD;
-        yearlyExpenses.forEach((expense) => {
+        yearlyExpenses.forEach(expense => {
           let month = moment(expense.date, "YYYY-MM-DD").month();
           if (yearly.hasOwnProperty(month)) {
             yearly[month] += Number(expense.amountPaidOut);
           } else {
             yearly[month] = Number(expense.amountPaidOut);
           }
-        })
+        });
       })
       .then(yearlyExpenses => {
-        let allExpensesCopy = JSON.parse(JSON.stringify(this.state.allExpenses));
+        let allExpensesCopy = JSON.parse(
+          JSON.stringify(this.state.allExpenses)
+        );
         allExpensesCopy[year] = yearly;
         this.setState({
-          allExpenses: allExpensesCopy,
-        })
-        console.log(this.state.allExpenses);
+          allExpenses: allExpensesCopy
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log("Problem With Get Expenses By Year", error);
-      })
+      });
   }
-
 
   render() {
     const {
@@ -220,10 +242,14 @@ class App extends React.Component {
       workTickets,
       hoaInfo,
       hoaId,
+      allRevenues,
+      allExpenses
       getAllStaff,
     } = this.state;
     const token = localStorage.getItem("uid");
-    console.log("App state HoaID: ", hoaId);
+
+    // console.log("APP STATE BEARS", hoaId);
+        
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -242,7 +268,13 @@ class App extends React.Component {
             <Route path="/about" component={About} />
             <Route
               path="/financials"
-              render={props => <Financials {...props} />}
+              render={props => (
+                <Financials
+                  {...props}
+                  allRevenues={allRevenues}
+                  allExpenses={allExpenses}
+                />
+              )}
             />
             <Route
               path="/members"

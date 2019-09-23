@@ -45,14 +45,13 @@ class Dashboard extends React.Component {
 
 
   render() {
-    console.log("Dashboard State", this.state);
-    const { staff, hoaId } = this.props;
+    const { staff, allRevenues, allExpenses, hoaId } = this.props;
     const { homeowners, boardMembers } = this.state;
     return (
       <Container>
         <Row>
           <Col md={{ size: 12 }}>
-            <DBFinancials />
+            <DBFinancials allRevenues={allRevenues} allExpenses={allExpenses} />
           </Col>
           <Col md={{ size: 6 }}>
             <DBMaintenenceTicket staff={staff} hoaId={hoaId} />
