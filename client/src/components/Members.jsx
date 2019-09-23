@@ -142,7 +142,7 @@ class MemberList extends React.Component {
                   <th className="th-sm th-text">Primary Phone</th>
                   <th className="th-sm th-text">Email</th>
                   <th className="th-sm th-text">Monthly Dues</th>
-                  {/* <th className="th-sm th-text">Board Member</th> */}
+                  <th className="th-sm th-text">Board Member</th>
                   <th className="th-sm th-text">Edit</th>
                   <th className="th-sm th-text">Delete</th>
                 </tr>
@@ -159,7 +159,7 @@ class MemberList extends React.Component {
                       <td className="td-sm table-text">
                         {homeowner.monthlyDues}
                       </td>
-                      {/* <td className="td-sm table-text">{homeowner.isBoardMember ? 'Yes' : 'No'}</td> */}
+                      <td className="td-sm table-text">{homeowner.isBoardMember ? 'Yes' : 'No'}</td>
                       <td><button onClick={() => this.handleEdit(homeowner)}>Edit</button></td>
                       <td><button onClick={() => this.handleDelete(homeowner.id)}>Delete</button></td>
                     </tr>

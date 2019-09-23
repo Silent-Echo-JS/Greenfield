@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from 'react-router-dom'
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const DBBoardTable = ({boardMembers}) => {
   // console.log('bbbbbbb', boardMembers);
@@ -34,7 +34,7 @@ const DBBoardTable = ({boardMembers}) => {
       <p>{treasurer && `${treasurer.homeOwner.firstName} ${treasurer.homeOwner.lastName}`}</p>
       <hr />
       <hr />
-      <Button tag={Link} to="/board"  size="sm">Edit Board</Button>
+      <Button tag={Link} to="/board" size="sm" className="btn-custom">>Edit Board</Button>
     </div>
   );
 };

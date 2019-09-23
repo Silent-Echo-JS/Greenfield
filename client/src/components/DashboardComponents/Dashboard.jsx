@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
@@ -39,17 +38,16 @@ class Dashboard extends React.Component {
 
 
   render() {
-    console.log("Dashboard State", this.props);
-    const { staff, hoaId, boardMembers } = this.props;
+    const { staff, allRevenues, allExpenses, hoaId, boardMembers, getOpenWorkTickets } = this.props;
     const { homeowners } = this.state;
     return (
       <Container>
         <Row>
           <Col md={{ size: 12 }}>
-            <DBFinancials />
+            <DBFinancials allRevenues={allRevenues} allExpenses={allExpenses} />
           </Col>
           <Col md={{ size: 6 }}>
-            <DBMaintenenceTicket staff={staff} hoaId={hoaId} />
+            <DBMaintenenceTicket getOpenWorkTickets={getOpenWorkTickets} staff={staff} hoaId={hoaId} />
           </Col>
           <Col>
             <DBCalendar />
@@ -60,7 +58,7 @@ class Dashboard extends React.Component {
             <DBTenantsTable homeowners={homeowners || {}} hoaId={hoaId} />
           </Col>
           <Col md={{ size: 4 }} sm={{ size: 12 }}>
-            {boardMembers && boardMembers.length ? <DBBoardTable boardMembers={boardMembers} /> : ''}
+            <DBBoardTable boardMembers={boardMembers} />
           </Col>
         </Row>
       </Container>
