@@ -3,6 +3,7 @@ import { Row, Col, Button } from "reactstrap";
 import DBChart from "./DBChart.jsx";
 import { Link } from "react-router-dom";
 import DepositModal from "../DepositModal.jsx";
+import ExpenseModal from "../ExpenseModal.jsx";
 
 class DBFinancials extends Component {
   constructor(props) {
@@ -65,9 +66,7 @@ class DBFinancials extends Component {
                     allRevenues={allRevenues}
                     makeDeposit={makeDeposit}
                   />
-                  <Button className="btn-danger" block>
-                    Record an expense
-                  </Button>
+                  <ExpenseModal />
                 </div>
               </Col>
             </Row>
