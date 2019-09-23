@@ -69,11 +69,10 @@ class App extends React.Component {
 
   // Sets state.boardMembers to an array of all current board members
   getAllBoardMembers() {
-    return Axios.post("/api/getBoardMembers", {
-      hoaId: this.state.hoaId
-    }).then(response =>
+    const { hoaId } = this.state;
+    return Axios.get(`/api/getBoardMembers/${hoaId}`).then(boardMembers =>
       this.setState({
-        board: response.data
+        boardMembers: boardMembers.data || []
       })
     );
   }
@@ -97,6 +96,7 @@ class App extends React.Component {
       .then(response => {
         Swal.fire(`Your ticket has been closed`);
         console.log(response);
+        this.getOpenWorkTickets();
       })
       .catch(err => {
         console.error(err);
@@ -243,8 +243,7 @@ class App extends React.Component {
       hoaInfo,
       hoaId,
       allRevenues,
-      allExpenses
-      getAllStaff,
+      allExpenses,
     } = this.state;
     const token = localStorage.getItem("uid");
 
@@ -262,7 +261,7 @@ class App extends React.Component {
               path="/"
               exact
               render={props => (
-                <Dashboard {...props} hoaId={hoaId} staff={staff} boardMembers={boardMembers} getAllStaff={getAllStaff} getAllBoardMembers={this.getAllBoardMembers} />
+                <Dashboard {...props} hoaId={hoaId} staff={staff} boardMembers={boardMembers} getAllStaff={this.getAllStaff} getAllBoardMembers={this.getAllBoardMembers} getOpenWorkTickets={this.getOpenWorkTickets} />
               )}
             />
             <Route path="/about" component={About} />

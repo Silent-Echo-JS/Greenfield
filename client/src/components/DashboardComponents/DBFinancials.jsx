@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Button } from "reactstrap";
 import DBChart from "./DBChart.jsx";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class DBFinancials extends Component {
   constructor(props) {

@@ -586,24 +586,22 @@ app.post('/api/addBoardMember', (req, res) => {
   const {
     hoaId,
     position,
-    id,
+    accountId,
   } = req.body;
   models.BoardMembers.create({
-    accountId: id,
+    accountId,
     hoaId,
     position,
   })
+    .then((boardMember) => models.Homeowners.update({
+      isBoardMember: 1,
+    }, {
+      where: {
+        id: accountId,
+      },
+    }).then(() => boardMember))
     .then((boardMember) => {
-      return models.Homeowners.update({
-        isBoardMember: 1,
-      }, {
-        where: {
-          id,
-        },
-      }).then(() => boardMember);
-    })
-    .then((boardMember) => {
-      res.status(204).send(boardMember);
+      res.status(201).send({ isAdded: true });
     })
     .catch((error) => {
       console.error(error);
@@ -621,15 +619,13 @@ app.delete('/api/deleteBoardMember/:boardId/:homeOwnerId', (req, res) => {
     where: {
       id: boardId,
     },
-  }).then(() => {
-    return models.Homeowners.update({
-      isBoardMember: 0,
-    }, {
-      where: {
-        id: homeOwnerId,
-      },
-    }).then(() => res.send({isDeleted: true})).catch(err => res.send({isDeleted: false}));
-  });
+  }).then(() => models.Homeowners.update({
+    isBoardMember: 0,
+  }, {
+    where: {
+      id: homeOwnerId,
+    },
+  }).then(() => res.send({ isDeleted: true })).catch((err) => res.send({ isDeleted: false })));
 });
 
 // Get ALL BoardMembers
@@ -638,32 +634,21 @@ app.get('/api/getBoardMembers/:hoaId', (req, res) => {
   models.BoardMembers.findAll({
     where: {
       hoaId,
-    }
-  }).then(bms => {
-    const bmsPromise = bms.map(async bm => {
-      bm.dataValues.homeOwner = (await models.Homeowners.findOne({ accountId: bm.dataValues.id })).dataValues;
-      return bm.dataValues;
+    },
+  }).then((boardmembers) => {
+    const boardMembersDbData = boardmembers.map((boardmember) => boardmember.dataValues);
+    const homeownersPromise = boardMembersDbData.map((boardmember) =>
+      models.Homeowners.findOne({ where: { id: boardmember.accountId } }));
+    Promise.all(homeownersPromise).then((homeowners) => {
+      const homeownersDbData = homeowners.map((homeowner) => homeowner.dataValues);
+      res.send(boardMembersDbData.map((boardmember, i) => {
+        boardmember.homeOwner = homeownersDbData[i];
+        return boardmember;
+      }));
     });
-    Promise.all(bmsPromise).then(bms => res.send(bms));
-  }).catch(err => res.send(err));
-});
-
-// Get ALL BoardMembers
-app.get('/api/getBoardMembers/:hoaId', (req, res) => {
-  const {
-    hoaId
-  } = req.params;
-  models.BoardMembers.findAll({
-      where: {
-        hoaId,
-      },
-    })
-    .then((boardmembers) => {
-      res.send(boardmembers);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  }).catch((err) => {
+    res.send(err);
+  });
 });
 
 // force requests to client files

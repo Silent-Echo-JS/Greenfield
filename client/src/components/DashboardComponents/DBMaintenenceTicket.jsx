@@ -47,6 +47,7 @@ class DBMaintenenceTicket extends Component {
         .then(res => {
           Swal.fire("Your ticket has been created");
           console.log(res);
+          this.props.getOpenWorkTickets();
         })
         .catch(err => {
           console.error(err);

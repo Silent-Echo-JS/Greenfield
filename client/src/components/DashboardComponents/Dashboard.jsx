@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
@@ -26,27 +25,21 @@ class Dashboard extends React.Component {
       return this.props.history.push("/login");
     }
     this.getAllMembers();
-    // const { hoaId } = this.state;
-    // axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
-    //   this.setState({
-    //     homeowners: homeowners.data || {}
-    //   })
-    // );
   }
 
   getAllMembers() {
     const { hoaId } = this.state;
     axios.get(`/api/getHomeowners/${hoaId}`).then(homeowners =>
       this.setState({
-        homeowners: homeowners.data || {}
+        homeowners: homeowners.data || []
       })
     );
   }
 
 
   render() {
-    const { staff, allRevenues, allExpenses, hoaId } = this.props;
-    const { homeowners, boardMembers } = this.state;
+    const { staff, allRevenues, allExpenses, hoaId, boardMembers, getOpenWorkTickets } = this.props;
+    const { homeowners } = this.state;
     return (
       <Container>
         <Row>
@@ -54,7 +47,7 @@ class Dashboard extends React.Component {
             <DBFinancials allRevenues={allRevenues} allExpenses={allExpenses} />
           </Col>
           <Col md={{ size: 6 }}>
-            <DBMaintenenceTicket staff={staff} hoaId={hoaId} />
+            <DBMaintenenceTicket getOpenWorkTickets={getOpenWorkTickets} staff={staff} hoaId={hoaId} />
           </Col>
           <Col>
             <DBCalendar />
