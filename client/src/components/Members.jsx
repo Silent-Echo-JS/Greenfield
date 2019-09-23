@@ -140,9 +140,15 @@ class MemberList extends React.Component {
 
         <Row className="mt-4">
           <Col>
-            <h1 className="mb-2 inline">Homeowners</h1>
-            <AddMemberModal className="inline" />
-            <hr />
+            <h1 className="mb-2">Homeowners</h1>
+            <Button
+              className="float-right mb-4 btn-custom"
+              size="sm"
+              color="success"
+              onClick={this.popUpAddModal}
+            >
+              Add Home Owner
+            </Button>
             <Table
               hover
               color="white"
@@ -157,7 +163,7 @@ class MemberList extends React.Component {
                   <th className="th-sm th-text">Primary Phone</th>
                   <th className="th-sm th-text">Email</th>
                   <th className="th-sm th-text">Monthly Dues</th>
-                  {/* <th className="th-sm th-text">Board Member</th> */}
+                  <th className="th-sm th-text">Board Member</th>
                   <th className="th-sm th-text">Edit</th>
                   <th className="th-sm th-text">Delete</th>
                 </tr>
@@ -174,7 +180,9 @@ class MemberList extends React.Component {
                       <td className="td-sm table-text">
                         {homeowner.monthlyDues}
                       </td>
-                      {/* <td className="td-sm table-text">{homeowner.isBoardMember ? 'Yes' : 'No'}</td> */}
+                      <td className="td-sm table-text">
+                        {homeowner.isBoardMember ? "Yes" : "No"}
+                      </td>
                       <td>
                         <button onClick={() => this.handleEdit(homeowner)}>
                           Edit

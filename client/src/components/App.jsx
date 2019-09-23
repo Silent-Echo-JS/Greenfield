@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import moment from "moment";
+import { saveAs } from "file-saver";
 import Navbar from "./HeaderComponent/Navbar.jsx";
 import Dashboard from "./DashboardComponents/Dashboard.jsx";
 import Login from "./Auth/Login.jsx";
@@ -77,7 +78,7 @@ class App extends React.Component {
     const { hoaId } = this.state;
     return Axios.get(`/api/getBoardMembers/${hoaId}`).then(boardMembers =>
       this.setState({
-        boardMembers: boardMembers.data || {}
+        boardMembers: boardMembers.data || []
       })
     );
   }
@@ -101,6 +102,7 @@ class App extends React.Component {
       .then(response => {
         Swal.fire(`Your ticket has been closed`);
         console.log(response);
+        this.getOpenWorkTickets();
       })
       .catch(err => {
         console.error(err);
@@ -279,14 +281,13 @@ class App extends React.Component {
       workTickets,
       hoaInfo,
       hoaId,
-      getAllStaff,
       allRevenues,
       allExpenses
     } = this.state;
     const token = localStorage.getItem("uid");
 
-    // this.getExpenseData(allExpenses);
-    console.log("App state HoaID: ", hoaId);
+    // console.log("APP STATE BEARS", hoaId);
+
     return (
       <BrowserRouter>
         {/* render the navbar when a user is not logged in and Dashboard when user is logged in */}
@@ -306,6 +307,7 @@ class App extends React.Component {
                   boardMembers={boardMembers}
                   getAllStaff={getAllStaff}
                   getAllBoardMembers={this.getAllBoardMembers}
+                  getOpenWorkTickets={this.getOpenWorkTickets}
                   allRevenues={allRevenues}
                   allExpenses={allExpenses}
                   makeDeposit={this.makeDeposit}
