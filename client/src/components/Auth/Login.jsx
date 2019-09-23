@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import firebase from './firebase';
 
 export default class Login extends Component {
@@ -8,28 +9,9 @@ export default class Login extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-//   handleClick() {
-//     this.props.getHoaInfo();
-//       // .then(() => {
-//       //   this.props.history.push('/');
-//       // })
-//       // .then((res) => {
-//       //   console.log("========data", res);
-//       //   if (res.data.registered) {
-//       //     this.props.history.push('/');
-//       //   } else {
-//       //     this.props.history.push('/InputInfo');
-//       //   }
-//       // }).catch(err => {
-//       //   console.error('Error checking user status', err);
-//       //   // alert('Unable to Login User');
-//       // });
-// }
-
   handleClick() {
     firebase.loginWithGoogle()
       .then((data) => {
-        // console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!!1', data);
         // data also has idToken and sessionToken properties
         const firebaseId = data.user.uid;
         // console.log('--------------------------fireBasedID', firebaseId);
@@ -41,12 +23,13 @@ export default class Login extends Component {
               localStorage.setItem('hoaId', res.data.hoaInfoFromDb.id);
               localStorage.setItem('hoaInfo', JSON.stringify(res.data.hoaInfoFromDb));
               this.props.history.push('/');
+              return Swal.fire(`Welcome to SimpleHoa!`);
             } else {
               this.props.history.push('/InputInfo');
+              return Swal.fire(`Please signup for an account.`);
             }
           }).catch(err => {
             console.error('Error checking user status', err);
-            // alert('Unable to Login User');
           });
       })
       .catch((err) => {

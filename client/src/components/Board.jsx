@@ -1,6 +1,7 @@
 import React from "react";
 import AddBoardMemberModal from './AddBoardMemberModal.jsx';
 import axios from "axios";
+import Swal from "sweetalert2";
 import { Container, Col, Row, Table, Button } from "reactstrap";
 
 class Board extends React.Component {
@@ -39,8 +40,10 @@ class Board extends React.Component {
         if (res.data.isDeleted) {
           this.props.getAllBoardMembers();
         }
+        return Swal.fire(`The board member was fired.`);
       })
-      .catch(err => console.error("The Homeowner was not removed.", err));
+      .catch(err => 
+        console.error("The Homeowner was not removed.", err));
   }
 
   toggleModal(state) {
@@ -55,7 +58,7 @@ class Board extends React.Component {
       if (res.data.isAdded) {
         this.setState({ showAddModal: false }, () => this.props.getAllBoardMembers());
       }
-      
+      return Swal.fire(`The home owner was added to the Board.`);
     }).catch(err => console.log('error adding homeowner', err));
     
   }
