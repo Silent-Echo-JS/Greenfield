@@ -158,6 +158,7 @@ class FinancialsByMonth extends Component {
       });
   }
 
+  //this gets the expense data we need for the yearly chart
   getExpenseData(expenses) {
     let expenseData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let i = 0; i < expenseData.length; i++) {
@@ -171,6 +172,7 @@ class FinancialsByMonth extends Component {
     //loop through the expense object
   }
 
+  //this gets the revenue data we need for the yearly chart
   getRevenueData(revenues) {
     let revenueData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let i = 0; i < revenueData.length; i++) {
@@ -185,6 +187,7 @@ class FinancialsByMonth extends Component {
     //loop through the expense object
   }
 
+  //this sets the state to bring in the results of the above functions
   mapFinancialsToChart(expenses, revenues) {
     this.setState({
       chartData: {
@@ -223,8 +226,8 @@ class FinancialsByMonth extends Component {
     let mappedRevenues = this.getRevenueData(allRevenues[2019]);
 
     let mappedExpenses = this.getExpenseData(allExpenses[2019]);
-    // console.log("mapped expenses: ", mappedExpenses);
-    // console.log("mapped revenues: ", mappedRevenues);
+    console.log("mapped expenses: ", mappedExpenses);
+    console.log("mapped revenues: ", mappedRevenues);
     // this.mapFinancialsToChart(mappedExpenses, mappedRevenues);
     return (
       // <div className="chart mb-2">
